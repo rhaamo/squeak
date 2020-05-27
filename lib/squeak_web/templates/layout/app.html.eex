@@ -1,37 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title><%= assigns[:page_title] || "Squeak · Index" %></title>
-    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/front.css") %>"/>
-    <%= csrf_meta_tag() %>
-  </head>
-  <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title><%= assigns[:page_title] || "Squeak · Index" %></title>
+
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/front.css") %>"/>
+  <%= csrf_meta_tag() %>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">squeak! squeak!</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Wiki</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+
           <%= if Pow.Plug.current_user(@conn) do %>
-            <%= if Squeak.Users.is_admin?(@current_user) do %>
-            (admin)
-            <% else %>
-            (user)
-            <% end %>
-            <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
+            <li class="nav-item">Logged as <%= @current_user.username %>
+              <%= if Squeak.Users.is_admin?(@current_user) do %>
+              (admin)
+              <% else %>
+              (user)
+              <% end %>
+            </li>
+            <li class="nav-item"><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "nav-link" %></li>
           <% else %>
-            <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>
-            <span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
+            <li class="nav-item"><%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %></li>
+            <li class="nav-item"><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %></li>
           <% end %>
-        </nav>
-        squeak squeak
-      </section>
-    </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
-    </main>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/front.js") %>"></script>
-  </body>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container-fluid">
+
+    <div class="row">
+
+      <!-- Blog Entries Column -->
+      <div class="col-md-6 offset-md-2">
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <%= render @view_module, @view_template, assigns %>
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-2">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">aaa</a>
+                  </li>
+                  <li>
+                    <a href="#">aa</a>
+                  </li>
+                  <li>
+                    <a href="#">aaa</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">a</a>
+                  </li>
+                  <li>
+                    <a href="#">AAAAAA</a>
+                  </li>
+                  <li>
+                    <a href="#">a</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">aaa</h5>
+          <div class="card-body">
+            aaaaaaaaaaaa aaaaaaa aaaaaaaaaa aaaaaaaaaaaaaaaa a a a aaaaaa
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">squeak squeak!</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/front.js") %>"></script>
+
+</body>
+
 </html>

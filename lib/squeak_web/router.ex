@@ -16,6 +16,10 @@ defmodule SqueakWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :admin do
+    plug SqueakWeb.Plugs.EnsureRole, :admin
+  end
+
   scope "/" do
     pipe_through :browser
 
@@ -27,6 +31,18 @@ defmodule SqueakWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/blog", SqueakWeb do
+    pipe_through :browser
+  end
+
+  scope "/wiki", SqueakWeb do
+    pipe_through :browser
+  end
+
+  scope "/admin", SqueakWeb do
+    pipe_through [:browser, :admin]
   end
 
   # Other scopes may use custom stacks.

@@ -31,6 +31,7 @@ defmodule SqueakWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/about", PageController, :about
   end
 
   scope "/blog", SqueakWeb do

@@ -8,6 +8,8 @@ defmodule Squeak.Users.User do
     field :role, :string, null: false, default: "user"
     field :username, :string, null: false
 
+    has_many :posts, Squeak.Posts.Post
+
     pow_user_fields()
 
     timestamps()

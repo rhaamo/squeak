@@ -77,7 +77,9 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :squeak, SqueakWeb.Pow.Mailer,
   adapter: Swoosh.Adapters.Logger,
-  level: :debug
+  level: :debug,
+  log_full_email: true
+
 
 if File.exists?("./config/dev.secret.exs") do
   import_config "dev.secret.exs"

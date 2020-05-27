@@ -45,7 +45,8 @@ defmodule Squeak.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:pow, "~> 1.0.20"},
       {:swoosh, "~> 0.25"},
-      {:hackney, "~> 1.9"}
+      {:hackney, "~> 1.9"},
+      {:gen_smtp, "~> 0.13"}
     ]
   end
 

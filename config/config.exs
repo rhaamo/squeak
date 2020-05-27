@@ -29,7 +29,9 @@ config :phoenix, :json_library, Jason
 config :squeak, :pow,
   user: Squeak.Users.User,
   repo: Squeak.Repo,
-  web_module: SqueakWeb
+  web_module: SqueakWeb,
+  extensions: [PowResetPassword, PowEmailConfirmation, PowPersistentSession],
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

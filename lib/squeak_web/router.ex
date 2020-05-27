@@ -1,6 +1,8 @@
 defmodule SqueakWeb.Router do
   use SqueakWeb, :router
   use Pow.Phoenix.Router
+  use Pow.Extension.Phoenix.Router,
+    extensions: [PowResetPassword, PowEmailConfirmation]
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -18,6 +20,7 @@ defmodule SqueakWeb.Router do
     pipe_through :browser
 
     pow_routes()
+    pow_extension_routes()
   end
 
   scope "/", SqueakWeb do

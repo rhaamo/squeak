@@ -8,7 +8,7 @@ defmodule Squeak.Repo.Migrations.AddPosts do
       add :content, :text
       add :draft, :boolean, default: true
 
-      add :user_id, references(:user)
+      add :user_id, references(:users)
 
       timestamps()
     end

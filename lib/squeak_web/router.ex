@@ -18,6 +18,7 @@ defmodule SqueakWeb.Router do
 
   pipeline :admin do
     plug SqueakWeb.Plugs.EnsureRole, :admin
+    plug :put_layout, {SqueakWeb.LayoutView, :admin}
   end
 
   scope "/" do
@@ -44,6 +45,8 @@ defmodule SqueakWeb.Router do
 
   scope "/admin", SqueakWeb do
     pipe_through [:browser, :admin]
+
+    get "/", AdminController, :index
   end
 
   # Other scopes may use custom stacks.

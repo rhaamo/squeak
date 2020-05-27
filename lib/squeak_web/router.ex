@@ -47,6 +47,9 @@ defmodule SqueakWeb.Router do
     pipe_through [:browser, :admin]
 
     get "/", AdminController, :index
+
+    get "/posts/new", AdminPostController, :new
+    post "/posts/new", AdminPostController, :create
   end
 
   # Other scopes may use custom stacks.

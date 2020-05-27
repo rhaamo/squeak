@@ -13,6 +13,11 @@
       <section class="container">
         <nav role="navigation">
           <%= if Pow.Plug.current_user(@conn) do %>
+            <%= if Squeak.Users.is_admin?(@current_user) do %>
+            (admin)
+            <% else %>
+            (user)
+            <% end %>
             <span><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></span>
           <% else %>
             <span><%= link "Register", to: Routes.pow_registration_path(@conn, :new) %></span>

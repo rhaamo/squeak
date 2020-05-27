@@ -26,4 +26,5 @@ defmodule Squeak.Users.User do
     |> Ecto.Changeset.cast(attrs, [:username])
     |> validate_required([:username])
   end
+
 end

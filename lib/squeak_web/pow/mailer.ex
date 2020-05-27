@@ -1,4 +1,4 @@
-defmodule Squeak.Emails.Mailer do
+defmodule SqueakWeb.Pow.Mailer do
   @moduledoc """
   Defines the Squeak mailer.
 

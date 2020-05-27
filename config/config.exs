@@ -32,10 +32,10 @@ config :squeak, :pow,
   web_module: SqueakWeb,
   extensions: [PowResetPassword, PowEmailConfirmation, PowPersistentSession],
   controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
-  mailer_backend: Squeak.Emails.Mailer,
+  mailer_backend: SqueakWeb.Pow.Mailer,
   web_mailer_module: SqueakWeb
 
-config :squeak, Squeak.Email.Mailer,
+config :squeak, SqueakWeb.Pow.Mailer,
   adapter: Swoosh.Adapters.Sendmail
 
 config :squeak, :mailer,

@@ -75,6 +75,10 @@ config :phoenix, :stacktrace_depth, 20
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
 
+config :squeak, Squeak.Emails.Mailer,
+  adapter: Swoosh.Adapters.Logger,
+  level: :debug
+
 if File.exists?("./config/dev.secret.exs") do
   import_config "dev.secret.exs"
 else

@@ -31,7 +31,16 @@ config :squeak, :pow,
   repo: Squeak.Repo,
   web_module: SqueakWeb,
   extensions: [PowResetPassword, PowEmailConfirmation, PowPersistentSession],
-  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks
+  controller_callbacks: Pow.Extension.Phoenix.ControllerCallbacks,
+  mailer_backend: Squeak.Emails.Mailer,
+  web_mailer_module: SqueakWeb
+
+config :squeak, Squeak.Email.Mailer,
+  adapter: Swoosh.Adapters.Sendmail
+
+config :squeak, :mailer,
+  from_name: "Otter",
+  from: "squeak@example.com"
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -16,3 +16,5 @@ config :squeak, SqueakWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :pow, Pow.Ecto.Schema.Password, iterations: 1

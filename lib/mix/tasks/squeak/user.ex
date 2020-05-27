@@ -64,6 +64,7 @@ defmodule Mix.Tasks.Squeak.User do
 
       if generated_password? do
         Logger.info("Please use the reset password feature to log-in.")
+        # PowEmailConfirmation.Ecto.Context.confirm_email(user, %{}, otp_app: :squeak)
       end
     else
       shell_info("User will not be created.")

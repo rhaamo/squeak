@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-9">
+        <h2><%= @post.subject %></h2>
+
+        <!-- Blog Post -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <p class="card-text"><%= @post.content %></p>
+            </div>
+            <div class="card-footer text-muted clearfix">
+                <div class="float-left">Posted on January 1, 2017 by <%= @post.user.username %></div>
+                <div class="float-right">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

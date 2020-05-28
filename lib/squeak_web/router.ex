@@ -10,6 +10,7 @@ defmodule SqueakWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug SqueakWeb.Plugs.Assigns, registration_enabled: Application.get_env(:squeak, :registration, false)
   end
 
   pipeline :api do
@@ -24,8 +25,19 @@ defmodule SqueakWeb.Router do
   scope "/" do
     pipe_through :browser
 
-    pow_routes()
+    pow_session_routes()
     pow_extension_routes()
+  end
+
+  scope "/", Pow.Phoenix, as: "pow" do
+    pipe_through [:browser]
+    # TODO FIXME do something better
+    actions = if Application.get_env(:squeak, :registration, false) do
+      [:edit, :update, :delete, :new, :create]
+    else
+      [:edit, :update, :delete]
+    end
+    resources "/registration", RegistrationController, singleton: true, only: actions
   end
 
   scope "/", SqueakWeb do

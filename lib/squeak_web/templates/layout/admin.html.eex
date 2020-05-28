@@ -36,7 +36,9 @@
             <% end %>
             <li class="nav-item"><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "nav-link" %></li>
           <% else %>
-            <li class="nav-item"><%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %></li>
+            <%= if @registration_enabled do %>
+              <li class="nav-item"><%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %></li>
+            <% end %>
             <li class="nav-item"><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %></li>
           <% end %>
         </ul>

@@ -42,6 +42,9 @@ config :squeak, :mailer,
   from_name: "Otter",
   from: "squeak@example.com"
 
+# Do you want to enable web registration ? (you probably don't)
+config :squeak, registration: false
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

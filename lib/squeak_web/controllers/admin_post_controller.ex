@@ -18,7 +18,7 @@ defmodule SqueakWeb.AdminPostController do
       |> put_flash(:info, "Post has been saved.")
       |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
     else
-      render(conn, "new.html", changeset: changeset)
+      render(conn, "new.html", changeset: %{changeset | action: :insert})
     end
   end
 

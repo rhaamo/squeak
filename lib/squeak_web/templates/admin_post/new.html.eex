@@ -1,9 +1,8 @@
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-9">
         <h2>Create a new post</h2>
 
         <%= form_for @changeset, Routes.admin_post_path(@conn, :create), fn f -> %>
-            <%= inspect(f) %>
             <%= if f.errors != [] do %>
                 <div class="alert alert-danger">
                 <p>Oops, something went wrong! Please check the errors below:</p>
@@ -32,7 +31,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <%= submit "Publish", class: "btn btn-primary" %>
+                <%= submit "Save", class: "btn btn-primary" %>
             </div>
         <% end %>
     </div>

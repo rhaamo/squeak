@@ -68,6 +68,13 @@
                 <%= link "Configuration", to: "/admin/settings" %>
               </li>
             </ul>
+            <hr>
+
+            <ul class="list-unstyled mb-0">
+              <li>
+                <%= link "All posts", to: "/admin/posts" %>
+              </li>
+            </ul>
           </div>
         </div>
 

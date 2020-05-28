@@ -48,8 +48,15 @@ defmodule SqueakWeb.Router do
 
     get "/", AdminController, :index
 
+    get "/posts", AdminPostController, :list
+
     get "/posts/new", AdminPostController, :new
     post "/posts/new", AdminPostController, :create
+
+    get "/posts/:id/edit", AdminPostController, :edit
+    post "/posts/:id/edit", AdminPostController, :update
+
+    delete "/posts/:id/delete", AdminPostController, :delete
   end
 
   # Other scopes may use custom stacks.

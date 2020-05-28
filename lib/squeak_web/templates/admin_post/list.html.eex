@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-9">
+        <h2>Blog posts</h2>
+
+        <ul>
+            <%= for post <- @posts do %>
+                <li><%= post.subject %> - <%= link "edit", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :edit, post.id) %> - <%= link "delete", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :delete, post.id), method: :delete, data: [confirm: "Really ?"] %></li>
+            <% end %>
+        </ul>
+    </div>
+</div>

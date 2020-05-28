@@ -2,6 +2,14 @@ defmodule SqueakWeb.AdminPostController do
   use SqueakWeb, :controller
   alias Squeak.Posts.Post
   require Logger
+  require Ecto.Query
+
+  def list(conn, _params) do
+    posts = Squeak.Posts.Post
+    |> Ecto.Query.order_by([a], desc: a.inserted_at)
+    |> Squeak.Repo.all()
+    render(conn, "list.html", posts: posts)
+  end
 
   def new(conn, _params) do
     changeset = Post.changeset(%Post{}, %{})
@@ -31,6 +39,28 @@ defmodule SqueakWeb.AdminPostController do
       |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
     else
       render(conn, "new.html", changeset: %{changeset | action: :insert})
+    end
+  end
+
+  # edit
+  # update
+
+  def delete(conn, %{"id" => post_id}) do
+    post = Squeak.Repo.get(Squeak.Posts.Post, post_id)
+
+    if is_nil(post) do
+      conn
+        |> put_flash(:error, "Post not found")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+    end
+
+    case Squeak.Repo.delete post do
+      {:ok, _struct} -> conn
+        |> put_flash(:info, "Post deleted")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+      {:error, _changeset} -> conn
+        |> put_flash(:error, "Cannot delete post")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
     end
   end
 

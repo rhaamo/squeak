@@ -23,11 +23,9 @@
                 <%= textarea f, :content, cols: 40, rows: 10, class: "form-control" %>
             </div>
             <div class="form-group">
-                <div>
-                <div class="custom-control custom-checkbox custom-control-inline">
-                    <%= checkbox f, :draft, class: "custom-control-input" %>
-                    <label for="draft_0" class="custom-control-label">draft</label>
-                </div>
+                <div class="form-check">
+                    <%= checkbox f, :draft, class: "form-check-input" %>
+                    <label for="draft_0" class="form-check-label">draft</label>
                 </div>
             </div>
             <div class="form-group">

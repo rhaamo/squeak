@@ -1,6 +1,7 @@
 defmodule SqueakWeb.AdminPostController do
   use SqueakWeb, :controller
   alias Squeak.Posts.Post
+  require Logger
 
   def new(conn, _params) do
     changeset = Post.changeset(%Post{}, %{})
@@ -19,8 +20,14 @@ defmodule SqueakWeb.AdminPostController do
     if changeset.valid? do
       Squeak.Repo.insert(changeset)
 
+      flash_message = if params["draft"] == "true" do
+        "Draft post has been saved."
+      else
+        "Post has been published"
+      end
+
       conn
-      |> put_flash(:info, "Post has been saved.")
+      |> put_flash(:info, flash_message)
       |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
     else
       render(conn, "new.html", changeset: %{changeset | action: :insert})

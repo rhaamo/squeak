@@ -21,7 +21,7 @@ defmodule Squeak.Posts.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:subject, :content, :user_id])
+    |> cast(attrs, [:subject, :content, :user_id, :draft])
     |> validate_required([:subject, :content])
     |> unique_constraint(:slug)
   end

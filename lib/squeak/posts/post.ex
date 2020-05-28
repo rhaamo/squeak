@@ -1,12 +1,13 @@
 defmodule Squeak.Posts.Post do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Squeak.Posts.Post.SubjectSlug
 
   @primary_key {:id, :id, autogenerate: true}
 
   schema "posts" do
     field :subject, :string
-    field :slug, :string
+    field :slug, SubjectSlug.Type
     field :content, :string # text in reality
     field :draft, :boolean, default: true
 
@@ -20,6 +21,7 @@ defmodule Squeak.Posts.Post do
     post
     |> cast(attrs, [:subject, :content, :user_id, :draft])
     |> validate_required([:subject, :content])
-    |> unique_constraint(:slug)
+    |> SubjectSlug.maybe_generate_slug
+    |> SubjectSlug.unique_constraint
   end
 end

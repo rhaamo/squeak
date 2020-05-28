@@ -9,7 +9,12 @@ defmodule SqueakWeb.AdminPostController do
 
   def create(conn, %{"post" => post_params}) do
     user = Pow.Plug.current_user(conn)
-    changeset = Post.changeset(%Post{}, Map.put(post_params, "user_id", user.id))
+    date = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+    params = post_params
+    |> Map.put("user_id", user.id)
+    |> Map.put("updated_at", date)
+    |> Map.put("inserted_at", date)
+    changeset = Post.changeset(%Post{}, params)
 
     if changeset.valid? do
       Squeak.Repo.insert(changeset)

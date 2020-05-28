@@ -37,6 +37,9 @@ defmodule SqueakWeb.Router do
 
   scope "/blog", SqueakWeb do
     pipe_through :browser
+
+    get "/", BlogController, :list
+    get "/:slug", BlogController, :show
   end
 
   scope "/wiki", SqueakWeb do

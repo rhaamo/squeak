@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-9">
+        <h2>Blog posts</h2>
+
+        <%= for post <- @posts do %>
+            <!-- Blog Post -->
+            <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title"><%= post.subject %></h2>
+                <p class="card-text"><%= post.content %></p>
+            </div>
+            <div class="card-footer text-muted clearfix">
+                <div class="float-left">Posted on January 1, 2017 by <%= post.user.username %></div>
+                <div class="float-right">
+                <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, :show, post.slug), class: "btn btn-info btn-sm" do %>
+                Read More &rarr;
+                <% end %>
+                </div>
+            </div>
+            </div>
+        <% end %>
+    </div>
+</div>

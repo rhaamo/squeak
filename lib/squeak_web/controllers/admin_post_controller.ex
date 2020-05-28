@@ -42,8 +42,51 @@ defmodule SqueakWeb.AdminPostController do
     end
   end
 
-  # edit
-  # update
+  def edit(conn, %{"id" => post_id}) do
+    post = Squeak.Repo.get(Squeak.Posts.Post, post_id)
+
+    if is_nil(post) do
+      conn
+        |> put_flash(:error, "Post not found")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+    end
+
+    changeset = Post.changeset(post, %{})
+
+    render(conn, "edit.html", changeset: changeset, post_id: post_id)
+  end
+
+  def update(conn, %{"post" => post_params, "id" => post_id}) do
+    post = Squeak.Repo.get(Squeak.Posts.Post, post_id)
+    post = Squeak.Repo.preload post, :user
+
+    if is_nil(post) do
+      conn
+        |> put_flash(:error, "Post not found")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+    end
+
+    date = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+    params = post_params
+    |> Map.put("updated_at", date)
+    changeset = Post.changeset(post, params)
+
+    if changeset.valid? do
+      Squeak.Repo.update(changeset)
+
+      flash_message = if params["draft"] == "true" do
+        "Draft post has been updated."
+      else
+        "Post has been updated"
+      end
+
+      conn
+      |> put_flash(:info, flash_message)
+      |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+    else
+      render(conn, "edit.html", changeset: %{changeset | action: :insert}, post_id: post_id)
+    end
+  end
 
   def delete(conn, %{"id" => post_id}) do
     post = Squeak.Repo.get(Squeak.Posts.Post, post_id)

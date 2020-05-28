@@ -15,9 +15,6 @@ defmodule Squeak.Posts.Post do
     timestamps()
   end
 
-  @required_fields ~w(subject content user_id)
-  @optional_fields ~w()
-
   @doc false
   def changeset(post, attrs) do
     post

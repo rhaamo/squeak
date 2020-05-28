@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-md-9">
+        <h2>Update post</h2>
+
+        <%= form_for @changeset, Routes.admin_post_path(@conn, :update, @post_id), fn f -> %>
+            <%= if f.errors != [] do %>
+                <div class="alert alert-danger">
+                <p>Oops, something went wrong! Please check the errors below:</p>
+                <ul>
+                    <%= for {field, {message, _}} <- f.source.errors do %>
+                        <li><%= humanize(field) %> <%= message %></li>
+                    <% end %>
+                </ul>
+                </div>
+            <% end %>
+
+            <div class="form-group">
+                <label for="subject">Title</label>
+                <%= text_input f, :subject, class: "form-control", required: "required", placeholder: "A cool blog title" %>
+            </div>
+            <div class="form-group">
+                <label for="content">Post content</label>
+                <%= textarea f, :content, cols: 40, rows: 10, class: "form-control" %>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <%= checkbox f, :draft, class: "form-check-input" %>
+                    <label for="draft_0" class="form-check-label">draft</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <%= submit "Update", class: "btn btn-primary" %>
+            </div>
+        <% end %>
+    </div>
+</div>

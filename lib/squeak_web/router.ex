@@ -55,6 +55,7 @@ defmodule SqueakWeb.Router do
 
     get "/posts/:id/edit", AdminPostController, :edit
     post "/posts/:id/edit", AdminPostController, :update
+    put "/posts/:id/edit", AdminPostController, :update
 
     delete "/posts/:id/delete", AdminPostController, :delete
   end

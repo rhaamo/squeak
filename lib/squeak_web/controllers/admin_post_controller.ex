@@ -58,7 +58,7 @@ defmodule SqueakWeb.AdminPostController do
 
   def update(conn, %{"post" => post_params, "id" => post_id}) do
     post = Squeak.Repo.get(Squeak.Posts.Post, post_id)
-    |> Squeak.Repo.preload :user
+    |> Squeak.Repo.preload(:user)
 
     if is_nil(post) do
       conn

@@ -10,7 +10,7 @@
                 <p class="card-text"><%= post.content %></p>
             </div>
             <div class="card-footer text-muted clearfix">
-                <div class="float-left">Posted on <%= post.inserted_at %> by <%= post.user.username %></div>
+                <div class="float-left">Posted on <span title="<%= date_format post.inserted_at, "{D} {Mfull} {YYYY} - {h24}:{m}" %>"><%= date_format post.inserted_at %></span> by <%= post.user.username %></div>
                 <div class="float-right">
                 <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, :show, post.slug), class: "btn btn-info btn-sm" do %>
                 Read More &rarr;

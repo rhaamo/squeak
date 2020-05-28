@@ -20,7 +20,7 @@ defmodule Squeak.MixProject do
   def application do
     [
       mod: {Squeak.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :timex]
     ]
   end
 
@@ -47,7 +47,8 @@ defmodule Squeak.MixProject do
       {:swoosh, "~> 0.25"},
       {:hackney, "~> 1.9"},
       {:gen_smtp, "~> 0.13"},
-      {:ecto_autoslug_field, "~> 2.0"}
+      {:ecto_autoslug_field, "~> 2.0"},
+      {:timex, "~> 3.6"}
     ]
   end
 

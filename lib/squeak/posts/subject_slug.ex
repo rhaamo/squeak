@@ -3,7 +3,7 @@ defmodule Squeak.Posts.Post.SubjectSlug do
   Generates slugs for posts.
   """
 
-  use EctoAutoslugField.Slug, from: :subject, to: :slug
+  use EctoAutoslugField.Slug, from: :subject, to: :slug, always_change: true
 
   alias Squeak.Posts.Post
 

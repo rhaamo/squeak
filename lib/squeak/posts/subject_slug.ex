@@ -25,7 +25,7 @@ defmodule Squeak.Posts.Post.SubjectSlug do
       nil ->
         slug
 
-      _tag ->
+      _post ->
         slug
         |> increment_slug()
         |> build_unique_slug(changeset)

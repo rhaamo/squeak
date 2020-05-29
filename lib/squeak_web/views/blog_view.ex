@@ -12,7 +12,7 @@ defmodule SqueakWeb.BlogView do
   end
 
   def unmarkdownize(mdown) do
-    Earmark.as_html!(mdown)
+    Earmark.as_html!(mdown, gfm: true, breaks: false)
     |> raw
   end
 end

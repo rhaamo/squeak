@@ -130,7 +130,7 @@
     <div class="container">
       <p class="m-0 text-center text-white">squeak squeak!</p>
       <%= if Pow.Plug.current_user(@conn) do %>
-        <p class="m-0 text-center text-white">Logged in as <%= @current_user.username %><%= if Squeak.Users.is_admin?(@current_user) do %>(admin)<% else %>(user)<% end %></p>
+        <p class="m-0 text-center text-white">Logged in as <%= @current_user.username %> <%= if Squeak.Users.is_admin?(@current_user) do %>(admin)<% else %>(user)<% end %></p>
       <% end %>    </div>
     <!-- /.container -->
   </footer>

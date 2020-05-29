@@ -19,6 +19,8 @@
         <% end %>
 
         <hr>
-        <%= link "Next page.", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :list, max_id: List.last(@posts).id) %><br /><br />
+        <% if not is_nil(List.last(@posts)) do %>
+            <%= link "Next page.", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :list, max_id: List.last(@posts).id) %><br /><br />
+        <% end %>
     </div>
 </div>

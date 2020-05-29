@@ -61,10 +61,14 @@ defmodule Squeak.Posts.Post do
 
   def is_owner(post, conn) do
     current_user = Pow.Plug.current_user(conn)
-    if post.user_id == current_user.id do
-      true
-    else
+    if is_nil(current_user) do
       false
+    else
+      if post.user_id == current_user.id do
+        true
+      else
+        false
+      end
     end
   end
 end

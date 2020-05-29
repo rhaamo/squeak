@@ -12,8 +12,15 @@ defmodule SqueakWeb.BlogController do
     render(conn, "list.html", posts: posts)
   end
 
-  def show(conn, %{"slug" => post_slug}) do
-    post = Squeak.Posts.Post.get_post_by_slug(post_slug)
+  def show(conn, %{"post_slug" => post_slug, "user_slug" => user_slug}) do
+    user = Squeak.Users.User.get_user_by_slug(user_slug)
+    if is_nil(user) do
+      conn
+        |> put_flash(:error, "User not found")
+        |> redirect(to: SqueakWeb.Router.Helpers.blog_path(conn, :list))
+    end
+
+    post = Squeak.Posts.Post.get_post_by_slug_and_user_id(post_slug, user.id)
       |> Squeak.Repo.preload(:user)
 
     if is_nil(post) do

@@ -5,9 +5,12 @@ defmodule SqueakWeb.AdminPostController do
   require Ecto.Query
 
   def list(conn, _params) do
+    current_user = Pow.Plug.current_user(conn)
+
     posts = Squeak.Posts.Post
-    |> Ecto.Query.order_by([a], desc: a.inserted_at)
-    |> Squeak.Repo.all()
+      |> Ecto.Query.where([p], p.user_id == ^current_user.id)
+      |> Ecto.Query.order_by([a], desc: a.inserted_at)
+      |> Squeak.Repo.all()
     render(conn, "list.html", posts: posts)
   end
 
@@ -44,6 +47,14 @@ defmodule SqueakWeb.AdminPostController do
 
   def edit(conn, %{"id" => post_id}) do
     post = Squeak.Repo.get(Squeak.Posts.Post, post_id)
+    |> Squeak.Repo.preload(:user)
+
+    current_user = Pow.Plug.current_user(conn)
+    if post.user.id != current_user.id do
+      conn
+        |> put_flash(:error, "Post not found")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+    end
 
     if is_nil(post) do
       conn
@@ -59,6 +70,13 @@ defmodule SqueakWeb.AdminPostController do
   def update(conn, %{"post" => post_params, "id" => post_id}) do
     post = Squeak.Repo.get(Squeak.Posts.Post, post_id)
     |> Squeak.Repo.preload(:user)
+
+    current_user = Pow.Plug.current_user(conn)
+    if post.user.id != current_user.id do
+      conn
+        |> put_flash(:error, "Post not found")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+    end
 
     if is_nil(post) do
       conn
@@ -90,6 +108,13 @@ defmodule SqueakWeb.AdminPostController do
 
   def delete(conn, %{"id" => post_id}) do
     post = Squeak.Repo.get(Squeak.Posts.Post, post_id)
+
+    current_user = Pow.Plug.current_user(conn)
+    if post.user.id != current_user.id do
+      conn
+        |> put_flash(:error, "Post not found")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+    end
 
     if is_nil(post) do
       conn

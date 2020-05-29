@@ -31,10 +31,22 @@ defmodule Squeak.Posts.Post do
     from(t in Squeak.Posts.Post, where: t.slug == ^slug)
   end
 
+  @spec post_by_slug_and_user_id_query(String.t(), Integer.t()) :: Ecto.Query.t()
+  defp post_by_slug_and_user_id_query(slug, user_id) do
+    from(t in Squeak.Posts.Post, where: t.slug == ^slug, where: t.user_id == ^user_id)
+  end
+
   @spec get_post_by_slug(String.t()) :: Post.t() | nil
   def get_post_by_slug(slug) do
     slug
     |> post_by_slug_query
+    |> Squeak.Repo.one
+  end
+
+  @spec get_post_by_slug_and_user_id(String.t(), Integer.t()) :: Post.t() | nil
+  def get_post_by_slug_and_user_id(slug, user_id) do
+    slug
+    |> post_by_slug_and_user_id_query(user_id)
     |> Squeak.Repo.one
   end
 end

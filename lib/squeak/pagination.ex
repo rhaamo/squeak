@@ -23,7 +23,7 @@ defmodule Squeak.Pagination do
   def fetch_paginated(query, params, type \\ :keyset, table_binding \\ nil)
 
   def fetch_paginated(query, %{"total" => true} = params, :keyset, table_binding) do
-    total = Repo.aggregate(query, :count, :id)
+    total = Repo.aggregate(query, :count, :flake_id)
 
     %{
       total: total,
@@ -44,7 +44,7 @@ defmodule Squeak.Pagination do
     total =
       query
       |> Ecto.Query.exclude(:left_join)
-      |> Repo.aggregate(:count, :id)
+      |> Repo.aggregate(:count, :flake_id)
 
     %{
       total: total,
@@ -100,15 +100,15 @@ defmodule Squeak.Pagination do
   end
 
   defp restrict(query, :min_id, %{min_id: min_id}, table_binding) do
-    where(query, [{q, table_position(query, table_binding)}], q.id > ^min_id)
+    where(query, [{q, table_position(query, table_binding)}], q.flake_id > ^min_id)
   end
 
   defp restrict(query, :since_id, %{since_id: since_id}, table_binding) do
-    where(query, [{q, table_position(query, table_binding)}], q.id > ^since_id)
+    where(query, [{q, table_position(query, table_binding)}], q.flake_id > ^since_id)
   end
 
   defp restrict(query, :max_id, %{max_id: max_id}, table_binding) do
-    where(query, [{q, table_position(query, table_binding)}], q.id < ^max_id)
+    where(query, [{q, table_position(query, table_binding)}], q.flake_id < ^max_id)
   end
 
   defp restrict(query, :order, %{skip_order: true}, _), do: query
@@ -117,7 +117,7 @@ defmodule Squeak.Pagination do
     order_by(
       query,
       [{u, table_position(query, table_binding)}],
-      fragment("? asc nulls last", u.id)
+      fragment("? asc nulls last", u.flake_id)
     )
   end
 
@@ -125,7 +125,7 @@ defmodule Squeak.Pagination do
     order_by(
       query,
       [{u, table_position(query, table_binding)}],
-      fragment("? desc nulls last", u.id)
+      fragment("? desc nulls last", u.flake_id)
     )
   end
 

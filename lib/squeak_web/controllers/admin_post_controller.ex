@@ -59,7 +59,7 @@ defmodule SqueakWeb.AdminPostController do
 
   def edit(conn, %{"id" => post_id}) do
     post =
-      Squeak.Repo.get(Squeak.Posts.Post, post_id)
+      Squeak.Repo.get_by(Squeak.Posts.Post, flake_id: post_id)
       |> Squeak.Repo.preload(:user)
 
     current_user = Pow.Plug.current_user(conn)
@@ -83,7 +83,7 @@ defmodule SqueakWeb.AdminPostController do
 
   def update(conn, %{"post" => post_params, "id" => post_id}) do
     post =
-      Squeak.Repo.get(Squeak.Posts.Post, post_id)
+      Squeak.Repo.get_by(Squeak.Posts.Post, flake_id: post_id)
       |> Squeak.Repo.preload(:user)
 
     current_user = Pow.Plug.current_user(conn)
@@ -135,7 +135,7 @@ defmodule SqueakWeb.AdminPostController do
 
   def delete(conn, %{"id" => post_id}) do
     post =
-      Squeak.Repo.get(Squeak.Posts.Post, post_id)
+      Squeak.Repo.get_by(Squeak.Posts.Post, flake_id: post_id)
       |> Squeak.Repo.preload(:user)
 
     current_user = Pow.Plug.current_user(conn)

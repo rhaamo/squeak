@@ -42,12 +42,13 @@ defmodule Squeak.Posts.Post do
     (params["tags"] || "")
     |> String.split(",")
     |> Enum.map(&String.trim/1)
-    |> Enum.reject(& &1 == "")
+    |> Enum.reject(&(&1 == ""))
     |> Enum.map(&get_or_insert_tag/1)
   end
 
   defp get_or_insert_tag(name) do
-    Squeak.Repo.get_by(Squeak.Tags.Tag, name: name) || Squeak.Repo.insert!(Squeak.Tags.Tag, %Squeak.Tags.Tag{name: name})
+    Squeak.Repo.get_by(Squeak.Tags.Tag, name: name) ||
+      Squeak.Repo.insert!(Squeak.Tags.Tag, %Squeak.Tags.Tag{name: name})
   end
 
   @spec post_by_slug_query(String.t()) :: Ecto.Query.t()

@@ -23,7 +23,7 @@ defmodule SqueakWeb.EnsureRolePlugTest do
     conn = EnsureRole.call(conn, opts)
 
     assert conn.halted
-    assert Phoenix.ConnTest.redirected_to(conn) == Routes.page_path(conn, :index)
+    assert Phoenix.ConnTest.redirected_to(conn) == Routes.blog_path(conn, :list)
   end
 
   test "call/2 with non-admin user", %{conn: conn} do
@@ -35,7 +35,7 @@ defmodule SqueakWeb.EnsureRolePlugTest do
       |> EnsureRole.call(opts)
 
     assert conn.halted
-    assert Phoenix.ConnTest.redirected_to(conn) == Routes.page_path(conn, :index)
+    assert Phoenix.ConnTest.redirected_to(conn) == Routes.blog_path(conn, :list)
   end
 
   test "call/2 with non-admin user and multiple roles", %{conn: conn} do

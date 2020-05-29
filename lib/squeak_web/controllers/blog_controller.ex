@@ -1,19 +1,24 @@
 defmodule SqueakWeb.BlogController do
   use SqueakWeb, :controller
+  alias Squeak.Pagination
   require Logger
   require Ecto.Query
 
-  def list(conn, _params) do
+  @posts_per_page 2
+
+  def list(conn, params) do
+    max_id = params["max_id"]
     posts =
       Squeak.Posts.Post
+      |> Ecto.Query.where([a], a.draft == false)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
-      |> Squeak.Repo.all()
+      |> Pagination.fetch_paginated(%{"limit" => @posts_per_page, "max_id" => max_id})
       |> Squeak.Repo.preload(:user)
 
     render(conn, "list.html", posts: posts, user: nil)
   end
 
-  def list_by_user_slug(conn, %{"user_slug" => user_slug}) do
+  def list_by_user_slug(conn, %{"user_slug" => user_slug}, params) do
     user = Squeak.Users.User.get_user_by_slug(user_slug)
 
     if is_nil(user) do
@@ -22,11 +27,14 @@ defmodule SqueakWeb.BlogController do
       |> redirect(to: SqueakWeb.Router.Helpers.blog_path(conn, :list))
     end
 
+    max_id = params["max_id"]
+
     posts =
       Squeak.Posts.Post
-      |> Ecto.Query.order_by([a], desc: a.inserted_at)
+      |> Ecto.Query.where([a], a.draft == false)
       |> Ecto.Query.where([p], p.user_id == ^user.id)
-      |> Squeak.Repo.all()
+      |> Ecto.Query.order_by([a], desc: a.inserted_at)
+      |> Pagination.fetch_paginated(%{"limit" => @posts_per_page, "max_id" => max_id})
       |> Squeak.Repo.preload(:user)
 
     render(conn, "list.html", posts: posts, user: user)

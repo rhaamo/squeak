@@ -4,7 +4,7 @@ defmodule Squeak.Posts.Post do
   import Ecto.Query
   alias Squeak.Posts.Post.SubjectSlug
 
-  @primary_key {:id, :id, autogenerate: true}
+  @primary_key {:id, FlakeId.Ecto.CompatType, autogenerate: true}
 
   schema "posts" do
     field :subject, :string

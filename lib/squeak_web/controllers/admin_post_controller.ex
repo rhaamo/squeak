@@ -122,6 +122,7 @@ defmodule SqueakWeb.AdminPostController do
 
   def delete(conn, %{"id" => post_id}) do
     post = Squeak.Repo.get(Squeak.Posts.Post, post_id)
+    |> Squeak.Repo.preload(:user)
 
     current_user = Pow.Plug.current_user(conn)
 

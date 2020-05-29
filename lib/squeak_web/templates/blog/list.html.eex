@@ -23,5 +23,8 @@
             </div>
             </div>
         <% end %>
+
+        <hr>
+        <%= link "Next page.", to: SqueakWeb.Router.Helpers.blog_path(@conn, :list, max_id: List.last(@posts).id) %><br /><br />
     </div>
 </div>

@@ -14,6 +14,7 @@ defmodule Squeak.Posts.Post do
     field :draft, :boolean, default: true
     field :flake_id, FlakeId.Ecto.Type, autogenerate: true
 
+    many_to_many :tags, Squeak.Tags.Tag, join_through: "posts_tags"
     belongs_to :user, Squeak.Users.User
 
     timestamps()
@@ -26,6 +27,7 @@ defmodule Squeak.Posts.Post do
     |> SubjectSlug.maybe_generate_slug()
     |> validate_required([:subject, :content, :slug])
     |> SubjectSlug.unique_constraint()
+    |> put_assoc(:tags, parse_tags(attrs))
   end
 
   def changeset_update(post, attrs) do
@@ -34,6 +36,18 @@ defmodule Squeak.Posts.Post do
     |> SubjectSlug.force_generate_slug()
     |> validate_required([:subject, :content, :slug])
     |> SubjectSlug.unique_constraint()
+  end
+
+  defp parse_tags(params) do
+    (params["tags"] || "")
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.reject(& &1 == "")
+    |> Enum.map(&get_or_insert_tag/1)
+  end
+
+  defp get_or_insert_tag(name) do
+    Squeak.Repo.get_by(Squeak.Tags.Tag, name: name) || Squeak.Repo.insert!(Squeak.Tags.Tag, %Squeak.Tags.Tag{name: name})
   end
 
   @spec post_by_slug_query(String.t()) :: Ecto.Query.t()

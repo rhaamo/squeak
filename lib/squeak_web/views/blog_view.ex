@@ -10,4 +10,9 @@ defmodule SqueakWeb.BlogView do
     date
     |> Timex.format!(format_string)
   end
+
+  def unmarkdownize(mdown) do
+    Earmark.as_html!(mdown)
+    |> raw
+  end
 end

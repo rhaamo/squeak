@@ -48,7 +48,8 @@ defmodule Squeak.MixProject do
       {:hackney, "~> 1.9"},
       {:gen_smtp, "~> 0.13"},
       {:ecto_autoslug_field, "~> 2.0"},
-      {:timex, "~> 3.6"}
+      {:timex, "~> 3.6"},
+      {:earmark, "~> 1.4.4"}
     ]
   end
 

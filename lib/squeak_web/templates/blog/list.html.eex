@@ -11,7 +11,7 @@
             <div class="card mb-4">
             <div class="card-body">
                 <h2 class="card-title"><%= post.subject %></h2>
-                <p class="card-text"><%= post.content %></p>
+                <p class="card-text"><%= unmarkdownize post.content %></p>
             </div>
             <div class="card-footer text-muted clearfix">
                 <div class="float-left">Posted on <span title="<%= date_format post.inserted_at, "{D} {Mfull} {YYYY} - {h24}:{m}" %>"><%= date_format post.inserted_at %></span> by <%= link post.user.username, to: SqueakWeb.Router.Helpers.blog_path(@conn, :list_by_user_slug, post.user.slug) %></div>

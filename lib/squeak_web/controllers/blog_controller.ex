@@ -8,6 +8,7 @@ defmodule SqueakWeb.BlogController do
 
   def list(conn, params) do
     max_id = params["max_id"]
+
     posts =
       Squeak.Posts.Post
       |> Ecto.Query.where([a], a.draft == false)

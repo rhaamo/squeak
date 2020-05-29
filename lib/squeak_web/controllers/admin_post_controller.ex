@@ -100,11 +100,12 @@ defmodule SqueakWeb.AdminPostController do
       post_params
       |> Map.put("updated_at", date)
 
-    changeset = if post.subject != params["subject"] do
-      Post.changeset_update(post, params)
-    else
-      Post.changeset(post, params)
-    end
+    changeset =
+      if post.subject != params["subject"] do
+        Post.changeset_update(post, params)
+      else
+        Post.changeset(post, params)
+      end
 
     if changeset.valid? do
       Squeak.Repo.update(changeset)
@@ -125,8 +126,9 @@ defmodule SqueakWeb.AdminPostController do
   end
 
   def delete(conn, %{"id" => post_id}) do
-    post = Squeak.Repo.get(Squeak.Posts.Post, post_id)
-    |> Squeak.Repo.preload(:user)
+    post =
+      Squeak.Repo.get(Squeak.Posts.Post, post_id)
+      |> Squeak.Repo.preload(:user)
 
     current_user = Pow.Plug.current_user(conn)
 

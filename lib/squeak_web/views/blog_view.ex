@@ -17,7 +17,7 @@ defmodule SqueakWeb.BlogView do
     else
       mdown
       |> String.split(["\n", "\r", "\r\n"])
-      |> Enum.slice(0, 10)
+      |> Enum.slice(0, lines)
     end
     |> Earmark.as_html!(gfm: true, breaks: false)
     |> raw

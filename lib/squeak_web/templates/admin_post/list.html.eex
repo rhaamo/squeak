@@ -6,11 +6,12 @@
             <!-- Blog Post -->
             <div class="card mb-4">
             <div class="card-body">
-                <h2 class="card-title"><%= post.subject %></h2>
+                <h2 class="card-title"><%= if post.draft do %><i title="draft" class="fa fa-pencil-square-o" aria-hidden="true"></i> <% end %><%= post.subject %></h2>
             </div>
             <div class="card-footer text-muted clearfix">
                 <div class="float-left">Posted on <span title="<%= date_format post.inserted_at, "{D} {Mfull} {YYYY} - {h24}:{m}" %>"><%= date_format post.inserted_at %></span> by <%= link post.user.username, to: SqueakWeb.Router.Helpers.blog_path(@conn, :list_by_user_slug, post.user.slug) %></div>
                 <div class="float-right">
+                    <%= link "view", to: SqueakWeb.Router.Helpers.blog_path(@conn, :show, post.user.slug, post.slug), class: "btn btn-success btn-sm" %>&nbsp;
                     <%= link "edit", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :edit, post.id), class: "btn btn-primary btn-sm" %>&nbsp;
                     <%= link "delete", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :delete, post.id), method: :delete, data: [confirm: "Really ?"], class: "btn btn-danger btn-sm" %>
                 </div>

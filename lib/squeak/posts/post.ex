@@ -36,6 +36,7 @@ defmodule Squeak.Posts.Post do
     |> SubjectSlug.force_generate_slug()
     |> validate_required([:subject, :content, :slug])
     |> SubjectSlug.unique_constraint()
+    |> put_assoc(:tags, parse_tags(attrs))
   end
 
   defp parse_tags(params) do
@@ -43,12 +44,16 @@ defmodule Squeak.Posts.Post do
     |> String.split(",")
     |> Enum.map(&String.trim/1)
     |> Enum.reject(&(&1 == ""))
-    |> Enum.map(&get_or_insert_tag/1)
+    |> insert_and_get_all()
   end
 
-  defp get_or_insert_tag(name) do
-    Squeak.Repo.get_by(Squeak.Tags.Tag, name: name) ||
-      Squeak.Repo.insert!(Squeak.Tags.Tag, %Squeak.Tags.Tag{name: name})
+  defp insert_and_get_all([]) do
+    []
+  end
+  defp insert_and_get_all(names) do
+    maps = Enum.map(names, &%{name: &1})
+    Squeak.Repo.insert_all Squeak.Tags.Tag, maps, on_conflict: :nothing
+    Squeak.Repo.all(from t in Squeak.Tags.Tag, where: t.name in ^names)
   end
 
   @spec post_by_slug_query(String.t()) :: Ecto.Query.t()

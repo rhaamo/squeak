@@ -35,8 +35,7 @@ config :squeak, :pow,
   mailer_backend: SqueakWeb.Pow.Mailer,
   web_mailer_module: SqueakWeb
 
-config :squeak, SqueakWeb.Pow.Mailer,
-  adapter: Swoosh.Adapters.Sendmail
+config :squeak, SqueakWeb.Pow.Mailer, adapter: Swoosh.Adapters.Sendmail
 
 config :squeak, :mailer,
   from_name: "Otter",

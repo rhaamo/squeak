@@ -3,7 +3,12 @@ defmodule Squeak.UsersTest do
 
   alias Squeak.{Repo, Users, Users.User}
 
-  @valid_params %{email: "test@example.com", password: "secret1234", password_confirmation: "secret1234", username: "otter"}
+  @valid_params %{
+    email: "test@example.com",
+    password: "secret1234",
+    password_confirmation: "secret1234",
+    username: "otter"
+  }
 
   test "create_admin/2" do
     assert {:ok, user} = Users.create_admin(@valid_params)

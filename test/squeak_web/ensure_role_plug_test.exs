@@ -28,6 +28,7 @@ defmodule SqueakWeb.EnsureRolePlugTest do
 
   test "call/2 with non-admin user", %{conn: conn} do
     opts = EnsureRole.init(@opts)
+
     conn =
       conn
       |> Pow.Plug.assign_current_user(@user, otp_app: :my_app)
@@ -39,6 +40,7 @@ defmodule SqueakWeb.EnsureRolePlugTest do
 
   test "call/2 with non-admin user and multiple roles", %{conn: conn} do
     opts = EnsureRole.init(~w(user admin)a)
+
     conn =
       conn
       |> Pow.Plug.assign_current_user(@user, otp_app: :my_app)
@@ -49,6 +51,7 @@ defmodule SqueakWeb.EnsureRolePlugTest do
 
   test "call/2 with admin user", %{conn: conn} do
     opts = EnsureRole.init(@opts)
+
     conn =
       conn
       |> Pow.Plug.assign_current_user(@admin, otp_app: :my_app)

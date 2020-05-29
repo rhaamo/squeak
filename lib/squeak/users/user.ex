@@ -29,10 +29,10 @@ defmodule Squeak.Users.User do
     |> pow_changeset(attrs)
     |> pow_extension_changeset(attrs)
     |> cast(attrs, [:username])
-    |> UsernameSlug.maybe_generate_slug
+    |> UsernameSlug.maybe_generate_slug()
     |> validate_required([:username, :slug])
     |> validate_length(:username, max: 25)
-    |> UsernameSlug.unique_constraint
+    |> UsernameSlug.unique_constraint()
   end
 
   @spec user_by_slug_query(String.t()) :: Ecto.Query.t()
@@ -44,7 +44,6 @@ defmodule Squeak.Users.User do
   def get_user_by_slug(slug) do
     slug
     |> user_by_slug_query
-    |> Squeak.Repo.one
+    |> Squeak.Repo.one()
   end
-
 end

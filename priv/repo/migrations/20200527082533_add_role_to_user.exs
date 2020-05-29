@@ -5,6 +5,5 @@ defmodule Squeak.Repo.Migrations.AddRoleToUser do
     alter table(:users) do
       add :role, :string, default: "user"
     end
-
   end
 end

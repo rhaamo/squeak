@@ -1,5 +1,4 @@
 defmodule Mix.Squeak do
-
   @start_apps [
     :crypto,
     :ssl,
@@ -63,5 +62,4 @@ defmodule Mix.Squeak do
 
   @doc "Performs a safe check whether `Mix.shell/0` is available (does not raise if Mix is not loaded)"
   def mix_shell?, do: :erlang.function_exported(Mix, :shell, 0)
-
 end

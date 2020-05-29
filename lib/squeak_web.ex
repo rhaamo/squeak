@@ -47,8 +47,9 @@ defmodule SqueakWeb do
 
   def mailer_view do
     quote do
-      use Phoenix.View, root: "lib/squeak_web/templates",
-                        namespace: SqueakWeb
+      use Phoenix.View,
+        root: "lib/squeak_web/templates",
+        namespace: SqueakWeb
 
       use Phoenix.HTML
     end

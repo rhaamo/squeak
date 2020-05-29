@@ -8,6 +8,6 @@ defmodule SqueakWeb.BlogView do
 
   def date_format(date, format_string \\ "{D} {Mshort} {YYYY}") do
     date
-      |> Timex.format!(format_string)
+    |> Timex.format!(format_string)
   end
 end

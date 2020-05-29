@@ -36,5 +36,4 @@ defmodule Squeak.Users do
   @spec is_admin?(t()) :: boolean()
   def is_admin?(%{role: "admin"}), do: true
   def is_admin?(_any), do: false
-
 end

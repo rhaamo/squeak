@@ -80,7 +80,6 @@ config :squeak, SqueakWeb.Pow.Mailer,
   level: :debug,
   log_full_email: true
 
-
 if File.exists?("./config/dev.secret.exs") do
   import_config "dev.secret.exs"
 else

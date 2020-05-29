@@ -14,20 +14,26 @@ defmodule Mix.Tasks.Squeak.User do
 
     shell_info("Listing all users:")
     query = from(Squeak.Users.User)
+
     Squeak.Repo.all(query, log: false)
     |> Enum.map(fn user ->
-      shell_info("[#{user.id}] username: '#{user.username}', email: '#{user.email}', role: #{user.role}")
+      shell_info(
+        "[#{user.id}] username: '#{user.username}', email: '#{user.email}', role: #{user.role}"
+      )
     end)
   end
 
-  def run(["new", email, username | rest ]) do
+  def run(["new", email, username | rest]) do
     start_apps()
 
-    {options, [], []} = OptionParser.parse(rest, strict: [
-      username: :string,
-      password: :string,
-      admin: :boolean
-    ])
+    {options, [], []} =
+      OptionParser.parse(rest,
+        strict: [
+          username: :string,
+          password: :string,
+          admin: :boolean
+        ]
+      )
 
     {password, generated_password?} =
       case Keyword.get(options, :password) do
@@ -41,7 +47,12 @@ defmodule Mix.Tasks.Squeak.User do
     An user will be created with the following informations:
      - username: #{username}
      - email: #{email}
-     - password: #{if(generated_password?, do: "[generated; you will have to reset-password to log-in]", else: password)}}
+     - password: #{
+      if(generated_password?,
+        do: "[generated; you will have to reset-password to log-in]",
+        else: password
+      )
+    }}
      - admin: #{if(admin?, do: "true", else: "false")}
     """)
 
@@ -54,6 +65,7 @@ defmodule Mix.Tasks.Squeak.User do
         password: password,
         password_confirmation: password
       }
+
       if admin? do
         {:ok, _user} = Squeak.Users.create_admin(params)
         Logger.info("Admin '#{username}' created")
@@ -74,15 +86,19 @@ defmodule Mix.Tasks.Squeak.User do
   def run(["set", username | rest]) do
     start_apps()
 
-    {options, [], []} = OptionParser.parse(rest, strict: [
+    {options, [], []} =
+      OptionParser.parse(rest,
+        strict: [
           admin: :boolean
-    ])
+        ]
+      )
 
     admin? = Keyword.get(options, :admin, false)
 
-    user = Squeak.Users.User
-    |> Ecto.Query.where(username: ^username)
-    |> Squeak.Repo.one()
+    user =
+      Squeak.Users.User
+      |> Ecto.Query.where(username: ^username)
+      |> Squeak.Repo.one()
 
     if admin? do
       Squeak.Users.set_admin_role(user)

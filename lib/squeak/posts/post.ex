@@ -9,7 +9,8 @@ defmodule Squeak.Posts.Post do
   schema "posts" do
     field :subject, :string
     field :slug, SubjectSlug.Type
-    field :content, :string # text in reality
+    # text in reality
+    field :content, :string
     field :draft, :boolean, default: true
 
     belongs_to :user, Squeak.Users.User
@@ -40,13 +41,13 @@ defmodule Squeak.Posts.Post do
   def get_post_by_slug(slug) do
     slug
     |> post_by_slug_query
-    |> Squeak.Repo.one
+    |> Squeak.Repo.one()
   end
 
   @spec get_post_by_slug_and_user_id(String.t(), Integer.t()) :: Post.t() | nil
   def get_post_by_slug_and_user_id(slug, user_id) do
     slug
     |> post_by_slug_and_user_id_query(user_id)
-    |> Squeak.Repo.one
+    |> Squeak.Repo.one()
   end
 end

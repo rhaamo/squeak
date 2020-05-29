@@ -12,7 +12,7 @@ defmodule SqueakWeb.EnsureRolePlugTest do
       build_conn()
       |> Plug.Conn.put_private(:plug_session, %{})
       |> Plug.Conn.put_private(:plug_session_fetch, :done)
-      |> Pow.Plug.put_config(otp_app: :my_app)
+      |> Pow.Plug.put_config(otp_app: :squeak)
       |> fetch_flash()
 
     {:ok, conn: conn}
@@ -31,7 +31,7 @@ defmodule SqueakWeb.EnsureRolePlugTest do
 
     conn =
       conn
-      |> Pow.Plug.assign_current_user(@user, otp_app: :my_app)
+      |> Pow.Plug.assign_current_user(@user, otp_app: :squeak)
       |> EnsureRole.call(opts)
 
     assert conn.halted
@@ -43,7 +43,7 @@ defmodule SqueakWeb.EnsureRolePlugTest do
 
     conn =
       conn
-      |> Pow.Plug.assign_current_user(@user, otp_app: :my_app)
+      |> Pow.Plug.assign_current_user(@user, otp_app: :squeak)
       |> EnsureRole.call(opts)
 
     refute conn.halted
@@ -54,7 +54,7 @@ defmodule SqueakWeb.EnsureRolePlugTest do
 
     conn =
       conn
-      |> Pow.Plug.assign_current_user(@admin, otp_app: :my_app)
+      |> Pow.Plug.assign_current_user(@admin, otp_app: :squeak)
       |> EnsureRole.call(opts)
 
     refute conn.halted

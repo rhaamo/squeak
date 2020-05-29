@@ -17,6 +17,7 @@ defmodule SqueakWeb.AdminPostController do
       |> Ecto.Query.where([p], p.user_id == ^current_user.id)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
       |> Pagination.fetch_paginated(%{"limit" => @posts_per_page, "max_id" => max_id})
+      |> Squeak.Repo.preload(:user)
 
     render(conn, "list.html", posts: posts)
   end
@@ -39,7 +40,7 @@ defmodule SqueakWeb.AdminPostController do
     changeset = Post.changeset(%Post{}, params)
 
     if changeset.valid? do
-      Squeak.Repo.insert(changeset)
+      {:ok, obj} = Squeak.Repo.insert(changeset)
 
       flash_message =
         if params["draft"] == "true" do
@@ -50,7 +51,7 @@ defmodule SqueakWeb.AdminPostController do
 
       conn
       |> put_flash(:info, flash_message)
-      |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+      |> redirect(to: SqueakWeb.Router.Helpers.blog_path(conn, :show, user.slug, obj.slug))
     else
       render(conn, "new.html", changeset: %{changeset | action: :insert})
     end
@@ -113,7 +114,7 @@ defmodule SqueakWeb.AdminPostController do
       end
 
     if changeset.valid? do
-      Squeak.Repo.update(changeset)
+      {:ok, obj} = Squeak.Repo.update(changeset)
 
       flash_message =
         if params["draft"] == "true" do
@@ -124,7 +125,7 @@ defmodule SqueakWeb.AdminPostController do
 
       conn
       |> put_flash(:info, flash_message)
-      |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))
+      |> redirect(to: SqueakWeb.Router.Helpers.blog_path(conn, :show, current_user.slug, obj.slug))
     else
       render(conn, "edit.html", changeset: %{changeset | action: :insert}, post_id: post_id)
     end

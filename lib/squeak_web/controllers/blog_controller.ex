@@ -19,7 +19,7 @@ defmodule SqueakWeb.BlogController do
     render(conn, "list.html", posts: posts, user: nil)
   end
 
-  def list_by_user_slug(conn, %{"user_slug" => user_slug}, params) do
+  def list_by_user_slug(%{params: %{"user_slug" => user_slug}} = conn, params) do
     user = Squeak.Users.User.get_user_by_slug(user_slug)
 
     if is_nil(user) do

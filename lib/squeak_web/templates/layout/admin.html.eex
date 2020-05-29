@@ -91,7 +91,7 @@
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white">squeak squeak!</p>
+      <p class="m-0 text-center text-white"><a href="https://github.com/rhaamo/squeak/" target="_blank">squeak squeak!</a></p>
       <%= if Pow.Plug.current_user(@conn) do %>
         <p class="m-0 text-center text-white">Logged in as <%= @current_user.username %> <%= if Squeak.Users.is_admin?(@current_user) do %>(admin)<% else %>(user)<% end %></p>
       <% end %>

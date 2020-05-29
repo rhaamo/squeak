@@ -125,7 +125,9 @@ defmodule SqueakWeb.AdminPostController do
 
       conn
       |> put_flash(:info, flash_message)
-      |> redirect(to: SqueakWeb.Router.Helpers.blog_path(conn, :show, current_user.slug, obj.slug))
+      |> redirect(
+        to: SqueakWeb.Router.Helpers.blog_path(conn, :show, current_user.slug, obj.slug)
+      )
     else
       render(conn, "edit.html", changeset: %{changeset | action: :insert}, post_id: post_id)
     end

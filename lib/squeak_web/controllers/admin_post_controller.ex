@@ -100,7 +100,11 @@ defmodule SqueakWeb.AdminPostController do
       post_params
       |> Map.put("updated_at", date)
 
-    changeset = Post.changeset(post, params)
+    changeset = if post.subject != params["subject"] do
+      Post.changeset_update(post, params)
+    else
+      Post.changeset(post, params)
+    end
 
     if changeset.valid? do
       Squeak.Repo.update(changeset)

@@ -25,7 +25,7 @@
         <% end %>
 
         <hr>
-        <% if not is_nil(List.last(@posts)) do %>
+        <%= if length(@posts) > 0 do %>
             <%= link "Next page.", to: SqueakWeb.Router.Helpers.blog_path(@conn, :list, max_id: List.last(@posts).id) %><br /><br />
         <% end %>
     </div>

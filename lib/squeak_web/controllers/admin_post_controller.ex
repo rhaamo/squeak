@@ -1,17 +1,22 @@
 defmodule SqueakWeb.AdminPostController do
   use SqueakWeb, :controller
   alias Squeak.Posts.Post
+  alias Squeak.Pagination
   require Logger
   require Ecto.Query
 
-  def list(conn, _params) do
+  @posts_per_page 2
+
+  def list(conn, params) do
     current_user = Pow.Plug.current_user(conn)
+
+    max_id = params["max_id"]
 
     posts =
       Squeak.Posts.Post
       |> Ecto.Query.where([p], p.user_id == ^current_user.id)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
-      |> Squeak.Repo.all()
+      |> Pagination.fetch_paginated(%{"limit" => @posts_per_page, "max_id" => max_id})
 
     render(conn, "list.html", posts: posts)
   end

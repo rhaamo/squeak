@@ -7,5 +7,8 @@
                 <li><%= post.subject %> - <%= link "edit", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :edit, post.id) %> - <%= link "delete", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :delete, post.id), method: :delete, data: [confirm: "Really ?"] %></li>
             <% end %>
         </ul>
+
+        <hr>
+        <%= link "Next page.", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :list, max_id: List.last(@posts).id) %><br /><br />
     </div>
 </div>

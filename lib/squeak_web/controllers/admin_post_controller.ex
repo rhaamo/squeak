@@ -18,6 +18,7 @@ defmodule SqueakWeb.AdminPostController do
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
       |> Pagination.fetch_paginated(%{"limit" => @posts_per_page, "max_id" => max_id})
       |> Squeak.Repo.preload(:user)
+      |> Squeak.Repo.preload(:tags)
 
     render(conn, "list.html", posts: posts)
   end

@@ -61,6 +61,7 @@ defmodule SqueakWeb.AdminPostController do
     post =
       Squeak.Repo.get_by(Squeak.Posts.Post, flake_id: post_id)
       |> Squeak.Repo.preload(:user)
+      |> Squeak.Repo.preload(:tags)
 
     current_user = Pow.Plug.current_user(conn)
 
@@ -85,6 +86,7 @@ defmodule SqueakWeb.AdminPostController do
     post =
       Squeak.Repo.get_by(Squeak.Posts.Post, flake_id: post_id)
       |> Squeak.Repo.preload(:user)
+      |> Squeak.Repo.preload(:tags)
 
     current_user = Pow.Plug.current_user(conn)
 

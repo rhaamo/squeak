@@ -53,6 +53,7 @@ defmodule SqueakWeb.BlogController do
     post =
       Squeak.Posts.Post.get_post_by_slug_and_user_id(post_slug, user.id)
       |> Squeak.Repo.preload(:user)
+      |> Squeak.Repo.preload(:tags)
 
     if is_nil(post) do
       conn

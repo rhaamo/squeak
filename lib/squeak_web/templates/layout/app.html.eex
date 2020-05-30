@@ -111,9 +111,11 @@
 
         <!-- Side Widget -->
         <div class="card my-4">
-          <h5 class="card-header">aaa</h5>
+          <h5 class="card-header">Tags</h5>
           <div class="card-body">
-            aaaaaaaaaaaa aaaaaaa aaaaaaaaaa aaaaaaaaaaaaaaaa a a a aaaaaa
+            <div class="tag_cloud">
+              <%= for tag <- @blog_tags do %><span class="tag_cloud_item"><%= tag.name %></span><% end %>
+            </div>
           </div>
         </div>
 

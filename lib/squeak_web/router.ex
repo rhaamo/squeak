@@ -25,6 +25,10 @@ defmodule SqueakWeb.Router do
     plug :put_layout, {SqueakWeb.LayoutView, :admin}
   end
 
+  pipeline :preload_stuff do
+    plug SqueakWeb.Plugs.PreloadTags
+  end
+
   scope "/" do
     pipe_through :browser
 
@@ -46,14 +50,14 @@ defmodule SqueakWeb.Router do
   end
 
   scope "/", SqueakWeb do
-    pipe_through :browser
+    pipe_through [:browser, :preload_stuff]
 
     get "/", BlogController, :list, as: "index"
     get "/about", PageController, :about
   end
 
   scope "/blog", SqueakWeb do
-    pipe_through :browser
+    pipe_through [:browser, :preload_stuff]
 
     get "/", BlogController, :list
     get "/:user_slug", BlogController, :list_by_user_slug

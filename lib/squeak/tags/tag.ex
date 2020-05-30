@@ -10,8 +10,9 @@ defmodule Squeak.Tags.Tag do
   end
 
   def get_tags(allow_empty \\ false) do
-    tags = Squeak.Tags.Tag
-    |> Ecto.Query.order_by([a], asc: a.name)
+    tags =
+      Squeak.Tags.Tag
+      |> Ecto.Query.order_by([a], asc: a.name)
 
     if allow_empty do
       tags

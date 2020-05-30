@@ -17,8 +17,15 @@
                         <% end %>
                     </div>
                 </div>
-                <hr>
-                Tags: <%= Enum.map_join(@post.tags, ", ", &(&1.name))  %>
+                <%= if length(@post.tags) > 0 do %>
+                    <hr>
+                    <div class="clearfix">
+                        <div class="float-left">
+                        Tags: <%= Enum.map_join(@post.tags, ", ", &(&1.name))  %>
+                        </div>
+                        <div class="float-right"></div>
+                    </div>
+                <% end %>
             </div>
         </div>
     </div>

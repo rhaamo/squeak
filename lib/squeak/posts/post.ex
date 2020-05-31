@@ -14,7 +14,7 @@ defmodule Squeak.Posts.Post do
     field :draft, :boolean, default: true
     field :flake_id, FlakeId.Ecto.Type, autogenerate: true
 
-    has_many :posts_tags, Squeak.Tags.PostsTags
+    has_many :posts_tags, Squeak.Tags.PostsTags, on_delete: :delete_all
     many_to_many :tags, Squeak.Tags.Tag, join_through: "posts_tags", on_replace: :delete
     belongs_to :user, Squeak.Users.User
 

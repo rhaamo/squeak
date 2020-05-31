@@ -14,7 +14,11 @@ defmodule SqueakWeb.BlogController do
       Squeak.Posts.Post
       |> Ecto.Query.where([a], a.draft == false)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
-      |> Pagination.fetch_paginated(%{"limit" => @posts_per_page, "max_id" => max_id, "since_id" => since_id})
+      |> Pagination.fetch_paginated(%{
+        "limit" => @posts_per_page,
+        "max_id" => max_id,
+        "since_id" => since_id
+      })
       |> Squeak.Repo.preload(:user)
       |> Squeak.Repo.preload(:tags)
 

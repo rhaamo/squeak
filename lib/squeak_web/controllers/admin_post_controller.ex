@@ -17,7 +17,11 @@ defmodule SqueakWeb.AdminPostController do
       Squeak.Posts.Post
       |> Ecto.Query.where([p], p.user_id == ^current_user.id)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
-      |> Pagination.fetch_paginated(%{"limit" => @posts_per_page, "max_id" => max_id, "since_id" => since_id})
+      |> Pagination.fetch_paginated(%{
+        "limit" => @posts_per_page,
+        "max_id" => max_id,
+        "since_id" => since_id
+      })
       |> Squeak.Repo.preload(:user)
       |> Squeak.Repo.preload(:tags)
 
@@ -163,6 +167,7 @@ defmodule SqueakWeb.AdminPostController do
       {:ok, _struct} ->
         # clean orphaned tags
         Squeak.Tags.Tag.delete_orphans()
+
         conn
         |> put_flash(:info, "Post deleted")
         |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))

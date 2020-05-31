@@ -27,7 +27,7 @@ defmodule Squeak.Tags.Tag do
   def delete_orphans() do
     Squeak.Repo.delete_all(
       from t in Squeak.Tags.Tag,
-      where: fragment("? NOT IN (SELECT tag_id FROM posts_tags)", t.id)
+        where: fragment("? NOT IN (SELECT tag_id FROM posts_tags)", t.id)
     )
   end
 end

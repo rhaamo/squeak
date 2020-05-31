@@ -160,6 +160,8 @@ defmodule SqueakWeb.AdminPostController do
 
     case Squeak.Repo.delete(post) do
       {:ok, _struct} ->
+        # clean orphaned tags
+        Squeak.Tags.Tag.delete_orphans()
         conn
         |> put_flash(:info, "Post deleted")
         |> redirect(to: SqueakWeb.Router.Helpers.admin_path(conn, :index))

@@ -1,6 +1,6 @@
 defmodule Squeak.Tags.Tag do
   use Ecto.Schema
-  require Ecto.Query
+  import Ecto.Query
 
   schema "tags" do
     field :name, :string
@@ -12,7 +12,7 @@ defmodule Squeak.Tags.Tag do
   def get_tags(allow_empty \\ false) do
     tags =
       Squeak.Tags.Tag
-      |> Ecto.Query.order_by([a], asc: a.name)
+      |> order_by([a], asc: a.name)
 
     if allow_empty do
       tags
@@ -22,5 +22,12 @@ defmodule Squeak.Tags.Tag do
       tags
       |> Squeak.Repo.all()
     end
+  end
+
+  def delete_orphans() do
+    Squeak.Repo.delete_all(
+      from t in Squeak.Tags.Tag,
+      where: fragment("? NOT IN (SELECT tag_id FROM posts_tags)", t.id)
+    )
   end
 end

@@ -30,14 +30,14 @@ defmodule SqueakWeb.Router do
   end
 
   scope "/" do
-    pipe_through :browser
+    pipe_through [:browser, :preload_stuff]
 
     pow_session_routes()
     pow_extension_routes()
   end
 
   scope "/", Pow.Phoenix, as: "pow" do
-    pipe_through [:browser]
+    pipe_through [:browser, :preload_stuff]
     # TODO FIXME do something better
     actions =
       if Application.get_env(:squeak, :registration, false) do
@@ -60,8 +60,8 @@ defmodule SqueakWeb.Router do
     pipe_through [:browser, :preload_stuff]
 
     get "/", BlogController, :list
-    get "/:user_slug", BlogController, :list_by_user_slug
-    get "/:user_slug/:post_slug", BlogController, :show
+    get "/u/:user_slug", BlogController, :list_by_user_slug
+    get "/u/:user_slug/:post_slug", BlogController, :show
   end
 
   scope "/wiki", SqueakWeb do

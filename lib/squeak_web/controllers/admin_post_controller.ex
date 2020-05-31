@@ -119,6 +119,9 @@ defmodule SqueakWeb.AdminPostController do
     if changeset.valid? do
       {:ok, obj} = Squeak.Repo.update(changeset)
 
+      # clean orphaned tags
+      Squeak.Tags.Tag.delete_orphans()
+
       flash_message =
         if params["draft"] == "true" do
           "Draft post has been updated."

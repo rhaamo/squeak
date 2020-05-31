@@ -4,7 +4,7 @@ defmodule SqueakWeb.Plugs.PreloadTags do
   def init(default), do: default
 
   def call(conn, _default) do
-    tags = Squeak.Tags.Tag.get_tags(false)
+    tags = Squeak.Tags.Tag.get_tags()
     Plug.Conn.assign(conn, :blog_tags, tags)
   end
 end

@@ -21,7 +21,10 @@
                     <hr>
                     <div class="clearfix">
                         <div class="float-left">
-                        Tags: <%= Enum.map_join(post.tags, ", ", &(&1.name))  %>
+                        Tags:
+                        <%= for tag <- Enum.map(post.tags, &link(&1.name, to: SqueakWeb.Router.Helpers.blog_path(@conn, :list_by_tag_slug, &1.slug))) |> Enum.intersperse(", ") do %>
+                            <%= tag %>
+                        <% end %>
                         </div>
                         <div class="float-right"></div>
                     </div>

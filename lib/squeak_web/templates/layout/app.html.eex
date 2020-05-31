@@ -114,7 +114,13 @@
           <h5 class="card-header">Tags</h5>
           <div class="card-body">
             <div class="tag_cloud">
-              <%= for tag <- @blog_tags do %><span class="tag_cloud_item"><%= tag.name %></span><% end %>
+              <%= if length(@blog_tags) > 0 do %>
+                <%= for tag <- @blog_tags do %>
+                  <span class="tag_cloud_item"><%= link tag.name, to: SqueakWeb.Router.Helpers.blog_path(@conn, :list_by_tag_slug, tag.slug) %></span>
+                <% end %>
+              <% else %>
+                No tags.
+              <% end %>
             </div>
           </div>
         </div>

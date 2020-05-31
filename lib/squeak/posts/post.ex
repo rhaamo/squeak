@@ -53,8 +53,8 @@ defmodule Squeak.Posts.Post do
   end
 
   defp insert_and_get_all(names) do
-    maps = Enum.map(names, &%{name: &1})
-    Squeak.Repo.insert_all(Squeak.Tags.Tag, maps, on_conflict: :nothing)
+    maps = Enum.map(names, &Squeak.Tags.Tag.changeset(%Squeak.Tags.Tag{}, %{name: &1}))
+    Enum.map(maps, &Squeak.Repo.insert(&1, on_conflict: :nothing))
     Squeak.Repo.all(from t in Squeak.Tags.Tag, where: t.name in ^names)
   end
 

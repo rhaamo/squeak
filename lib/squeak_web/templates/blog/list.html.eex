@@ -1,9 +1,9 @@
 <div class="row">
     <div class="col-md-9">
-        <%= if @user do %>
-            <h2>Blog posts by <%= @user.username %></h2>
-        <% else %>
-            <h2>All blog posts</h2>
+        <%= cond do %>
+            <% assigns[:user] -> %><h2>Blog posts by <%= @user.username %></h2>
+            <% assigns[:tag] -> %><h2>Blog posts with tag <%= @tag.name %></h2>
+            <% true -> %><h2>All blog posts</h2>
         <% end %>
 
         <%= for post <- @posts do %>
@@ -26,7 +26,10 @@
                     <hr>
                     <div class="clearfix">
                         <div class="float-left">
-                        Tags: <%= Enum.map_join(post.tags, ", ", &(&1.name))  %>
+                        Tags:
+                        <%= for tag <- Enum.map(post.tags, &link(&1.name, to: SqueakWeb.Router.Helpers.blog_path(@conn, :list_by_tag_slug, &1.slug))) |> Enum.intersperse(", ") do %>
+                            <%= tag %>
+                        <% end %>
                         </div>
                         <div class="float-right"></div>
                     </div>

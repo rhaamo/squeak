@@ -40,12 +40,12 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <%= link to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :list, since_id: List.first(@posts).flake_id), class: "page-link" do %>
+                        <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, :list, since_id: List.first(@posts).flake_id), class: "page-link" do %>
                             Previous
                         <% end %>
                     </li>
                     <li class="page-item">
-                    <%= link to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :list, max_id: List.last(@posts).flake_id), class: "page-link" do %>
+                    <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, :list, max_id: List.last(@posts).flake_id), class: "page-link" do %>
                         Next
                     <% end %>
                     </a>

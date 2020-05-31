@@ -65,17 +65,8 @@ defmodule SqueakWeb.BlogController do
     max_id = params["max_id"]
     since_id = params["since_id"]
 
-    tag_name = tag.name
-
     posts =
-      Ecto.Query.from(posts in Squeak.Posts.Post,
-        inner_join: posts_tags in Squeak.Tags.PostsTags,
-        on: posts_tags.post_id == posts.id,
-        inner_join: tag in Squeak.Tags.Tag,
-        on: tag.id == posts_tags.tag_id,
-        where: tag.name == ^tag_name,
-        where: posts.draft == false
-      )
+      Squeak.Posts.Post.get_posts_by_tag_query(tag.name)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
       |> Pagination.fetch_paginated(%{
         "limit" => @posts_per_page,

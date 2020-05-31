@@ -37,6 +37,7 @@
 
         <hr>
         <%= if length(@posts) > 0 do %>
+            <%= link "Prev page.", to: SqueakWeb.Router.Helpers.blog_path(@conn, :list, since_id: List.first(@posts).flake_id) %><br /><br />
             <%= link "Next page.", to: SqueakWeb.Router.Helpers.blog_path(@conn, :list, max_id: List.last(@posts).flake_id) %><br /><br />
         <% end %>
     </div>

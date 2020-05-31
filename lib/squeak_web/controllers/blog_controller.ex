@@ -8,12 +8,13 @@ defmodule SqueakWeb.BlogController do
 
   def list(conn, params) do
     max_id = params["max_id"]
+    since_id = params["since_id"]
 
     posts =
       Squeak.Posts.Post
       |> Ecto.Query.where([a], a.draft == false)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
-      |> Pagination.fetch_paginated(%{"limit" => @posts_per_page, "max_id" => max_id})
+      |> Pagination.fetch_paginated(%{"limit" => @posts_per_page, "max_id" => max_id, "since_id" => since_id})
       |> Squeak.Repo.preload(:user)
       |> Squeak.Repo.preload(:tags)
 

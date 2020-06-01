@@ -84,13 +84,13 @@ defmodule Squeak.Posts.Post do
 
   def get_posts_by_tag_query(tag_name) do
     Ecto.Query.from(posts in Squeak.Posts.Post,
-        inner_join: posts_tags in Squeak.Tags.PostsTags,
-        on: posts_tags.post_id == posts.id,
-        inner_join: tag in Squeak.Tags.Tag,
-        on: tag.id == posts_tags.tag_id,
-        where: tag.name == ^tag_name,
-        where: posts.draft == false
-      )
+      inner_join: posts_tags in Squeak.Tags.PostsTags,
+      on: posts_tags.post_id == posts.id,
+      inner_join: tag in Squeak.Tags.Tag,
+      on: tag.id == posts_tags.tag_id,
+      where: tag.name == ^tag_name,
+      where: posts.draft == false
+    )
   end
 
   def is_owner(post, conn) do

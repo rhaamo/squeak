@@ -88,6 +88,12 @@ defmodule SqueakWeb.Router do
     delete "/posts/:id/delete", AdminPostController, :delete
   end
 
+  scope "/api/admin", SqueakWeb do
+    pipe_through [:browser, :admin, :api]
+
+    get "/autocomplete/tags", ApiAdminAutocompleteController, :tags
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", SqueakWeb do
   #   pipe_through :api

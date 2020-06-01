@@ -26,12 +26,12 @@ defmodule Squeak.Tags.Tag do
   end
 
   def get_tags() do
-    Squeak.Tags.Tag.get_tags_query
+    Squeak.Tags.Tag.get_tags_query()
     |> Squeak.Repo.all()
   end
 
   def get_tags_like(like) do
-    Squeak.Tags.Tag.get_tags_query
+    Squeak.Tags.Tag.get_tags_query()
     |> where([a], ilike(a.name, ^"%#{like}%"))
     |> Squeak.Repo.all()
   end

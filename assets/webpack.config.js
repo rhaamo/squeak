@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = (env, options) => ({
   optimization: {
@@ -13,22 +14,15 @@ module.exports = (env, options) => ({
     ]
   },
   entry: {
-    front: ['./js/front.js'].concat(glob.sync('./vendor/**/*.js')),
-    back: ['./js/back.js'].concat(glob.sync('./vendor/**/*.js'))
+    front: ['./css/front.scss'],
+    back: ['./css/back.scss']
   },
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, '../priv/static/js')
+    filename: '[name].css',
+    path: path.resolve(__dirname, '../priv/static/css')
   },
   module: {
     rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      },
       {
         test: /\.s?css$/,
       use: [
@@ -59,6 +53,6 @@ module.exports = (env, options) => ({
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: '../css/[name].css' }),
-    new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+    new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
   ]
 });

@@ -6,9 +6,11 @@
     "watch": "webpack --mode development --watch"
   },
   "dependencies": {
+    "@ttskch/select2-bootstrap4-theme": "^1.4.0",
     "fork-awesome": "^1.1.7",
     "phoenix": "file:../deps/phoenix",
-    "phoenix_html": "file:../deps/phoenix_html"
+    "phoenix_html": "file:../deps/phoenix_html",
+    "select2": "^4.0.13"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

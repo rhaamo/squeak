@@ -1,0 +1,19 @@
+<script>
+  $('#post_tags').select2({
+    minimumResultsForSearch: -1,
+    placeholder: "...",
+    theme: 'bootstrap4',
+    tags: true,
+    tokenSeparators: [","],
+    multiple: true,
+    ajax: {
+        url: '<%= SqueakWeb.Router.Helpers.api_admin_autocomplete_path(@conn, :tags) %>',
+        dataType: 'json',
+        processResults: function (data) {
+            return {
+                results: data.items.map(function(x) { return { id: x.name, text: x.name } })
+                }
+        }
+    }
+});
+</script>

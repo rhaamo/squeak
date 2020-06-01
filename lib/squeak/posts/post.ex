@@ -41,8 +41,7 @@ defmodule Squeak.Posts.Post do
   end
 
   defp parse_tags(params) do
-    (params["tags"] || "")
-    |> String.split(",")
+    (params["tags"] || [])
     |> Enum.map(&String.trim/1)
     |> Enum.reject(&(&1 == ""))
     |> insert_and_get_all()

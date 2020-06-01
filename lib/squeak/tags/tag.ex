@@ -20,9 +20,19 @@ defmodule Squeak.Tags.Tag do
     |> NameSlug.unique_constraint()
   end
 
-  def get_tags() do
+  def get_tags_query() do
     Squeak.Tags.Tag
     |> order_by([a], asc: a.name)
+  end
+
+  def get_tags() do
+    Squeak.Tags.Tag.get_tags_query
+    |> Squeak.Repo.all()
+  end
+
+  def get_tags_like(like) do
+    Squeak.Tags.Tag.get_tags_query
+    |> where([a], ilike(a.name, ^"%#{like}%"))
     |> Squeak.Repo.all()
   end
 

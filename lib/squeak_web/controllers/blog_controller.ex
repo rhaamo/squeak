@@ -4,8 +4,6 @@ defmodule SqueakWeb.BlogController do
   require Logger
   require Ecto.Query
 
-  @posts_per_page 2
-
   def list(conn, params) do
     max_id = params["max_id"]
     since_id = params["since_id"]
@@ -15,7 +13,7 @@ defmodule SqueakWeb.BlogController do
       |> Ecto.Query.where([a], a.draft == false)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
       |> Pagination.fetch_paginated(%{
-        "limit" => @posts_per_page,
+        "limit" => Squeak.States.Config.get(:pagination)[:posts],
         "max_id" => max_id,
         "since_id" => since_id
       })
@@ -43,7 +41,7 @@ defmodule SqueakWeb.BlogController do
       |> Ecto.Query.where([p], p.user_id == ^user.id)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
       |> Pagination.fetch_paginated(%{
-        "limit" => @posts_per_page,
+        "limit" => Squeak.States.Config.get(:pagination)[:posts],
         "max_id" => max_id,
         "since_id" => since_id
       })
@@ -69,7 +67,7 @@ defmodule SqueakWeb.BlogController do
       Squeak.Posts.Post.get_posts_by_tag_query(tag.name)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
       |> Pagination.fetch_paginated(%{
-        "limit" => @posts_per_page,
+        "limit" => Squeak.States.Config.get(:pagination)[:posts],
         "max_id" => max_id,
         "since_id" => since_id
       })

@@ -20,7 +20,7 @@ defmodule Squeak.MixProject do
   def application do
     [
       mod: {Squeak.Application, []},
-      extra_applications: [:logger, :runtime_tools, :timex]
+      extra_applications: [:logger, :runtime_tools, :phoenix, :timex]
     ]
   end
 

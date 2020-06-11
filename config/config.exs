@@ -42,7 +42,12 @@ config :squeak, :mailer,
   from: "squeak@example.com"
 
 # Do you want to enable web registration ? (you probably don't)
-config :squeak, registration: false
+config :squeak,
+  app_name: "Squeaky website",
+  registration: false,
+  pagination: %{
+    posts: 10
+  }
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

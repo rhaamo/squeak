@@ -11,9 +11,10 @@ defmodule Squeak.Application do
       # Start the Ecto repository
       Squeak.Repo,
       # Start the endpoint when the application starts
-      SqueakWeb.Endpoint
+      SqueakWeb.Endpoint,
       # Starts a worker by calling: Squeak.Worker.start_link(arg)
       # {Squeak.Worker, arg},
+      Squeak.States.Config
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

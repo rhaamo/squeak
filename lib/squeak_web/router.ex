@@ -12,6 +12,8 @@ defmodule SqueakWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
 
+    # plug SqueakWeb.Plugs.Assigns,
+    #  registration_enabled: Squeak.States.Config.get(:registration)
     plug SqueakWeb.Plugs.Assigns,
       registration_enabled: Application.get_env(:squeak, :registration, false)
   end

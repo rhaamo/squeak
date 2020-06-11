@@ -41,9 +41,9 @@ config :squeak, :mailer,
   from_name: "Otter",
   from: "squeak@example.com"
 
-# Do you want to enable web registration ? (you probably don't)
 config :squeak,
   app_name: "Squeaky website",
+  # Do you want to enable web registration ? (you probably don't)
   registration: false,
   pagination: %{
     posts: 10

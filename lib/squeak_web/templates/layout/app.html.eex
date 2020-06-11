@@ -74,6 +74,28 @@
           </div>
         </div>
 
+        <!-- Fourre tout -->
+        <div class="card my-4">
+          <h5 class="card-header">Meta</h5>
+          <div class="card-body">
+            <%= if @conn.private.phoenix_controller == SqueakWeb.BlogController and @conn.private.phoenix_action == :list do %>
+              <%= link to: SqueakWeb.Router.Helpers.blog_feed_url(@conn, :list) do %>
+                <i title="draft" class="fa fa-feed" aria-hidden="true"></i> Feed URL
+              <% end %>
+            <% end %>
+            <%= if @conn.private.phoenix_controller == SqueakWeb.BlogController and @conn.private.phoenix_action == :list_by_user_slug do %>
+              <%= link to: SqueakWeb.Router.Helpers.blog_feed_url(@conn, :list_by_user_slug, @user.slug) do %>
+                <i title="draft" class="fa fa-feed" aria-hidden="true"></i> Feed URL
+              <% end %>
+            <% end %>
+            <%= if @conn.private.phoenix_controller == SqueakWeb.BlogController and @conn.private.phoenix_action == :list_by_tag_slug do %>
+              <%= link to: SqueakWeb.Router.Helpers.blog_feed_url(@conn, :list_by_tag_slug, @tag.slug) do %>
+                <i title="draft" class="fa fa-feed" aria-hidden="true"></i> Feed URL
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
         <!-- Categories Widget -->
         <div class="card my-4">
           <h5 class="card-header">Categories</h5>
@@ -149,7 +171,6 @@
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/phoenix.js") %>"></script>
   <%= render_existing @view_module, "scripts.html", assigns %>
   <%= render_existing @view_module, "#{@conn.private.phoenix_action}_scripts.html", assigns %>
-
 </body>
 
 </html>

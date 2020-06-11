@@ -6,7 +6,7 @@ opts = {
     autosave: {enabled: false},
     forceSync: true,
     indentWithTabs: false,
-    hideIcons: ['preview', 'side-by-side', 'fullscreen']
+    spellChecker: false
 }
 let easyMDE = new EasyMDE(opts);
 </script>

@@ -103,6 +103,7 @@
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/bootstrap.min.js") %>"></script>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/moment-with-locales.min.js") %>"></script>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/select2.full.min.js") %>"></script>
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/easymde.min.js") %>"></script>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/phoenix.js") %>"></script>
   <%= render_existing @view_module, "scripts.html", assigns %>
   <%= render_existing @view_module, "#{@conn.private.phoenix_action}_scripts.html", assigns %>

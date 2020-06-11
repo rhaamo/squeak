@@ -1,0 +1,12 @@
+<script>
+opts = {
+    element: document.getElementById('post_content'),
+    autoDownloadFontAwesome: false,
+    autofocus: true,
+    autosave: {enabled: false},
+    forceSync: true,
+    indentWithTabs: false,
+    hideIcons: ['preview', 'side-by-side', 'fullscreen']
+}
+let easyMDE = new EasyMDE(opts);
+</script>

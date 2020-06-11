@@ -1,0 +1,5 @@
+<script>
+    let element = document.getElementById('postPublishedAt');
+    let date = moment.utc(element.dataset['date']).local().format("ddd MM YYYY - h:m");
+    element.innerHTML = date;
+</script>

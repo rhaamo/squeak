@@ -76,8 +76,6 @@ defmodule SqueakWeb.Router do
     pipe_through :browser
   end
 
-
-
   scope "/admin", SqueakWeb do
     pipe_through [:browser, :admin]
 

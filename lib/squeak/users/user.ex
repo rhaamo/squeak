@@ -15,7 +15,7 @@ defmodule Squeak.Users.User do
 
     pow_user_fields()
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   def changeset_role(user_or_changeset, attrs) do

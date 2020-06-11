@@ -50,7 +50,8 @@ defmodule Squeak.MixProject do
       {:ecto_autoslug_field, "~> 2.0"},
       {:timex, "~> 3.6"},
       {:earmark, "~> 1.4.4"},
-      {:flake_id, "~> 0.1.0"}
+      {:flake_id, "~> 0.1.0"},
+      {:atomex, "~> 0.3.0"}
     ]
   end
 

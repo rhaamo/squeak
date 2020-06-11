@@ -18,7 +18,7 @@ defmodule Squeak.Posts.Post do
     many_to_many :tags, Squeak.Tags.Tag, join_through: "posts_tags", on_replace: :delete
     belongs_to :user, Squeak.Users.User
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

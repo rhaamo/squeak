@@ -56,6 +56,7 @@ defmodule SqueakWeb.Router do
 
     get "/", BlogController, :list, as: "index"
     get "/about", PageController, :about
+    get "/blog.atom", BlogFeedController, :list
   end
 
   scope "/blog", SqueakWeb do
@@ -64,14 +65,18 @@ defmodule SqueakWeb.Router do
     get "/", BlogController, :list
     # By user
     get "/u/:user_slug", BlogController, :list_by_user_slug
+    get "/fu/:user_slug", BlogFeedController, :list_by_user_slug
     get "/u/:user_slug/:post_slug", BlogController, :show
     # By tag
     get "/t/:tag_slug", BlogController, :list_by_tag_slug
+    get "/ft/:tag_slug", BlogFeedController, :list_by_tag_slug
   end
 
   scope "/wiki", SqueakWeb do
     pipe_through :browser
   end
+
+
 
   scope "/admin", SqueakWeb do
     pipe_through [:browser, :admin]

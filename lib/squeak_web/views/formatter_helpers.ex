@@ -11,7 +11,7 @@ defmodule SqueakWeb.FormatterHelpers do
     |> Timex.format!(format_string)
   end
 
-  def unmarkdownize(mdown, lines \\ nil) do
+  def unmarkdownize_unsafe(mdown, lines \\ nil) do
     if is_nil(lines) do
       mdown
     else
@@ -20,6 +20,10 @@ defmodule SqueakWeb.FormatterHelpers do
       |> Enum.slice(0, lines)
     end
     |> Earmark.as_html!(gfm: true, breaks: false)
+  end
+
+  def unmarkdownize(mdown, lines \\ nil) do
+    unmarkdownize_unsafe(mdown, lines)
     |> raw
   end
 end

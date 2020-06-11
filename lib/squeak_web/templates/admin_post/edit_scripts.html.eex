@@ -6,7 +6,12 @@ opts = {
     autosave: {enabled: false},
     forceSync: true,
     indentWithTabs: false,
-    spellChecker: false
+    spellChecker: false,
+    uploadImage: false,
+    parsingConfig: {
+        strikethrough: true
+    },
+    sideBySideFullscreen: false
 }
 let easyMDE = new EasyMDE(opts);
 </script>

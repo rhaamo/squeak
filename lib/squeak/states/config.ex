@@ -12,28 +12,29 @@ defmodule Squeak.States.Config do
 
   def fetch_config(table) do
     # [key, default value]
-    items = [
+    [
       [:registration, false],
       [:pagination, %{posts: 10}],
       [:app_name, "Squeaky website"]
     ]
-
-    Enum.map(items, fn x ->
+    |> Enum.each(fn x ->
       [k, v] = x
-      :ets.insert(table, {x, Application.get_env(:squeak, k, v)})
+      value = Application.get_env(:squeak, k, v)
+      :ets.insert(table, {k, value})
     end)
 
     Logger.info("Config has been loaded in memory.")
+    Logger.debug(inspect(:ets.tab2list(:inmemory_config)))
   end
 
   def init(:ok) do
-    table = :ets.new(:config, [:named_table, :protected])
+    table = :ets.new(:inmemory_config, [:named_table, :protected])
     fetch_config(table)
     {:ok, table}
   end
 
   def find(key) do
-    case :ets.lookup(:config, key) do
+    case :ets.lookup(:inmemory_config, key) do
       [{^key, value}] -> {:ok, value}
       [] -> :error
     end
@@ -44,10 +45,10 @@ defmodule Squeak.States.Config do
     GenServer.call(__MODULE__, {:get, key})
   end
 
-  def handle_call({:get, key}, _from, _table) do
+  def handle_call({:get, key}, _from, table) do
     case find(key) do
-      {:ok, value} -> value
-      :error -> :error
+      {:ok, value} -> {:reply, value, table}
+      :error -> {:reply, :error, table}
     end
   end
 end

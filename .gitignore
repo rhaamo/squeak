@@ -43,3 +43,6 @@ npm-debug.log
 # variables.
 /config/*.secret.exs
 /config/generated_config.exs
+
+/import/*
+!/import/sample.md

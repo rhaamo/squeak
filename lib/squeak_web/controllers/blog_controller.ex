@@ -104,7 +104,7 @@ defmodule SqueakWeb.BlogController do
     max_id = params["max_id"]
     since_id = params["since_id"]
 
-    if q == "" do
+    if q == "" or is_nil(q) do
       conn
       |> redirect(to: SqueakWeb.Router.Helpers.blog_path(conn, :list))
     end

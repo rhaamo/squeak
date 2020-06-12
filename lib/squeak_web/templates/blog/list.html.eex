@@ -43,17 +43,29 @@
         <%= if length(@posts) > 0 do %>
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, :list, since_id: List.first(@posts).flake_id), class: "page-link" do %>
-                            Previous
-                        <% end %>
-                    </li>
-                    <li class="page-item">
-                    <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, :list, max_id: List.last(@posts).flake_id), class: "page-link" do %>
-                        Next
+                    <%= if assigns[:q] do %>
+                        <li class="page-item">
+                            <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, @conn.private.phoenix_action, since_id: List.first(@posts).flake_id, q: @q), class: "page-link" do %>
+                                Previous
+                            <% end %>
+                        </li>
+                        <li class="page-item">
+                            <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, @conn.private.phoenix_action, max_id: List.last(@posts).flake_id, q: @q), class: "page-link" do %>
+                                Next
+                            <% end %>
+                        </li>
+                    <% else %>
+                        <li class="page-item">
+                            <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, @conn.private.phoenix_action, since_id: List.first(@posts).flake_id), class: "page-link" do %>
+                                Previous
+                            <% end %>
+                        </li>
+                        <li class="page-item">
+                            <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, @conn.private.phoenix_action, max_id: List.last(@posts).flake_id), class: "page-link" do %>
+                                Next
+                            <% end %>
+                        </li>
                     <% end %>
-                    </a>
-                    </li>
                 </ul>
             </nav>
         <% end %>

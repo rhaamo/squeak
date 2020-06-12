@@ -18,11 +18,12 @@ defmodule Mix.Tasks.Squeak.Post do
   """
 
   # Post will be ignored if another one already exists with the same title and username
-  defp process_post(frontmatter, markdown, user) do
+  defp process_post(frontmatter, markdown, user, options) do
     post = Squeak.Posts.Post.get_post_by_subject(frontmatter["title"])
 
     if is_nil(post) do
       post_date = Timex.parse!(frontmatter["date"], "{YYYY}-{M}-{D}")
+      draft = Keyword.get(options, :draft, false)
 
       tags =
         frontmatter["tags"]
@@ -37,7 +38,7 @@ defmodule Mix.Tasks.Squeak.Post do
         |> Map.put("subject", frontmatter["title"])
         |> Map.put("tags", tags)
         |> Map.put("content", markdown)
-        |> Map.put("draft", false)
+        |> Map.put("draft", draft)
 
       changeset = Post.changeset(%Post{}, params)
 
@@ -52,10 +53,17 @@ defmodule Mix.Tasks.Squeak.Post do
     end
   end
 
-  def run(["import", username]) do
+  def run(["import", username | rest]) do
     start_apps()
 
     user = Squeak.Users.User.get_user_by_username(username)
+
+    {options, [], []} =
+      OptionParser.parse(rest,
+        strict: [
+          draft: :boolean
+        ]
+      )
 
     if is_nil(user) do
       Logger.error("User '#{username}' doesn't exists")
@@ -68,7 +76,7 @@ defmodule Mix.Tasks.Squeak.Post do
         Logger.info("Title: #{frontmatter["title"]}")
         Logger.info("Tags: #{frontmatter["tags"]}")
         Logger.info("Published on: #{frontmatter["date"]}")
-        process_post(frontmatter, markdown, user)
+        process_post(frontmatter, markdown, user, options)
       end)
     end
   end

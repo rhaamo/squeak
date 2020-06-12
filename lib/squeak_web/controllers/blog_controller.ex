@@ -98,4 +98,24 @@ defmodule SqueakWeb.BlogController do
 
     render(conn, "show.html", post: post)
   end
+
+  def search(conn, params) do
+    q = params["q"]
+    max_id = params["max_id"]
+    since_id = params["since_id"]
+
+    posts = Squeak.Posts.Post
+      |> Ecto.Query.where([a], a.draft == false)
+      |> Ecto.Query.order_by([a], desc: a.inserted_at)
+      |> Squeak.Posts.Search.run(q)
+      |> Pagination.fetch_paginated(%{
+        "limit" => Squeak.States.Config.get(:pagination)[:posts],
+        "max_id" => max_id,
+        "since_id" => since_id
+      })
+      |> Squeak.Repo.preload(:user)
+      |> Squeak.Repo.preload(:tags)
+
+    render(conn, "list.html", posts: posts, user: nil, q: q)
+  end
 end

@@ -63,6 +63,8 @@ defmodule SqueakWeb.Router do
     pipe_through [:browser, :preload_stuff]
 
     get "/", BlogController, :list
+    # Search
+    get "/search", BlogController, :search
     # By user
     get "/u/:user_slug", BlogController, :list_by_user_slug
     get "/fu/:user_slug", BlogFeedController, :list_by_user_slug

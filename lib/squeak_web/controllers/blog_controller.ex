@@ -104,7 +104,8 @@ defmodule SqueakWeb.BlogController do
     max_id = params["max_id"]
     since_id = params["since_id"]
 
-    posts = Squeak.Posts.Post
+    posts =
+      Squeak.Posts.Post
       |> Ecto.Query.where([a], a.draft == false)
       |> Ecto.Query.order_by([a], desc: a.inserted_at)
       |> Squeak.Posts.Search.run(q)

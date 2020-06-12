@@ -24,7 +24,7 @@ defmodule Squeak.Posts.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:subject, :content, :user_id, :draft])
+    |> cast(attrs, [:subject, :content, :user_id, :draft, :inserted_at, :updated_at])
     |> SubjectSlug.maybe_generate_slug()
     |> validate_required([:subject, :content, :slug])
     |> SubjectSlug.unique_constraint()
@@ -67,6 +67,11 @@ defmodule Squeak.Posts.Post do
     from(t in Squeak.Posts.Post, where: t.slug == ^slug, where: t.user_id == ^user_id)
   end
 
+  @spec post_by_subject_query(String.t()) :: Ecto.Query.t()
+  defp post_by_subject_query(subject) do
+    from(t in Squeak.Posts.Post, where: t.subject == ^subject)
+  end
+
   @spec get_post_by_slug(String.t()) :: Post.t() | nil
   def get_post_by_slug(slug) do
     slug
@@ -78,6 +83,13 @@ defmodule Squeak.Posts.Post do
   def get_post_by_slug_and_user_id(slug, user_id) do
     slug
     |> post_by_slug_and_user_id_query(user_id)
+    |> Squeak.Repo.one()
+  end
+
+  @spec get_post_by_subject(String.t()) :: Post.t() | nil
+  def get_post_by_subject(subject) do
+    subject
+    |> post_by_subject_query
     |> Squeak.Repo.one()
   end
 

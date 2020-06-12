@@ -46,4 +46,16 @@ defmodule Squeak.Users.User do
     |> user_by_slug_query
     |> Squeak.Repo.one()
   end
+
+  @spec user_by_username_query(String.t()) :: Ecto.Query.t()
+  defp user_by_username_query(username) do
+    from(t in Squeak.Users.User, where: t.username == ^username)
+  end
+
+  @spec get_user_by_username(String.t()) :: User.t() | nil
+  def get_user_by_username(username) do
+    username
+    |> user_by_username_query
+    |> Squeak.Repo.one()
+  end
 end

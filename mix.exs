@@ -51,7 +51,8 @@ defmodule Squeak.MixProject do
       {:timex, "~> 3.6"},
       {:earmark, "~> 1.4.4"},
       {:flake_id, "~> 0.1.0"},
-      {:atomex, "~> 0.3.0"}
+      {:atomex, "~> 0.3.0"},
+      {:yaml_elixir, "~> 2.4"}
     ]
   end
 

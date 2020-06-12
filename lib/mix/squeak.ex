@@ -4,7 +4,8 @@ defmodule Mix.Squeak do
     :ssl,
     :postgrex,
     :ecto,
-    :ecto_sql
+    :ecto_sql,
+    :squeak
   ]
 
   @repos [

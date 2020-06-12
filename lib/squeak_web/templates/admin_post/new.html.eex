@@ -26,7 +26,7 @@
 
             <div class="form-group">
                 <label for="subject">Tags (comma separated)</label>
-                <%= multiple_select f, :tags, [], class: 'form-control' %>
+                <%= multiple_select f, :tags, [], class: "form-control" %>
             </div>
 
             <div class="form-group">

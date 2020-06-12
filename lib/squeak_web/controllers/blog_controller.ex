@@ -104,6 +104,11 @@ defmodule SqueakWeb.BlogController do
     max_id = params["max_id"]
     since_id = params["since_id"]
 
+    if q == "" do
+      conn
+      |> redirect(to: SqueakWeb.Router.Helpers.blog_path(conn, :list))
+    end
+
     posts =
       Squeak.Posts.Post
       |> Ecto.Query.where([a], a.draft == false)

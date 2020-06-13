@@ -52,7 +52,9 @@ defmodule Squeak.MixProject do
       {:earmark, "~> 1.4.4"},
       {:flake_id, "~> 0.1.0"},
       {:atomex, "~> 0.3.0"},
-      {:yaml_elixir, "~> 2.4"}
+      {:yaml_elixir, "~> 2.4"},
+      {:waffle, "~> 1.1.0"},
+      {:waffle_ecto, "~> 0.0.9"}
     ]
   end
 

@@ -37,6 +37,8 @@ config :squeak, :pow,
 
 config :squeak, SqueakWeb.Pow.Mailer, adapter: Swoosh.Adapters.Sendmail
 
+config :waffle, storage: Waffle.Storage.Local
+
 config :squeak, :mailer,
   from_name: "Otter",
   from: "squeak@example.com"

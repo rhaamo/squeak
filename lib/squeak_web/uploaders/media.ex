@@ -15,6 +15,8 @@ defmodule Squeak.Uploaders.Media do
     if File.exists?(path) do
       {:ok, mime} = GenMagic.Pool.perform(Squeak.GenMagicPool, Path.expand(path))
       mime.mime_type
+      |> String.split("/")
+      |> List.first
     else
       :error
     end

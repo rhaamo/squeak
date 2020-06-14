@@ -6,7 +6,7 @@
         </ul>
 
         <%= for media <- @medias do %>
-            <%= inspect(media) %>
+            <%= inspect(media) %><br ><br>
         <% end %>
     </div>
 </div>

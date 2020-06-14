@@ -67,14 +67,18 @@
           <div class="card-body">
             <ul class="list-unstyled mb-0">
               <li>
-                <%= link "Configuration", to: "/admin/settings" %>
+                <%= link "Configuration", to: "/admin/config" %>
+              </li>
+              <li>
+                <%= link "Media manager", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :list) %>
               </li>
             </ul>
+
             <hr>
 
             <ul class="list-unstyled mb-0">
               <li>
-                <%= link "All posts", to: "/admin/posts" %>
+                <%= link "All posts", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :list) %>
               </li>
             </ul>
           </div>

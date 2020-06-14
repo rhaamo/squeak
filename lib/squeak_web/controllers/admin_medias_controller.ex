@@ -28,7 +28,8 @@ defmodule SqueakWeb.AdminMediaController do
   def create(conn, %{"media" => media_params}) do
     date = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
 
-    {:ok, mime_type} = GenMagic.Pool.perform(Squeak.GenMagicPool, Path.expand(media_params["media"].path))
+    {:ok, mime_type} =
+      GenMagic.Pool.perform(Squeak.GenMagicPool, Path.expand(media_params["media"].path))
 
     params =
       media_params

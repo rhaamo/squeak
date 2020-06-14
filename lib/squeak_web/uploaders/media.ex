@@ -55,7 +55,7 @@ defmodule Squeak.Uploaders.Media do
   end
 
   # Override the storage directory:
-  def storage_dir(_version, {_file, filename}) do
-    "uploads/medias/#{filename}"
+  def storage_dir(_version, {_file, scope}) do
+    "uploads/medias/#{scope.flake_id}"
   end
 end

@@ -10,7 +10,6 @@ defmodule Squeak.Medias.Media do
   schema "medias" do
     field :filename, :string
     field :original_filename, :string
-    field :type, :string
     field :mime, :string
 
     field :media, Squeak.Uploaders.Media.Type
@@ -22,8 +21,13 @@ defmodule Squeak.Medias.Media do
 
   def changeset(media, attrs) do
     media
-    |> cast(attrs, [:filename, :original_filename, :type, :mime])
+    |> cast(attrs, [:filename, :original_filename, :mime])
+    |> validate_required([:filename, :original_filename, :mime])
+  end
+
+  def media_changeset(media, attrs) do
+    media
     |> cast_attachments(attrs, [:media])
-    |> validate_required([:filename, :original_filename, :type, :mime, :media])
+    |> validate_required([:media])
   end
 end

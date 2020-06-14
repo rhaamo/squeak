@@ -4,5 +4,9 @@
             <li class="nav-item"><%= link "Media Files", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :list), class: "nav-link active" %></li>
             <li class="nav-item"><%= link "Upload", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :new), class: "nav-link" %></li>
         </ul>
+
+        <%= for media <- @medias do %>
+            <%= inspect(media) %>
+        <% end %>
     </div>
 </div>

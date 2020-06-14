@@ -48,7 +48,8 @@ config :squeak,
   # Do you want to enable web registration ? (you probably don't)
   registration: false,
   pagination: %{
-    posts: 10
+    posts: 10,
+    medias: 20
   }
 
 # Import environment specific config. This must remain at the bottom

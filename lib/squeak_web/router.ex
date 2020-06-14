@@ -95,6 +95,21 @@ defmodule SqueakWeb.Router do
     delete "/posts/:id/delete", AdminPostController, :delete
   end
 
+  scope "/admin/medias", SqueakWeb do
+    pipe_through [:browser, :admin]
+
+    get "/", AdminMediaController, :list
+
+    get "/new", AdminMediaController, :new
+    post "/new", AdminMediaController, :create
+
+    get "/edit/:id", AdminMediaController, :edit
+    post "/edit/:id", AdminMediaController, :update
+    put "/edit/:id", AdminMediaController, :update
+
+    delete "/delete/:id", AdminMediaController, :delete
+  end
+
   scope "/api/admin", SqueakWeb do
     pipe_through [:browser, :admin, :api]
 

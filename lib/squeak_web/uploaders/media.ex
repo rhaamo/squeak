@@ -1,4 +1,4 @@
-defmodule Squeak.Media do
+defmodule Squeak.Uploaders.Media do
   use Waffle.Definition
   use Waffle.Ecto.Definition
 

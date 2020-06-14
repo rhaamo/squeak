@@ -55,7 +55,7 @@ defmodule Squeak.MixProject do
       {:yaml_elixir, "~> 2.4"},
       {:waffle, "~> 1.1.0"},
       {:waffle_ecto, "~> 0.0.9"},
-      {:mime, "~> 1.2"}
+      {:gen_magic, git: "https://github.com/hrefhref/gen_magic", branch: "develop"}
     ]
   end
 

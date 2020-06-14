@@ -3,13 +3,6 @@ defmodule Squeak.Uploaders.Media do
   use Waffle.Ecto.Definition
 
   @versions [:original, :thumb, :small, :medium, :large]
-  @whitelist_pictures ~w(.jpg .jpeg .gif .png)
-  @whitelist_videos ~w(.mp4 .webm)
-  @whitelist_text ~w(.txt .c .cxx .cpp .h .lst)
-  @whitelist_documents ~w(.pdf .docx .xslx .md .rst .html .htm .xml .json .yaml .yml .xls)
-  @whitelist_other ~w(.zip .tar.gz .z .gz .sh)
-  @whitelist @whitelist_pictures ++
-               @whitelist_videos ++ @whitelist_text ++ @whitelist_documents ++ @whitelist_other
 
   defp get_simple_mime_type(path) do
     if File.exists?(path) do
@@ -55,11 +48,6 @@ defmodule Squeak.Uploaders.Media do
   # def bucket do
   #   :custom_bucket_name
   # end
-
-  def validate({file, _}) do
-    file_extension = file.file_name |> Path.extname() |> String.downcase()
-    Enum.member?(@whitelist, file_extension)
-  end
 
   # Override the persisted filenames:
   def filename(version, _) do

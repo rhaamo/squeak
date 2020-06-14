@@ -1,10 +1,14 @@
 defmodule SqueakWeb.AdminMediaController do
   use SqueakWeb, :controller
+  alias Squeak.Medias.Media
 
-  def list(_conn, _params) do
+  def list(conn, _params) do
+    render(conn, "list.html")
   end
 
-  def new(_conn, _params) do
+  def new(conn, _params) do
+    changeset = Media.changeset(%Media{}, %{})
+    render(conn, "new.html", changeset: changeset)
   end
 
   def create(_conn, _params) do

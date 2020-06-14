@@ -1,0 +1,6 @@
+<script>
+$("#media_media").change(function() {
+    let filename = $('input[type=file]').val().split('\\').pop();
+    $("#media_filename").val(filename);
+})
+</script>

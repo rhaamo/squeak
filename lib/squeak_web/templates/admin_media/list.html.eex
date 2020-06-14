@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-md-9">
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><%= link "Media Files", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :list), class: "nav-link active" %></li>
+            <li class="nav-item"><%= link "Upload", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :new), class: "nav-link" %></li>
+        </ul>
+    </div>
+</div>

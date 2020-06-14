@@ -6,7 +6,7 @@ defmodule Squeak.Media do
   @whitelist_pictures ~w(.jpg .jpeg .gif .png)
   @whitelist_videos ~w(.mp4 .webm)
   @whitelist_text ~w(.txt .c .cxx .cpp .h .lst)
-  @whitelist_documents ~w(.pdf .docx .xslx .md .rst .html .htm .xml .json .yaml .yml)
+  @whitelist_documents ~w(.pdf .docx .xslx .md .rst .html .htm .xml .json .yaml .yml .xls)
   @whitelist_other ~w(.zip .tar.gz .z .gz .sh)
   @whitelist @whitelist_pictures ++ @whitelist_videos ++ @whitelist_text ++ @whitelist_documents ++ @whitelist_other
 

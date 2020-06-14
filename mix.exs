@@ -20,7 +20,7 @@ defmodule Squeak.MixProject do
   def application do
     [
       mod: {Squeak.Application, []},
-      extra_applications: [:logger, :runtime_tools, :phoenix, :timex]
+      extra_applications: [:logger, :runtime_tools, :phoenix, :timex, :mime]
     ]
   end
 
@@ -54,7 +54,8 @@ defmodule Squeak.MixProject do
       {:atomex, "~> 0.3.0"},
       {:yaml_elixir, "~> 2.4"},
       {:waffle, "~> 1.1.0"},
-      {:waffle_ecto, "~> 0.0.9"}
+      {:waffle_ecto, "~> 0.0.9"},
+      {:mime, "~> 1.2"}
     ]
   end
 

@@ -46,3 +46,6 @@ npm-debug.log
 
 /import/*
 !/import/sample.md
+
+/uploads/*
+!/uploads/.gitkeep

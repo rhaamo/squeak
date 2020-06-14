@@ -1,4 +1,4 @@
-defmodule SqueakWeb.AdminMediasController do
+defmodule SqueakWeb.AdminMediaController do
   use SqueakWeb, :controller
 
   def list(_conn, _params) do

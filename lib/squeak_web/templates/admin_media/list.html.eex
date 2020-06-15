@@ -4,9 +4,27 @@
             <li class="nav-item"><%= link "Media Files", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :list), class: "nav-link active" %></li>
             <li class="nav-item"><%= link "Upload", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :new), class: "nav-link" %></li>
         </ul>
+    </div>
 
-        <%= for media <- @medias do %>
-            <%= inspect(media) %><br ><br>
-        <% end %>
+    <div class="col-md-9">
+        <div class="mm-cards clearfix">
+            <%= for media <- @medias do %>
+                <div class="card float-left mm-card" style="width: 10rem;">
+                    <%= if is_image(media) do %>
+                        <img src="<%= Squeak.Uploaders.Media.url({media.filename, media}, :thumb) %>" class="card-img-top" alt="<%= media.filename %>" width="90px">
+                    <% else %>
+                        <i class="fa fa-file-o card-img-top" aria-hidden="true"></i>
+                    <% end %>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <%= media.filename %>
+                            <small><%= media.inserted_at %></small>
+                        </p>
+                        <%= link "Edit", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :edit, media.flake_id), class: "btn btn-primary btn-sm" %>&nbsp;
+                        <%= link "Delete", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :delete, media.flake_id), method: :delete, data: [confirm: "Really ?"], class: "btn btn-danger btn-sm" %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
     </div>
 </div>

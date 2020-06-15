@@ -59,6 +59,25 @@ defmodule SqueakWeb.AdminMediaController do
   def update(_conn, _params) do
   end
 
-  def delete(_conn, _params) do
+  def delete(conn, %{"id" => media_id}) do
+    media = Squeak.Repo.get_by(Squeak.Medias.Media, flake_id: media_id)
+
+    if is_nil(media) do
+      conn
+      |> put_flash(:error, "Media not found")
+      |> redirect(to: SqueakWeb.Router.Helpers.admin_media_path(conn, :list))
+    end
+
+    case Squeak.Repo.delete(media) do
+      {:ok, _struct} ->
+        conn
+        |> put_flash(:info, "Media deleted")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_media_path(conn, :list))
+
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:info, "Cannot delete media")
+        |> redirect(to: SqueakWeb.Router.Helpers.admin_media_path(conn, :list))
+    end
   end
 end

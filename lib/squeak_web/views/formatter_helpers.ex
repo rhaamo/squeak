@@ -26,4 +26,8 @@ defmodule SqueakWeb.FormatterHelpers do
     unmarkdownize_unsafe(mdown, lines)
     |> raw
   end
+
+  def is_image(media) do
+    String.starts_with?(media.mime, "image/")
+  end
 end

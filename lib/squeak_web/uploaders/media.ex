@@ -4,41 +4,47 @@ defmodule Squeak.Uploaders.Media do
 
   @versions [:original, :thumb, :small, :medium, :large]
 
-  defp get_simple_mime_type(path) do
-    if File.exists?(path) do
-      {:ok, mime} = GenMagic.Pool.perform(Squeak.GenMagicPool, Path.expand(path))
-
-      mime.mime_type
+  defp get_simple_mime_type(file, scope) do
+    if !Map.has_key?(file, :path) do
+      scope.mime
       |> String.split("/")
       |> List.first()
     else
-      :error
+      if File.exists?(file.path) do
+        {:ok, mime} = GenMagic.Pool.perform(Squeak.GenMagicPool, Path.expand(file.path))
+
+        mime.mime_type
+        |> String.split("/")
+        |> List.first()
+      else
+        :error
+      end
     end
   end
 
-  def transform(:thumb, {file, _filename}) do
-    case get_simple_mime_type(file.path) do
-      "image" -> {:convert, "-strip -thumbnail 90x^ -gravity center -extent 90x"}
+  def transform(:thumb, {file, scope}) do
+    case get_simple_mime_type(file, scope) do
+      "image" -> {:convert, "-strip -thumbnail 160x^ -gravity center -extent 160x"}
       _ -> :skip
     end
   end
 
-  def transform(:small, {file, _filename}) do
-    case get_simple_mime_type(file.path) do
+  def transform(:small, {file, scope}) do
+    case get_simple_mime_type(file, scope) do
       "image" -> {:convert, "-strip -thumbnail 200x^ -gravity center -extent 200x"}
       _ -> :skip
     end
   end
 
-  def transform(:medium, {file, _filename}) do
-    case get_simple_mime_type(file.path) do
+  def transform(:medium, {file, scope}) do
+    case get_simple_mime_type(file, scope) do
       "image" -> {:convert, "-strip -thumbnail 400x^ -gravity center -extent 400x"}
       _ -> :skip
     end
   end
 
-  def transform(:large, {file, _filename}) do
-    case get_simple_mime_type(file.path) do
+  def transform(:large, {file, scope}) do
+    case get_simple_mime_type(file, scope) do
       "image" -> {:convert, "-strip -thumbnail 600x^ -gravity center -extent 600x"}
       _ -> :skip
     end

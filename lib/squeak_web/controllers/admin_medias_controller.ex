@@ -69,7 +69,9 @@ defmodule SqueakWeb.AdminMediaController do
     end
 
     case Squeak.Repo.delete(media) do
-      {:ok, _struct} ->
+      {:ok, struct} ->
+        :ok = Squeak.Uploaders.Media.delete({struct.filename, struct})
+
         conn
         |> put_flash(:info, "Media deleted")
         |> redirect(to: SqueakWeb.Router.Helpers.admin_media_path(conn, :list))

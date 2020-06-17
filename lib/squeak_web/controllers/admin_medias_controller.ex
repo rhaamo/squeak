@@ -28,15 +28,12 @@ defmodule SqueakWeb.AdminMediaController do
   def create(conn, %{"media" => media_params}) do
     date = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
 
-    {:ok, mime_type} =
-      GenMagic.Pool.perform(Squeak.GenMagicPool, Path.expand(media_params["media"].path))
-
     params =
       media_params
       |> Map.put("updated_at", date)
       |> Map.put("inserted_at", date)
       |> Map.put("original_filename", media_params["media"].filename)
-      |> Map.put("mime", mime_type.mime_type)
+      |> Map.put("mime", media_params["media"].content_type)
 
     changeset = Media.changeset(%Media{}, params)
 

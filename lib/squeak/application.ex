@@ -15,7 +15,7 @@ defmodule Squeak.Application do
       # Starts a worker by calling: Squeak.Worker.start_link(arg)
       # {Squeak.Worker, arg},
       Squeak.States.Config,
-      {GenMagic.Pool, [name: Squeak.GenMagicPool, pool_size: 2]}
+      {Majic.Pool, [name: Squeak.MajicPool, pool_size: 2]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

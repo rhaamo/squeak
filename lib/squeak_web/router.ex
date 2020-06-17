@@ -31,6 +31,10 @@ defmodule SqueakWeb.Router do
     plug SqueakWeb.Plugs.PreloadTags
   end
 
+  pipeline :upload do
+    plug Majic.Plug, pool: Squeak.MajicPool, fix_extension: false
+  end
+
   scope "/" do
     pipe_through [:browser, :preload_stuff]
 
@@ -96,7 +100,7 @@ defmodule SqueakWeb.Router do
   end
 
   scope "/admin/medias", SqueakWeb do
-    pipe_through [:browser, :admin]
+    pipe_through [:upload, :browser, :admin]
 
     get "/", AdminMediaController, :list
 

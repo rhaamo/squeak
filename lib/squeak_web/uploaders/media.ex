@@ -4,22 +4,10 @@ defmodule Squeak.Uploaders.Media do
 
   @versions [:original, :thumb, :small, :medium, :large]
 
-  defp get_simple_mime_type(file, scope) do
-    if !Map.has_key?(file, :path) do
-      scope.mime
-      |> String.split("/")
-      |> List.first()
-    else
-      if File.exists?(file.path) do
-        {:ok, mime} = GenMagic.Pool.perform(Squeak.GenMagicPool, Path.expand(file.path))
-
-        mime.mime_type
-        |> String.split("/")
-        |> List.first()
-      else
-        :error
-      end
-    end
+  defp get_simple_mime_type(_file, scope) do
+    scope.mime
+    |> String.split("/")
+    |> List.first()
   end
 
   def transform(:thumb, {file, scope}) do

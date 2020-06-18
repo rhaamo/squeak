@@ -11,7 +11,21 @@ opts = {
     parsingConfig: {
         strikethrough: true
     },
-    sideBySideFullscreen: false
+    sideBySideFullscreen: false,
+    toolbar: [
+        "bold", "italic", "strikethrough", "|",
+        "heading", "heading-bigger", "heading-smaller", "horizontal-rule", "|",
+        "quote", "code", "unordered-list", "ordered-list", "|",
+        "link", "image", {
+            name: "Media picker",
+            action: function customFunction(editor) {
+                // TODO media picker
+                console.log("clic clic");
+            },
+            className: "fa fa-file-image-o",
+            title: "Media picker"
+        }, "|",
+        "preview"]
 }
 let easyMDE = new EasyMDE(opts);
 </script>

@@ -1,9 +1,16 @@
 <script>
-    let element = document.getElementById('mediaPublishedAt');
-    let date = moment.utc(element.dataset['date']).local().format("ddd MM YYYY - h:m");
-    if (date) {
-        element.innerHTML = date;
-    } else {
-        console.log("cannot parse and format date");
+function setDate(el) {
+    let element = document.getElementById(el);
+    if (element) {
+        let date = moment.utc(element.dataset['date']).local().format("ddd MM YYYY - h:m");
+        if (date) {
+            element.innerHTML = date;
+        } else {
+            console.log("cannot parse and format date");
+        }
     }
+}
+
+setDate('mediaPublishedAt');
+setDate('mediaUpdatedAt');
 </script>

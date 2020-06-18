@@ -11,7 +11,7 @@
             <%= for media <- @medias do %>
                 <div class="card float-left mm-card" style="width: 10rem;">
                     <%= if is_image(media) do %>
-                        <img src="<%= Squeak.Uploaders.Media.url({media.filename, media}, :thumb) %>" class="card-img-top" alt="<%= media.filename %>" width="90px">
+                        <img src="<%= Squeak.Uploaders.Media.url({media.media, media}, :thumb) %>" class="card-img-top" alt="<%= media.filename %>" width="90px">
                     <% else %>
                         <i class="fa fa-file-o card-img-top" aria-hidden="true"></i>
                     <% end %>

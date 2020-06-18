@@ -18,7 +18,7 @@
             <% end %>
 
             <div class="form-group">
-                <label for="subject">Filename</label>
+                <label for="subject">File name</label>
                 <%= text_input f, :filename, class: "form-control", required: "required", placeholder: "shork.jpg" %>
             </div>
 

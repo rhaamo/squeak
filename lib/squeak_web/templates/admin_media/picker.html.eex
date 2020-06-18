@@ -1,23 +1,25 @@
+<div class="row row-cols-3 row-cols-md-5">
+    <%= for media <- @medias do %>
+        <div class="col mb-1">
+            <div class="card mm-card">
+                <%= if is_image(media) do %>
+                    <img src="<%= Squeak.Uploaders.Media.url({media.media, media}, :thumb) %>" class="card-img-top" alt="<%= media.filename %>" width="90px">
+                <% else %>
+                    <i class="fa fa-file-o card-img-top" aria-hidden="true"></i>
+                <% end %>
+                <div class="card-body">
+                    <p class="card-text">
+                        <%= media.filename %>
+                    </p>
+                    <a href="#" data-url="<%= Squeak.Uploaders.Media.url({media.media, media}, :original) %>" data-filename="<%= media.filename %>" class="selectMedia btn btn-sm btn-primary">Select</a>
+                </div>
+            </div>
+        </div>
+    <% end %>
+</div>
+
 <div class="row">
     <div class="col-md-12">
-        <div class="mm-cards clearfix">
-            <%= for media <- @medias do %>
-                <div class="card float-left mm-card" style="width: 10rem;">
-                    <%= if is_image(media) do %>
-                        <img src="<%= Squeak.Uploaders.Media.url({media.media, media}, :thumb) %>" class="card-img-top" alt="<%= media.filename %>" width="90px">
-                    <% else %>
-                        <i class="fa fa-file-o card-img-top" aria-hidden="true"></i>
-                    <% end %>
-                    <div class="card-body">
-                        <p class="card-text">
-                            <%= media.filename %>
-                        </p>
-                        <a href="#" data-url="<%= Squeak.Uploaders.Media.url({media.media, media}, :original) %>" data-filename="<%= media.filename %>" class="selectMedia btn btn-sm btn-primary">Select</a>
-                    </div>
-                </div>
-            <% end %>
-        </div>
-
         <hr>
         <nav aria-label="Page navigation">
             <ul class="pagination">

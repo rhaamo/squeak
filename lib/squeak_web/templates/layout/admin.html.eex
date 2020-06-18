@@ -38,9 +38,10 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <%= link "Admin", to: SqueakWeb.Router.Helpers.admin_path(@conn, :index), class: "dropdown-item" %>
                   <div class="dropdown-divider"></div>
+                  <%= link "All Posts", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :list), class: "dropdown-item" %>
                   <%= link "New Post", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :new), class: "dropdown-item" %>
                   <div class="dropdown-divider"></div>
-                  <%= link "Media manager", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :new), class: "dropdown-item" %>
+                  <%= link "Media manager", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :list), class: "dropdown-item" %>
                 </div>
               </li>
             <% end %>

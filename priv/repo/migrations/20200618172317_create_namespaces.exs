@@ -8,6 +8,6 @@ defmodule Squeak.Repo.Migrations.CreateNamespaces do
       add :parent_id, references(:namespaces, type: :binary_id), null: true
     end
 
-    create index :namespaces, [:parent_id]
+    create index(:namespaces, [:parent_id])
   end
 end

@@ -1,12 +1,71 @@
 <script>
-$('a.selectMedia').on('click', function(a) {
-    let url = $(this).data('url');
-    let filename = $(this).data('filename');
+function getBack(trigger) {
+    let url = trigger.data('url');
+    let filename = trigger.data('filename');
+    let mime = trigger.data('mime');
     try {
-        window.opener.mediaSelected(url, filename);
+        window.opener.mediaSelected(url, filename, mime);
     }
     catch (err) {}
     window.close();
-    return false;
-})
+   return false;
+}
+
+$('#mediaModal').on('show.bs.modal', function (event) {
+   let button = $(event.relatedTarget);
+   let mime = button.data('mime');
+   let filename = button.data('filename');
+   let modal = $(this);
+   modal.find('.modal-title').text(filename);
+
+    $('button.btn-pick-original').data('url', button.data('url'));
+    $('button.btn-pick-original').data('filename', filename);
+    $('button.btn-pick-original').data('mime', mime);
+
+   if (!mime.startsWith("image/")) {
+       $('li.pick-size-thumb').hide();
+       $('li.pick-size-small').hide();
+       $('li.pick-size-medium').hide();
+       $('li.pick-size-large').hide();
+   } else {
+       $('li.pick-size-thumb').show();
+       $('li.pick-size-small').show();
+       $('li.pick-size-medium').show();
+       $('li.pick-size-large').show();
+
+       $('button.btn-pick-thumb').data('url', button.data('url').replace('original', 'thumb'));
+       $('button.btn-pick-thumb').data('filename', filename);
+       $('button.btn-pick-thumb').data('mime', mime);
+
+       $('button.btn-pick-small').data('url', button.data('url').replace('original', 'small'));
+       $('button.btn-pick-small').data('filename', filename);
+       $('button.btn-pick-small').data('mime', mime);
+
+       $('button.btn-pick-medium').data('url', button.data('url').replace('original', 'medium'));
+       $('button.btn-pick-medium').data('filename', filename);
+       $('button.btn-pick-medium').data('mime', mime);
+
+       $('button.btn-pick-large').data('url', button.data('url').replace('original', 'large'));
+       $('button.btn-pick-large').data('filename', filename);
+       $('button.btn-pick-large').data('mime', mime);
+   }
+
+});
+
+$('button.btn-pick-original').on('click', function(a) {
+    getBack($(this));
+});
+$('button.btn-pick-thumb').on('click', function(a) {
+    getBack($(this));
+});
+$('button.btn-pick-small').on('click', function(a) {
+    getBack($(this));
+});
+$('button.btn-pick-medium').on('click', function(a) {
+    getBack($(this));
+});
+$('button.btn-pick-large').on('click', function(a) {
+    getBack($(this));
+});
+
 </script>

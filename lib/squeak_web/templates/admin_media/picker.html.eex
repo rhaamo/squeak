@@ -11,7 +11,7 @@
                     <p class="card-text">
                         <%= media.filename %>
                     </p>
-                    <a href="#" data-url="<%= Squeak.Uploaders.Media.url({media.media, media}, :original) %>" data-filename="<%= media.filename %>" class="selectMedia btn btn-sm btn-primary">Select</a>
+                    <button type="button" data-toggle="modal" data-target="#mediaModal" data-mime="<%= media.mime %>" data-url="<%= Squeak.Uploaders.Media.url({media.media, media}, :original) %>" data-filename="<%= media.filename %>" class="selectMedia btn btn-sm btn-primary">Select</a>
                 </div>
             </div>
         </div>
@@ -39,3 +39,25 @@
     </div>
 </div>
 
+<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Select size to insert:<br>
+        <ul class="picker-modal-sizes">
+            <li class="pick-size-original"><button class="btn btn-primary btn-sm btn-pick-original" type="button">original</li>
+            <li class="pick-size-thumb"><button class="btn btn-primary btn-sm btn-pick-thumb" type="button">thumb (160x)</li>
+            <li class="pick-size-small"><button class="btn btn-primary btn-sm btn-pick-small" type="button">small (200x)</li>
+            <li class="pick-size-medium"><button class="btn btn-primary btn-sm btn-pick-medium" type="button">medium (400x)</li>
+            <li class="pick-size-large"><button class="btn btn-primary btn-sm btn-pick-large" type="button">large (600x)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-/* Backend CSS. */
+/* Picker CSS. */
 
 @import "palette";
 @import "../node_modules/bootstrap/scss/bootstrap";
@@ -6,9 +6,11 @@
 @import "../node_modules/select2/dist/css/select2";
 @import "../node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4";
 
-@import "common";
 @import "alerts";
-@import "easymde.css";
+
+body {
+    margin-top: 1em;
+}
 
 div.mm-cards {
     margin-top: 1em;
@@ -22,4 +24,12 @@ div.mm-card {
 div.mediaShow {
     margin-top: 1em;
     margin-bottom: 2em;
+}
+
+ul.picker-modal-sizes {
+    list-style: none;
+}
+
+ul.picker-modal-sizes li {
+    margin-bottom: 5px;
 }

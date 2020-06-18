@@ -15,7 +15,8 @@ module.exports = (env, options) => ({
   },
   entry: {
     front: ['./css/front.scss'],
-    back: ['./css/back.scss']
+    back: ['./css/back.scss'],
+    picker: ['./css/picker.scss']
   },
   output: {
     filename: '[name].css',

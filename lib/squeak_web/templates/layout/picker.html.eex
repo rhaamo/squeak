@@ -10,7 +10,7 @@
 
   <title><%= assigns[:page_title] || "Squeak · Index" %></title>
 
-  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/back.css") %>"/>
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/picker.css") %>"/>
   <%= csrf_meta_tag() %>
 </head>
 

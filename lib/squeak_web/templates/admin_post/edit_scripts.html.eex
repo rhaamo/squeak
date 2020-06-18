@@ -21,7 +21,7 @@ opts = {
             action: function customFunction(editor) {
                 openMediaPicker(editor);
             },
-            className: "fa fa-file-image-o",
+            className: "fa fa-file-o",
             title: "Media picker"
         }, "|",
         "preview"]
@@ -33,13 +33,17 @@ function openMediaPicker(editor) {
     let $w = $(w.document.body);
 }
 
-function mediaSelected(url, filename) {
+function mediaSelected(url, filename, mime) {
     let cm = easyMDE.codemirror;
 
     let baseUrl = "<%= SqueakWeb.Endpoint.url %>";
 
     text = cm.getSelection();
-    cm.replaceSelection("![" + filename + "](" + baseUrl + url + ")");
+    if (mime.startsWith("image/")) {
+        cm.replaceSelection("![" + filename + "](" + baseUrl + url + ")");
+    } else {
+        cm.replaceSelection("[" + filename + "](" + baseUrl + url + ")");
+    }
     cm.focus();
 }
 </script>

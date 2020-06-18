@@ -12,6 +12,7 @@
     <div class="col-md-6">
         <table class="table table-sm">
         <tr><td>Filename</td><td><%= @media.filename %></td></tr>
+        <tr><td>Original Filename</td><td><%= @media.original_filename %></td></tr>
         <tr><td>Type</td><td><%= @media.mime %></td></tr>
         <tr><td>Uploaded on</td><td><span id="mediaPublishedAt" data-date="<%= @media.inserted_at %>"><%= date_format @media.inserted_at, "{D} {Mfull} {YYYY} {h24}:{m}" %></span></td></tr>
         <%= if is_image(@media) do %>

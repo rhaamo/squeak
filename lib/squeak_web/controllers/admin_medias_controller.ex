@@ -79,4 +79,16 @@ defmodule SqueakWeb.AdminMediaController do
         |> redirect(to: SqueakWeb.Router.Helpers.admin_media_path(conn, :list))
     end
   end
+
+  def show(conn, %{"id" => media_id}) do
+    media = Squeak.Repo.get_by(Squeak.Medias.Media, flake_id: media_id)
+
+    if is_nil(media) do
+      conn
+      |> put_flash(:error, "Media not found")
+      |> redirect(to: SqueakWeb.Router.Helpers.admin_media_path(conn, :list))
+    end
+
+    render(conn, "show.html", media: media)
+  end
 end

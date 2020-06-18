@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><%= link "Media Files", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :list), class: "nav-link" %></li>
+            <li class="nav-item"><%= link "Upload", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :new), class: "nav-link" %></li>
+            <li class="nav-item"><%= link @media.filename, to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :show, @media.flake_id), class: "nav-link active" %></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row mediaShow">
+    <div class="col-md-6">
+        <table class="table table-sm">
+        <tr><td>Filename</td><td><%= @media.filename %></td></tr>
+        <tr><td>Type</td><td><%= @media.mime %></td></tr>
+        <tr><td>Uploaded on</td><td><span id="mediaPublishedAt" data-date="<%= @media.inserted_at %>"><%= date_format @media.inserted_at, "{D} {Mfull} {YYYY} {h24}:{m}" %></span></td></tr>
+        <%= if is_image(@media) do %>
+            <tr>
+                <td>Sizes available</td>
+                <td>
+                    <%= link "original", to: Squeak.Uploaders.Media.url({@media.filename, @media}, :original), target: "_blank" %><br>
+                    <%= link "thumb (160x)", to: Squeak.Uploaders.Media.url({@media.filename, @media}, :thumb), target: "_blank" %><br>
+                    <%= link "small (200x)", to: Squeak.Uploaders.Media.url({@media.filename, @media}, :small), target: "_blank" %><br>
+                    <%= link "medium (400x)", to: Squeak.Uploaders.Media.url({@media.filename, @media}, :medium), target: "_blank" %><br>
+                    <%= link "large (600x)", to: Squeak.Uploaders.Media.url({@media.filename, @media}, :large), target: "_blank" %>
+                </td>
+            </tr>
+        <% else %>
+        <tr>
+            <td>Links</td>
+            <td><%= link "original", to: Squeak.Uploaders.Media.url({@media.filename, @media}, :original), target: "_blank" %></td>
+        </tr>
+        <% end %>
+        <tr>
+            <td colspan="2">
+                <%= link "Edit", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :edit, @media.flake_id), class: "btn btn-primary btn-sm" %>&nbsp;
+                <%= link "Delete", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :delete, @media.flake_id), method: :delete, data: [confirm: "Really ?"], class: "btn btn-danger btn-sm" %>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <%= if is_image(@media) do %>
+            <img src="<%= Squeak.Uploaders.Media.url({@media.filename, @media}, :small) %>" class="" alt="<%= @media.filename %>" width="200px">
+        <% end %>
+    </div>
+</div>

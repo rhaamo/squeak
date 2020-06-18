@@ -112,6 +112,8 @@ defmodule SqueakWeb.Router do
     put "/edit/:id", AdminMediaController, :update
 
     delete "/delete/:id", AdminMediaController, :delete
+
+    get "/show/:id", AdminMediaController, :show
   end
 
   scope "/api/admin", SqueakWeb do

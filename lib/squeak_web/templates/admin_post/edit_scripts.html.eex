@@ -42,7 +42,7 @@ function mediaSelected(url, filename, mime) {
     if (mime.startsWith("image/")) {
         cm.replaceSelection("![" + filename + "](" + baseUrl + url + ")");
     } else {
-        cm.replaceSelection("[" + filename + "](" + baseUrl + url + ")");
+        cm.replaceSelection("[" + filename + "](" + baseUrl + url + ") {: target='_blank'}");
     }
     cm.focus();
 }

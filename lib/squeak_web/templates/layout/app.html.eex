@@ -31,8 +31,18 @@
 
           <%= if Pow.Plug.current_user(@conn) do %>
             <%= if Squeak.Users.is_admin?(@current_user) do %>
-              <li class="nav-item"><%= link "New Post", to: "/admin/posts/new", class: "nav-link" %></li>
-              <li class="nav-item"><%= link "Admin", to: "/admin", class: "nav-link" %></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <%= link "Admin", to: SqueakWeb.Router.Helpers.admin_path(@conn, :index), class: "dropdown-item" %>
+                  <div class="dropdown-divider"></div>
+                  <%= link "New Post", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :new), class: "dropdown-item" %>
+                  <div class="dropdown-divider"></div>
+                  <%= link "Media manager", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :new), class: "dropdown-item" %>
+                </div>
+              </li>
             <% end %>
             <li class="nav-item"><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "nav-link" %></li>
           <% else %>

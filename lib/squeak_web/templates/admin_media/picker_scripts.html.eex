@@ -1,0 +1,12 @@
+<script>
+$('a.selectMedia').on('click', function(a) {
+    let url = $(this).data('url');
+    let filename = $(this).data('filename');
+    try {
+        window.opener.mediaSelected(url, filename);
+    }
+    catch (err) {}
+    window.close();
+    return false;
+})
+</script>

@@ -20,6 +20,23 @@ defmodule SqueakWeb.AdminMediaController do
     render(conn, "list.html", medias: medias)
   end
 
+  def picker(conn, params) do
+    max_id = params["max_id"]
+    since_id = params["since_id"]
+
+    medias =
+      Squeak.Medias.Media
+      |> Ecto.Query.order_by([a], desc: a.inserted_at)
+      |> Pagination.fetch_paginated(%{
+        "limit" => Squeak.States.Config.get(:pagination)[:medias],
+        "max_id" => max_id,
+        "since_id" => since_id
+      })
+
+    put_layout(conn, "picker.html")
+    |> render("picker.html", medias: medias)
+  end
+
   def new(conn, _params) do
     changeset = Media.changeset(%Media{}, %{})
     render(conn, "new.html", changeset: changeset)

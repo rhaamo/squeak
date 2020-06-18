@@ -15,12 +15,11 @@ opts = {
     toolbar: [
         "bold", "italic", "strikethrough", "|",
         "heading", "heading-bigger", "heading-smaller", "horizontal-rule", "|",
-        "quote", "code", "unordered-list", "ordered-list", "|",
+        "quote", "code", "unordered-list", "ordered-list", "table", "|",
         "link", "image", {
             name: "Media picker",
             action: function customFunction(editor) {
-                // TODO media picker
-                console.log("clic clic");
+                openMediaPicker(editor);
             },
             className: "fa fa-file-image-o",
             title: "Media picker"
@@ -28,4 +27,19 @@ opts = {
         "preview"]
 }
 let easyMDE = new EasyMDE(opts);
+
+function openMediaPicker(editor) {
+    let w = window.open("<%= SqueakWeb.Router.Helpers.admin_media_path(@conn, :picker) %>", "popupWindow", "width=740, height=600, scrollbars=yes");
+    let $w = $(w.document.body);
+}
+
+function mediaSelected(url, filename) {
+    let cm = easyMDE.codemirror;
+
+    let baseUrl = "<%= SqueakWeb.Endpoint.url %>";
+
+    text = cm.getSelection();
+    cm.replaceSelection("![" + filename + "](" + baseUrl + url + ")");
+    cm.focus();
+}
 </script>

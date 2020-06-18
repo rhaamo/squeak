@@ -103,6 +103,7 @@ defmodule SqueakWeb.Router do
     pipe_through [:upload, :browser, :admin]
 
     get "/", AdminMediaController, :list
+    get "/picker", AdminMediaController, :picker
 
     get "/new", AdminMediaController, :new
     post "/new", AdminMediaController, :create

@@ -1,12 +1,5 @@
 <div class="row">
     <div class="col-md-12">
-        <ul class="nav nav-tabs">
-            <li class="nav-item"><%= link "Media Files", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :list), class: "nav-link active" %></li>
-            <li class="nav-item"><%= link "Upload", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :new), class: "nav-link" %></li>
-        </ul>
-    </div>
-
-    <div class="col-md-12">
         <div class="mm-cards clearfix">
             <%= for media <- @medias do %>
                 <div class="card float-left mm-card" style="width: 10rem;">
@@ -17,11 +10,9 @@
                     <% end %>
                     <div class="card-body">
                         <p class="card-text">
-                            <%= link media.filename, to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :show, media.flake_id) %>
-                            <small><%= media.inserted_at %></small>
+                            <%= media.filename %>
                         </p>
-                        <%= link "Edit", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :edit, media.flake_id), class: "btn btn-primary btn-sm" %>&nbsp;
-                        <%= link "Delete", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :delete, media.flake_id), method: :delete, data: [confirm: "Really ?"], class: "btn btn-danger btn-sm" %>
+                        <a href="#" data-url="<%= Squeak.Uploaders.Media.url({media.media, media}, :original) %>" data-filename="<%= media.filename %>" class="selectMedia btn btn-sm btn-primary">Select</a>
                     </div>
                 </div>
             <% end %>
@@ -42,5 +33,7 @@
                 </li>
             </ul>
         </nav>
+
     </div>
 </div>
+

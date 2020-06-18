@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title><%= assigns[:page_title] || "Squeak · Index" %></title>
+
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/back.css") %>"/>
+  <%= csrf_meta_tag() %>
+</head>
+
+<body>
+  <!-- Page Content -->
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Blog Entries Column -->
+      <div class="content-body col-md-6 offset-md-2">
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <div><%= render @view_module, @view_template, assigns %></div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/jquery-3.5.1.min.js") %>"></script>
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/bootstrap.min.js") %>"></script>
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/moment-with-locales.min.js") %>"></script>
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/phoenix.js") %>"></script>
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/phoenix_html.js") %>"></script>
+  <%= render_existing @view_module, "scripts.html", assigns %>
+  <%= render_existing @view_module, "#{@conn.private.phoenix_action}_scripts.html", assigns %>
+</body>
+
+</html>

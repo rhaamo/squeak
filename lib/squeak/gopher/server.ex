@@ -73,8 +73,7 @@ defmodule Squeak.Gopher.Server.ProtocolHandler do
   end
 
   def link(name, selector, type \\ 1) do
-    # address = SqueakWeb.Endpoint.host()
-    address = "192.168.10.167"
+    address = SqueakWeb.Endpoint.host()
     port = Squeak.States.Config.get(:gopher) |> Map.get(:port, 1234)
     "#{type}#{name}\t#{selector}\t#{address}\t#{port}\r\n"
   end

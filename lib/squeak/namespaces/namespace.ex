@@ -9,4 +9,15 @@ defmodule Squeak.Namespaces.Namespace do
     field :name, :string
     belongs_to :parent, __MODULE__
   end
+
+  def create_namespace(name), do: create_namespace(name, parent: nil)
+
+  def create_namespace(name, parent: parent) do
+    namespace =
+      case parent do
+        nil -> %Squeak.Namespaces.Namespace{name: name}
+        parent -> %Squeak.Namespaces.Namespace{name: name, parent_id: parent.id}
+      end
+    namespace |> Squeak.Repo.insert!
+  end
 end

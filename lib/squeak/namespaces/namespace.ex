@@ -18,6 +18,7 @@ defmodule Squeak.Namespaces.Namespace do
         nil -> %Squeak.Namespaces.Namespace{name: name}
         parent -> %Squeak.Namespaces.Namespace{name: name, parent_id: parent.id}
       end
-    namespace |> Squeak.Repo.insert!
+
+    namespace |> Squeak.Repo.insert!()
   end
 end

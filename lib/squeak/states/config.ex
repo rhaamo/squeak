@@ -15,7 +15,8 @@ defmodule Squeak.States.Config do
     [
       [:registration, false],
       [:pagination, %{posts: 10}],
-      [:app_name, "Squeaky website"]
+      [:app_name, "Squeaky website"],
+      [:gopher, %{ip: {0, 0, 0, 0}, port: 1234, enabled: false}]
     ]
     |> Enum.each(fn x ->
       [k, v] = x

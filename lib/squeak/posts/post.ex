@@ -72,6 +72,10 @@ defmodule Squeak.Posts.Post do
     from(t in Squeak.Posts.Post, where: t.subject == ^subject)
   end
 
+  defp post_by_flake_id_query(flake_id) do
+    from(t in Squeak.Posts.Post, where: t.flake_id == ^flake_id)
+  end
+
   @spec get_post_by_slug(String.t()) :: Post.t() | nil
   def get_post_by_slug(slug) do
     slug
@@ -90,6 +94,12 @@ defmodule Squeak.Posts.Post do
   def get_post_by_subject(subject) do
     subject
     |> post_by_subject_query
+    |> Squeak.Repo.one()
+  end
+
+  def get_post_by_flake_id(flake_id) do
+    flake_id
+    |> post_by_flake_id_query
     |> Squeak.Repo.one()
   end
 

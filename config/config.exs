@@ -50,6 +50,11 @@ config :squeak,
   pagination: %{
     posts: 10,
     medias: 20
+  },
+  gopher: %{
+    ip: {0, 0, 0, 0},
+    port: 1234,
+    enabled: false
   }
 
 # Import environment specific config. This must remain at the bottom

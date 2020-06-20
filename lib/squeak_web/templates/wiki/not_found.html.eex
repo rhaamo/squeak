@@ -1,5 +1,18 @@
 <div class="row">
     <div class="col-md-9">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Wiki</li>
+                <%= for a <- @path do %>
+                    <li class="breadcrumb-item<%= if a == List.last(@path) do " active" end %>"><%= a %></li>
+                <% end %>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
         The page <%= @page %> could not be found.
     </div>
 </div>

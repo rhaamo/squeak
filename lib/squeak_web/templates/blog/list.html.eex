@@ -11,7 +11,7 @@
             <!-- Blog Post -->
             <div class="card mb-4">
             <div class="card-body">
-                <h2 class="card-title"><%= post.subject %></h2>
+                <h2 class="card-title"><%= link post.subject, to: SqueakWeb.Router.Helpers.blog_path(@conn, :show, post.user.slug, post.slug) %></h2>
                 <p class="card-text"><%= unmarkdownize post.content, 10 %></p>
                 <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, :show, post.user.slug, post.slug), class: "btn btn-info btn-sm" do %>
                 Read More &rarr;

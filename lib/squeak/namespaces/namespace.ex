@@ -28,7 +28,10 @@ defmodule Squeak.Namespaces.Namespace do
     if is_nil(parent_id) do
       from(t in Squeak.Namespaces.Namespace, where: t.name == ^name, where: is_nil(t.parent_id))
     else
-      from(t in Squeak.Namespaces.Namespace, where: t.name == ^name, where: t.parent_id == ^parent_id)
+      from(t in Squeak.Namespaces.Namespace,
+        where: t.name == ^name,
+        where: t.parent_id == ^parent_id
+      )
     end
   end
 

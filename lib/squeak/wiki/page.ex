@@ -22,4 +22,22 @@ defmodule Squeak.Wiki.Page do
     end
     |> Squeak.Repo.one()
   end
+
+  def get_rootless_pages_query() do
+    from(t in Squeak.Wiki.Page, where: is_nil(t.namespace_id))
+  end
+
+  def get_rootless_pages() do
+    from(t in Squeak.Wiki.Page, where: is_nil(t.namespace_id))
+    |> Squeak.Repo.all()
+  end
+
+  def get_in_namespace_query(namespace) do
+    from(t in Squeak.Wiki.Page, where: t.namespace_id == ^namespace.id)
+  end
+
+  def get_in_namespace(namespace) do
+    get_in_namespace_query(namespace)
+    |> Squeak.Repo.all()
+  end
 end

@@ -32,4 +32,22 @@ defmodule SqueakWeb.FormatterHelpers do
   end
 
   def reencode(str), do: str |> URI.decode() |> URI.encode()
+
+  # TODO: this doesn't handle a proper tree but only root-less and meta
+  def wiki_tree() do
+    rootlesses = Squeak.Wiki.Page.get_rootless_pages_query() |> Squeak.Repo.all()
+
+    metas =
+      Squeak.Namespaces.Namespace.get_by_name_and_parent("meta", nil)
+      |> Squeak.Wiki.Page.get_in_namespace_query()
+      |> Squeak.Repo.all()
+
+    %{"root" => rootlesses, "meta" => metas}
+  end
+
+  def wiki_page_url(conn, name, namespaces) do
+    ns = Enum.join(namespaces, ":")
+    path = "#{ns}:#{name}"
+    reencode(SqueakWeb.Router.Helpers.wiki_path(conn, :page, path))
+  end
 end

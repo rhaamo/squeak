@@ -27,6 +27,10 @@ defmodule SqueakWeb.Router do
     plug :put_layout, {SqueakWeb.LayoutView, :admin}
   end
 
+  pipeline :wiki do
+    plug :put_layout, {SqueakWeb.LayoutView, :wiki}
+  end
+
   pipeline :preload_stuff do
     plug SqueakWeb.Plugs.PreloadTags
   end
@@ -79,7 +83,12 @@ defmodule SqueakWeb.Router do
   end
 
   scope "/wiki", SqueakWeb do
-    pipe_through :browser
+    pipe_through [:browser, :wiki]
+  end
+
+  scope "/wiki/p", SqueakWeb do
+    pipe_through [:browser, :wiki]
+    get "/:path", WikiController, :page
   end
 
   scope "/admin", SqueakWeb do

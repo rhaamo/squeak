@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-9">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <%= for a <- @path do %>
+                    <li class="breadcrumb-item"><%= a %></li>
+                <% end %>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        <%= unmarkdownize @page.content %>
+    </div>
+</div>

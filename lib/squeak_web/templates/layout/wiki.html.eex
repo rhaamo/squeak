@@ -10,7 +10,7 @@
 
   <title><%= assigns[:page_title] || "Squeak · Index" %></title>
 
-  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/back.css") %>"/>
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/front.css") %>"/>
   <%= csrf_meta_tag() %>
 </head>
 
@@ -72,26 +72,26 @@
       <!-- Sidebar Widgets Column -->
       <div class="col-md-2">
 
-        <!-- Side Widget -->
+        <!-- Search Widget -->
         <div class="card my-4">
-          <h5 class="card-header">Administration</h5>
+          <h5 class="card-header">Search</h5>
           <div class="card-body">
-            <ul class="list-unstyled mb-0">
-              <li>
-                <%= link "Configuration", to: "/admin/config" %>
-              </li>
-              <li>
-                <%= link "Media manager", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :list) %>
-              </li>
-            </ul>
+            <form method="get">
+              <div class="input-group">
+                <input type="text" id="q" name="q" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+                  <input formaction="<%= SqueakWeb.Router.Helpers.blog_path(@conn, :search) %>" class="btn btn-secondary" type="submit" value="B" title="Search on the blog">
+                  <input formaction="" class="btn btn-secondary" type="submit" value="W" title="Search on the wiki">
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
 
-            <hr>
-
-            <ul class="list-unstyled mb-0">
-              <li>
-                <%= link "All posts", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :list) %>
-              </li>
-            </ul>
+        <!-- Fourre tout -->
+        <div class="card my-4">
+          <h5 class="card-header">Meta</h5>
+          <div class="card-body">
           </div>
         </div>
 
@@ -109,16 +109,13 @@
       <p class="m-0 text-center text-white"><a href="https://github.com/rhaamo/squeak/" target="_blank">squeak squeak!</a></p>
       <%= if Pow.Plug.current_user(@conn) do %>
         <p class="m-0 text-center text-white">Logged in as <%= @current_user.username %> <%= if Squeak.Users.is_admin?(@current_user) do %>(admin)<% else %>(user)<% end %></p>
-      <% end %>
-    </div>
+      <% end %>    </div>
     <!-- /.container -->
   </footer>
 
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/jquery-3.5.1.min.js") %>"></script>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/bootstrap.min.js") %>"></script>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/moment-with-locales.min.js") %>"></script>
-  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/select2.full.min.js") %>"></script>
-  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/easymde.min.js") %>"></script>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/phoenix.js") %>"></script>
   <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vendors/phoenix_html.js") %>"></script>
   <%= render_existing @view_module, "scripts.html", assigns %>

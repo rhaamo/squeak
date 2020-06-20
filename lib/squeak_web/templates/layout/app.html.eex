@@ -27,7 +27,7 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><%= link "Blog", to: "/blog", class: "nav-link" %></li>
           <li class="nav-item"><%= link "Wiki", to: "/wiki", class: "nav-link" %></li>
-          <li class="nav-item"><%= link "About", to: "/about", class: "nav-link" %></li>
+          <li class="nav-item"><%= link "About", to: SqueakWeb.Router.Helpers.wiki_path(@conn, :page, "meta:about"), class: "nav-link" %></li>
 
           <%= if Pow.Plug.current_user(@conn) do %>
             <%= if Squeak.Users.is_admin?(@current_user) do %>

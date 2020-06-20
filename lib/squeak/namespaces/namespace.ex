@@ -8,6 +8,7 @@ defmodule Squeak.Namespaces.Namespace do
   schema "namespaces" do
     field :name, :string
     belongs_to :parent, __MODULE__
+    has_many :pages, Squeak.Wiki.Page
   end
 
   def create_namespace(name), do: create_namespace(name, parent: nil)

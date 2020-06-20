@@ -30,4 +30,6 @@ defmodule SqueakWeb.FormatterHelpers do
   def is_image(media) do
     String.starts_with?(media.mime, "image/")
   end
+
+  def reencode(str), do: str |> URI.decode() |> URI.encode()
 end

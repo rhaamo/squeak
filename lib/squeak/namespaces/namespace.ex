@@ -1,6 +1,7 @@
 defmodule Squeak.Namespaces.Namespace do
   use Ecto.Schema
   use Arbor.Tree, foreign_key: :parent_id, foreign_key_type: :binary_id
+  import Ecto.Query
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -21,5 +22,18 @@ defmodule Squeak.Namespaces.Namespace do
       end
 
     namespace |> Squeak.Repo.insert!()
+  end
+
+  def get_by_name_and_parent_query(name, parent_id) do
+    if is_nil(parent_id) do
+      from(t in Squeak.Namespaces.Namespace, where: t.name == ^name, where: is_nil(t.parent_id))
+    else
+      from(t in Squeak.Namespaces.Namespace, where: t.name == ^name, where: t.parent_id == ^parent_id)
+    end
+  end
+
+  def get_by_name_and_parent(name, parent_id) do
+    get_by_name_and_parent_query(name, parent_id)
+    |> Squeak.Repo.one()
   end
 end

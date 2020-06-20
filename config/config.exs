@@ -10,6 +10,10 @@ use Mix.Config
 config :squeak,
   ecto_repos: [Squeak.Repo]
 
+config :seedex,
+  repo: Squeak.Repo,
+  seeds_path: "priv/repo/seeds"
+
 # Configures the endpoint
 config :squeak, SqueakWeb.Endpoint,
   url: [host: "localhost"],

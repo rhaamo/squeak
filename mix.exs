@@ -56,7 +56,8 @@ defmodule Squeak.MixProject do
       {:waffle, "~> 1.1.0"},
       {:waffle_ecto, "~> 0.0.9"},
       {:majic, git: "https://github.com/hrefhref/majic", branch: "develop"},
-      {:arbor, "~> 1.1.0"}
+      {:arbor, "~> 1.1.0"},
+      {:seedex, "~> 0.3.0"}
     ]
   end
 

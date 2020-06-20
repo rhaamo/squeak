@@ -8,7 +8,7 @@ defmodule Squeak.Wiki.Page do
     field :content, :string
     field :flake_id, FlakeId.Ecto.Type, autogenerate: true
 
-    belongs_to :namespace, Squeak.Namespaces.Namespace
+    belongs_to :namespace, Squeak.Namespaces.Namespace, type: :binary_id
 
     timestamps(type: :utc_datetime)
   end

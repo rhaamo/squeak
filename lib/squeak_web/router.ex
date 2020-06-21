@@ -86,6 +86,7 @@ defmodule SqueakWeb.Router do
   scope "/wiki", SqueakWeb do
     pipe_through [:browser, :wiki]
     get "/", Redirector, to: "/wiki/p/start"
+    get "/tree", WikiController, :tree
   end
 
   scope "/wiki/p", SqueakWeb do

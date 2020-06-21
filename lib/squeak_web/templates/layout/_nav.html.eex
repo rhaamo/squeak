@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <%= link Squeak.States.Config.get(:app_name), to: "/", class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><%= link "Blog", to: "/blog", class: "nav-link" %></li>
+            <li class="nav-item"><%= link "Wiki", to: "/wiki", class: "nav-link" %></li>
+            <li class="nav-item"><%= link "About", to: SqueakWeb.FormatterHelpers.reencode(SqueakWeb.Router.Helpers.wiki_path(@conn, :page, ["meta:about"])), class: "nav-link" %></li>
+
+            <%= if Pow.Plug.current_user(@conn) do %>
+            <%= if Squeak.Users.is_admin?(@current_user) do %>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <%= link "Admin", to: SqueakWeb.Router.Helpers.admin_path(@conn, :index), class: "dropdown-item" %>
+                    <div class="dropdown-divider"></div>
+                    <%= link "All Posts", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :list), class: "dropdown-item" %>
+                    <%= link "New Post", to: SqueakWeb.Router.Helpers.admin_post_path(@conn, :new), class: "dropdown-item" %>
+                    <div class="dropdown-divider"></div>
+                    <%= link "Media manager", to: SqueakWeb.Router.Helpers.admin_media_path(@conn, :list), class: "dropdown-item" %>
+                </div>
+                </li>
+            <% end %>
+            <li class="nav-item"><%= link "Sign out", to: Routes.pow_session_path(@conn, :delete), method: :delete, class: "nav-link" %></li>
+            <% else %>
+            <%= if @registration_enabled do %>
+                <li class="nav-item"><%= link "Register", to: Routes.pow_registration_path(@conn, :new), class: "nav-link" %></li>
+            <% end %>
+            <li class="nav-item"><%= link "Sign in", to: Routes.pow_session_path(@conn, :new), class: "nav-link" %></li>
+            <% end %>
+        </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,11 @@
+<%# TODO: this doesn't handle a proper tree but only root-less and meta %>
+<%= for {k, v} <- SqueakWeb.FormatterHelpers.wiki_tree do %>
+    <%= if length(v) >= 1 do%>
+        <h4>&raquo; <%= k %></h4>
+        <ul>
+            <%= for x <- v do %>
+            <li><%= link x.name, to: SqueakWeb.FormatterHelpers.wiki_page_url(@conn, x.name, [k])  %></li>
+            <% end %>
+        </ul>
+    <% end %>
+<% end %>

@@ -39,4 +39,8 @@ defmodule SqueakWeb.WikiController do
       )
     end
   end
+
+  def tree(conn, _, _) do
+    render(conn, "tree.html")
+  end
 end

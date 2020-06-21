@@ -1,20 +1,32 @@
 # Squeak
 
-To start your Phoenix server:
+Squeak is a something-something blog and wiki engine, with some specific features for hackers/makers/whatevers.
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+Features (not exhaustive and some might still be planned):
+- Blog posts (markdown, with Enhanced™️ editor)
+- Medias manager with namespacing support
+- Medias manager handles everything, images are resized to 4 different sizes (thumb, small, medium, large)
+- Wiki pages (markdown, with Enhanced™️ editor)
+- Wiki pages handles namespacing with `:`
+- Builtin gopher server serving blog and wiki pages
+- A wiki page can be tagged "hw equipment", enabling a separate, linked, sheet with summary information specs and a changelog editor
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Install
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+- git clone
+- cd
+- mix deps.get
+- mix compile
+- cp config/sample.prod.secret.exs config/prod.secret.exs
+- mix ecto.migrate
+- mix seedex.seed
+- mix phx.server
+- enjoy
 
-## Learn more
+## Contact
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+Dashie: fluffy @ otter dot sh
+
+## License
+
+AGPL 3

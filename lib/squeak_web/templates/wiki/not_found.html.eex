@@ -9,6 +9,9 @@
             </ol>
         </nav>
     </div>
+    <div class="col-md-3">
+        <%= render "_edit_links.html", conn: @conn, page: assigns[:page] %>
+    </div>
 </div>
 
 <div class="row">

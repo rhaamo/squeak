@@ -1,0 +1,10 @@
+<%= if Pow.Plug.current_user(@conn) do %>
+    <%= if Squeak.Users.is_admin?(@current_user) do %>
+        <%= if assigns[:page] do %>
+            <%= link "edit", to: "/", class: "btn btn-sm btn-primary" %>
+            <%= link "delete", to: "/", class: "btn btn-sm btn-danger" %>
+        <% else %>
+            <%= link "create", to: "/", class: "btn btn-sm btn-primary" %>
+        <% end %>
+    <% end %>
+<% end %>

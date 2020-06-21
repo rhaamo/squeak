@@ -1,4 +1,5 @@
 defmodule SqueakWeb.Plugs.Assigns do
+  @behaviour Plug
   # import Plug.Conn
 
   def init(assigns), do: assigns

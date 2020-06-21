@@ -1,4 +1,5 @@
 defmodule SqueakWeb.Plugs.PreloadTags do
+  @behaviour Plug
   require Ecto.Query
 
   def init(default), do: default

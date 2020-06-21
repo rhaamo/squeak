@@ -10,6 +10,7 @@ defmodule SqueakWeb.Plugs.EnsureRole do
 
       plug SqueakWeb.Plugs.EnsureRole, ~w(user admin)a
   """
+  @behaviour Plug
 
   import Plug.Conn, only: [halt: 1]
 

@@ -29,6 +29,7 @@ defmodule SqueakWeb.Router do
 
   pipeline :wiki do
     plug :put_layout, {SqueakWeb.LayoutView, :wiki}
+    plug SqueakWeb.Plugs.WikiPath
   end
 
   pipeline :preload_stuff do

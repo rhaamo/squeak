@@ -1,6 +1,7 @@
 defmodule Squeak.Wiki.Page do
   use Ecto.Schema
   import Ecto.Query
+  require Logger
 
   @primary_key {:id, :id, autogenerate: true}
 
@@ -12,6 +13,15 @@ defmodule Squeak.Wiki.Page do
     belongs_to :namespace, Squeak.Namespaces.Namespace, type: :binary_id
 
     timestamps(type: :utc_datetime)
+  end
+
+  def split_path(path) do
+    fullpath = Enum.reverse(String.split(path, ":"))
+    page = hd(fullpath)
+    namespaces = tl(fullpath)
+    namespaces = namespaces |> Enum.reverse()
+    Logger.info("Got page: #{inspect(page)} and namespaces: #{inspect(namespaces)}")
+    [namespaces, page]
   end
 
   def get_by_namespace_id_and_name(namespace_id, name) do

@@ -2,17 +2,12 @@ defmodule SqueakWeb.WikiController do
   use SqueakWeb, :controller
   require Logger
 
-  defp split_path(path) do
-    fullpath = Enum.reverse(String.split(path, ":"))
-    page = hd(fullpath)
-    namespaces = tl(fullpath)
-    namespaces = namespaces |> Enum.reverse()
-    Logger.info("Got page: #{inspect(page)} and namespaces: #{inspect(namespaces)}")
-    [namespaces, page]
+  def action(conn, _) do
+    args = [conn, conn.params, conn.assigns]
+    apply(__MODULE__, action_name(conn), args)
   end
 
-  def page(conn, %{"path" => path}) do
-    [namespaces, page_name] = split_path(path)
+  def page(conn, _, %{page_name: page_name, namespaces: namespaces, fullpath: fullpath}) do
     # todo handle parent_id for namespace
     namespace =
       if length(namespaces) == 0 do
@@ -31,14 +26,14 @@ defmodule SqueakWeb.WikiController do
     if is_nil(page) do
       render(conn, "not_found.html",
         namespaces: namespaces,
-        path: namespaces ++ [page_name],
+        path: fullpath,
         page_name: page_name,
         page: page
       )
     else
       render(conn, "page.html",
         namespaces: namespaces,
-        path: namespaces ++ [page_name],
+        path: fullpath,
         page_name: page_name,
         page: page
       )

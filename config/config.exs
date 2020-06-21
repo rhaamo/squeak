@@ -14,6 +14,9 @@ config :seedex,
   repo: Squeak.Repo,
   seeds_path: "priv/repo/seeds"
 
+config :revisionair, storage: RevisionairEcto
+config :revisionair_ecto, repo: Squeak.Repo
+
 # Configures the endpoint
 config :squeak, SqueakWeb.Endpoint,
   url: [host: "localhost"],

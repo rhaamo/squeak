@@ -7,12 +7,12 @@ defmodule SqueakWeb.WikiEditController do
     apply(__MODULE__, action_name(conn), args)
   end
 
-  def edit(conn, _, %{page_name: _page_name, namespaces: _namespaces, fullpath: _fullpath}) do
+  def edit(_conn, _, %{page_name: _page_name, namespaces: _namespaces, fullpath: _fullpath}) do
   end
 
-  def update(conn, _, %{page_name: _page_name, namespaces: _namespaces, fullpath: _fullpath}) do
+  def update(_conn, _, %{page_name: _page_name, namespaces: _namespaces, fullpath: _fullpath}) do
   end
 
-  def delete(conn, _, %{page_name: _page_name, namespaces: _namespaces, fullpath: _fullpath}) do
+  def delete(_conn, _, %{page_name: _page_name, namespaces: _namespaces, fullpath: _fullpath}) do
   end
 end

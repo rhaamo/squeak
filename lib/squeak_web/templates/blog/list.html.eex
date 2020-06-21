@@ -4,7 +4,7 @@
             <% assigns[:user] -> %><h2>Blog posts by <%= @user.username %></h2>
             <% assigns[:tag] -> %><h2>Blog posts with tag <%= @tag.name %></h2>
             <% assigns[:q] -> %><h2>Blog posts matching '<%= @q %>'</h2>
-            <% true -> %><h2>All blog posts</h2>
+            <% true -> %>
         <% end %>
 
         <%= for post <- @posts do %>

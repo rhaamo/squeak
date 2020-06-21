@@ -48,6 +48,6 @@ defmodule SqueakWeb.FormatterHelpers do
   def wiki_page_url(conn, name, namespaces) do
     ns = Enum.join(namespaces, ":")
     path = "#{ns}:#{name}"
-    reencode(SqueakWeb.Router.Helpers.wiki_path(conn, :page, path))
+    reencode(SqueakWeb.Router.Helpers.wiki_path(conn, :page, [path]))
   end
 end

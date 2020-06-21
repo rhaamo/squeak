@@ -91,7 +91,7 @@ defmodule SqueakWeb.Router do
   scope "/wiki/p", SqueakWeb do
     pipe_through [:browser, :wiki]
     get "/", Redirector, to: "/wiki/p/start"
-    get "/:path", WikiController, :page
+    get "/*path", WikiController, :page
   end
 
   scope "/admin", SqueakWeb do

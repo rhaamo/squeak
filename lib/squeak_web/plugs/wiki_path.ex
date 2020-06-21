@@ -4,7 +4,8 @@ defmodule SqueakWeb.Plugs.WikiPath do
   def init(default), do: default
 
   @doc "Handle the splitting of path, and slug+downcasing"
-  def call(%{params: %{"path" => path}} = conn, _) do
+  def call(%{params: %{"path" => orig_path}} = conn, _) do
+    path = orig_path |> Enum.join(":")
     [namespaces, page_name] = Squeak.Wiki.Page.split_path(path)
 
     namespaces_slugged =
@@ -14,8 +15,13 @@ defmodule SqueakWeb.Plugs.WikiPath do
 
     page_name_slugged = Slugger.slugify_downcase(page_name)
 
-    if [namespaces, page_name] != [namespaces_slugged, page_name_slugged] do
-      url = SqueakWeb.FormatterHelpers.wiki_page_url(conn, page_name_slugged, namespaces_slugged)
+    new_path = Enum.join(namespaces_slugged ++ [page_name_slugged], ":")
+
+    # Notes: the routing is a glob, not classic arg, then "foo/bar" gets paramed as ["foo", "bar"]
+    if Enum.join(orig_path, "/") != new_path do
+      url =
+        SqueakWeb.Router.Helpers.wiki_path(conn, :page, [new_path])
+        |> SqueakWeb.FormatterHelpers.reencode()
 
       conn
       |> redirect(to: url)

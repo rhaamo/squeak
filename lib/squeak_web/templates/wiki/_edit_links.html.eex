@@ -1,10 +1,10 @@
 <%= if Pow.Plug.current_user(@conn) do %>
     <%= if Squeak.Users.is_admin?(@current_user) do %>
         <%= if assigns[:page] do %>
-            <%= link "edit", to: "/", class: "btn btn-sm btn-primary" %>
-            <%= link "delete", to: "/", class: "btn btn-sm btn-danger" %>
+            <%= link "edit", to: wiki_edit_page_url(@conn, @fullpath, :edit), class: "btn btn-sm btn-primary" %>
+            <%= link "delete", to: wiki_edit_page_url(@conn, @fullpath, :delete), class: "btn btn-sm btn-danger", method: :delete, data: [confirm: "Really ?"] %>
         <% else %>
-            <%= link "create", to: "/", class: "btn btn-sm btn-primary" %>
+            <%= link "create", to: wiki_edit_page_url(@conn, @fullpath, :edit), class: "btn btn-sm btn-primary" %>
         <% end %>
     <% end %>
 <% end %>

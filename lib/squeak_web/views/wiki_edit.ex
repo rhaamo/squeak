@@ -1,4 +1,4 @@
 defmodule SqueakWeb.WikiEditView do
   use SqueakWeb, :view
-  # import SqueakWeb.FormatterHelpers
+  import SqueakWeb.FormatterHelpers
 end

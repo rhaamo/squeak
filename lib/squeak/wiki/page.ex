@@ -1,6 +1,7 @@
 defmodule Squeak.Wiki.Page do
   use Ecto.Schema
   import Ecto.Query
+  import Ecto.Changeset
   require Logger
 
   @primary_key {:id, :id, autogenerate: true}
@@ -13,6 +14,12 @@ defmodule Squeak.Wiki.Page do
     belongs_to :namespace, Squeak.Namespaces.Namespace, type: :binary_id
 
     timestamps(type: :utc_datetime)
+  end
+
+  def changeset(page, attrs) do
+    page
+    |> cast(attrs, [:content, :inserted_at, :updated_at])
+    |> validate_required([:content])
   end
 
   def split_path(path) do

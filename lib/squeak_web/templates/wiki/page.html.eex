@@ -10,7 +10,7 @@
         </nav>
     </div>
     <div class="col-md-3">
-        <%= render "_edit_links.html", conn: @conn, page: assigns[:page] %>
+        <%= render "_edit_links.html", conn: @conn, page: assigns[:page], current_user: @current_user, fullpath: @fullpath %>
     </div>
 </div>
 

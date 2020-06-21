@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-9">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">Wiki</li>
+                <%= for a <- @path do %>
+                    <li class="breadcrumb-item<%= if a == List.last(@path) do " active" end %>"><%= a %></li>
+                <% end %>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-md-3">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        <%= form_for @changeset, wiki_edit_page_url(@conn, @fullpath, :update), fn f -> %>
+            <%= if f.errors != [] do %>
+                <div class="alert alert-danger">
+                <p>Oops, something went wrong! Please check the errors below:</p>
+                <ul>
+                    <%= for {field, {message, _}} <- f.source.errors do %>
+                        <li><%= humanize(field) %> <%= message %></li>
+                    <% end %>
+                </ul>
+                </div>
+            <% end %>
+
+            <div class="form-group">
+                <%= textarea f, :content, cols: 40, rows: 10, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+                <%= submit "Save", class: "btn btn-primary" %>
+            </div>
+        <% end %>
+    </div>
+</div>

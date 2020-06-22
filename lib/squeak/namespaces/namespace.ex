@@ -42,12 +42,7 @@ defmodule Squeak.Namespaces.Namespace do
     case tail do
       [] ->
         ns = Squeak.Namespaces.Namespace.get_by_name_and_parent(head, parent)
-
-        if is_nil(ns) do
-          records ++ [ns]
-        else
-          records ++ [ns]
-        end
+        records ++ [ns]
 
       tail ->
         ns = Squeak.Namespaces.Namespace.get_by_name_and_parent(head, parent)

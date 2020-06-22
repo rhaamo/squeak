@@ -68,15 +68,22 @@ defmodule SqueakWeb.WikiEditController do
     date = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
 
     if is_nil(page) do
-      parent_namespace =
-        Squeak.Namespaces.Namespace.get_or_create_namespaces(namespaces)
-        |> List.last()
+      parent_namespace_id =
+        if length(namespaces) == 0 do
+          nil
+        else
+          ns =
+            Squeak.Namespaces.Namespace.get_or_create_namespaces(namespaces)
+            |> List.last()
+
+          ns.id
+        end
 
       params =
         page_params
         |> Map.put("name", page_name)
         |> Map.put("inserted_at", date)
-        |> Map.put("namespace_id", parent_namespace.id)
+        |> Map.put("namespace_id", parent_namespace_id)
 
       changeset = Squeak.Wiki.Page.changeset(%Squeak.Wiki.Page{}, params)
 
@@ -96,11 +103,27 @@ defmodule SqueakWeb.WikiEditController do
         )
       end
     else
-      _params =
+      params =
         page_params
         |> Map.put("updated_at", date)
 
-      # edit
+      changeset = Squeak.Wiki.Page.changeset(page, params)
+
+      if changeset.valid? do
+        {:ok, _obj} = Squeak.Repo.update(changeset)
+
+        conn
+        |> put_flash(:info, "Page updated")
+        |> redirect(to: SqueakWeb.FormatterHelpers.wiki_page_path(conn, page_name, namespaces))
+      else
+        render(conn, "edit.html",
+          page: page,
+          page_name: page_name,
+          namespaces: namespaces,
+          path: fullpath,
+          changeset: changeset
+        )
+      end
     end
   end
 

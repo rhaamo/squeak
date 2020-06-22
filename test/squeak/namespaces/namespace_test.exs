@@ -20,9 +20,6 @@ defmodule Squeak.Namespaces.NamespaceTest do
   @tag fixtures: :namespaces
   test "test resolve_tree 1-2-3", %{data: _data} do
     a = Squeak.Namespaces.Namespace.resolve_tree(["ns_one", "ns_two", "ns_three"])
-    Enum.map(a, fn x ->
-      IO.puts("x: " <> x.name)
-    end)
     assert length(a) == 3
     assert Enum.at(a, 0).name == "ns_one"
     assert Enum.at(a, 1).name == "ns_two"

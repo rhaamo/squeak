@@ -127,6 +127,35 @@ defmodule SqueakWeb.WikiEditController do
     end
   end
 
-  def delete(_conn, _, %{page_name: _page_name, namespaces: _namespaces, fullpath: _fullpath}) do
+  def delete(conn, _, %{page_name: page_name, namespaces: namespaces, fullpath: _fullpath}) do
+    namespaces_records = Squeak.Namespaces.Namespace.resolve_tree(namespaces)
+
+    namespace_id =
+      if Enum.member?(namespaces_records, nil) do
+        # We have a non existing namespace, page will not exists
+        nil
+      else
+        List.last(namespaces_records).id
+      end
+
+    page = Squeak.Wiki.Page.get_by_namespace_id_and_name(namespace_id, page_name)
+
+    if is_nil(page) do
+      conn
+      |> put_flash(:error, "Page not found")
+      |> redirect(to: SqueakWeb.FormatterHelpers.wiki_page_path(conn, "start", []))
+    end
+
+    case Squeak.Repo.delete(page) do
+      {:ok, _struct} ->
+        conn
+        |> put_flash(:info, "Page deleted")
+        |> redirect(to: SqueakWeb.FormatterHelpers.wiki_page_path(conn, "start", []))
+
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Cannot delete page")
+        |> redirect(to: SqueakWeb.FormatterHelpers.wiki_page_path(conn, "start", []))
+    end
   end
 end

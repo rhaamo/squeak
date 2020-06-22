@@ -24,6 +24,7 @@ defmodule Squeak.Namespaces.Namespace do
 
   def get_or_create_namespace(namespace, parent_id) do
     ns = get_by_name_and_parent_id(namespace, parent_id)
+
     if is_nil(ns) do
       create_namespace(namespace, parent_id)
     else

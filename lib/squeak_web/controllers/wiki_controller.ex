@@ -9,12 +9,14 @@ defmodule SqueakWeb.WikiController do
 
   def page(conn, _, %{page_name: page_name, namespaces: namespaces, fullpath: fullpath}) do
     namespaces_records = Squeak.Namespaces.Namespace.resolve_tree(namespaces)
-    namespace_id = if Enum.member?(namespaces_records, nil) do
-      # We have a non existing namespace, page will not exists
-      nil
-    else
-      List.last(namespaces_records).id
-    end
+
+    namespace_id =
+      if Enum.member?(namespaces_records, nil) do
+        # We have a non existing namespace, page will not exists
+        nil
+      else
+        List.last(namespaces_records).id
+      end
 
     page = Squeak.Wiki.Page.get_by_namespace_id_and_name(namespace_id, page_name)
 

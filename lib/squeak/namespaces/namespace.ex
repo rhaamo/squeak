@@ -12,9 +12,7 @@ defmodule Squeak.Namespaces.Namespace do
     has_many :pages, Squeak.Wiki.Page
   end
 
-  def create_namespace(name), do: create_namespace(name, parent: nil)
-
-  def create_namespace(name, parent: parent) do
+  def create_namespace(name, parent \\ nil) do
     namespace =
       case parent do
         nil -> %Squeak.Namespaces.Namespace{name: name}
@@ -38,5 +36,29 @@ defmodule Squeak.Namespaces.Namespace do
   def get_by_name_and_parent(name, parent_id) do
     get_by_name_and_parent_query(name, parent_id)
     |> Squeak.Repo.one()
+  end
+
+  def resolve_tree([head | tail], parent \\ nil, records \\ []) do
+    case tail do
+      [] ->
+        "last item " <> head
+        ns = Squeak.Namespaces.Namespace.get_by_name_and_parent(head, parent)
+        if is_nil(ns) do
+          #IO.puts("[] nil: " <> head)
+          records ++ [ns]
+        else
+          #IO.puts("[] found " <> ns.name <> " - " <> ns.id)
+          records ++ [ns]
+        end
+      tail ->
+        ns = Squeak.Namespaces.Namespace.get_by_name_and_parent(head, parent)
+        if is_nil(ns) do
+          #IO.puts("tail nil: " <> head)
+          records ++ [ns]
+        else
+          #IO.puts("tail found " <> ns.name <> " - " <> ns.id)
+          records ++ resolve_tree(tail, ns.id, records ++ [ns])
+        end
+    end
   end
 end

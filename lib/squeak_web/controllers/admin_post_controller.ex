@@ -61,6 +61,7 @@ defmodule SqueakWeb.AdminPostController do
     end
   end
 
+  @spec edit(Plug.Conn.t(), map) :: Plug.Conn.t()
   def edit(conn, %{"id" => post_id}) do
     post =
       Squeak.Repo.get_by(Squeak.Posts.Post, flake_id: post_id)

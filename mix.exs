@@ -58,7 +58,8 @@ defmodule Squeak.MixProject do
       {:majic, git: "https://github.com/hrefhref/majic", branch: "develop"},
       {:arbor, "~> 1.1.0"},
       {:seedex, "~> 0.3.0"},
-      {:revisionair_ecto, "~> 1.2.0"}
+      {:revisionair_ecto, "~> 1.2.0"},
+      {:ecto_fixtures, git: "https://github.com/DockYard/ecto_fixtures", branch: "master"}
     ]
   end
 
@@ -72,7 +73,7 @@ defmodule Squeak.MixProject do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end

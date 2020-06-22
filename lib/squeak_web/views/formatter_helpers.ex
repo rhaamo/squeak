@@ -38,7 +38,7 @@ defmodule SqueakWeb.FormatterHelpers do
     rootlesses = Squeak.Wiki.Page.get_rootless_pages_query() |> Squeak.Repo.all()
 
     metas =
-      Squeak.Namespaces.Namespace.get_by_name_and_parent("meta", nil)
+      Squeak.Namespaces.Namespace.get_by_name_and_parent_id("meta", nil)
       |> Squeak.Wiki.Page.get_in_namespace_query()
       |> Squeak.Repo.all()
 
@@ -51,6 +51,14 @@ defmodule SqueakWeb.FormatterHelpers do
       |> Enum.join(":")
 
     reencode(SqueakWeb.Router.Helpers.wiki_url(conn, :page, [path]))
+  end
+
+  def wiki_page_path(conn, name, namespaces) do
+    path =
+      (namespaces ++ [name])
+      |> Enum.join(":")
+
+    reencode(SqueakWeb.Router.Helpers.wiki_path(conn, :page, [path]))
   end
 
   def wiki_edit_page_url(conn, fullpath, action \\ :edit) do

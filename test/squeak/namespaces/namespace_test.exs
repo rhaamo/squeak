@@ -3,6 +3,13 @@ defmodule Squeak.Namespaces.NamespaceTest do
   use EctoFixtures
 
   @tag fixtures: :namespaces
+  test "test resolve_tree no namespaces", %{data: _data} do
+    a = Squeak.Namespaces.Namespace.resolve_tree([])
+    assert length(a) == 1
+    assert is_nil(Enum.at(a, 0))
+  end
+
+  @tag fixtures: :namespaces
   test "test resolve_tree 1", %{data: _data} do
     a = Squeak.Namespaces.Namespace.resolve_tree(["ns_one"])
     assert length(a) == 1

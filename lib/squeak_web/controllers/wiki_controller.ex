@@ -8,20 +8,15 @@ defmodule SqueakWeb.WikiController do
   end
 
   def page(conn, _, %{page_name: page_name, namespaces: namespaces, fullpath: fullpath}) do
-    # todo handle parent_id for namespace
-    namespace =
-      if length(namespaces) == 0 do
-        %Squeak.Namespaces.Namespace{}
-      else
-        Squeak.Namespaces.Namespace.get_by_name_and_parent(List.last(namespaces), nil)
-      end
+    namespaces_records = Squeak.Namespaces.Namespace.resolve_tree(namespaces)
+    namespace_id = if Enum.member?(namespaces_records, nil) do
+      # We have a non existing namespace, page will not exists
+      nil
+    else
+      List.last(namespaces_records).id
+    end
 
-    page =
-      if namespace do
-        Squeak.Wiki.Page.get_by_namespace_id_and_name(namespace.id, page_name)
-      else
-        Squeak.Wiki.Page.get_by_namespace_id_and_name(nil, page_name)
-      end
+    page = Squeak.Wiki.Page.get_by_namespace_id_and_name(namespace_id, page_name)
 
     if is_nil(page) do
       render(conn, "not_found.html",

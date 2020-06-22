@@ -18,7 +18,7 @@ defmodule Squeak.Wiki.Page do
 
   def changeset(page, attrs) do
     page
-    |> cast(attrs, [:content, :inserted_at, :updated_at])
+    |> cast(attrs, [:content, :name, :namespace_id, :inserted_at, :updated_at])
     |> validate_required([:content])
   end
 

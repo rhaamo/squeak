@@ -53,12 +53,20 @@ defmodule SqueakWeb.FormatterHelpers do
     reencode(SqueakWeb.Router.Helpers.wiki_url(conn, :page, [path]))
   end
 
-  def wiki_page_path(conn, name, namespaces) do
+  def wiki_page_path(conn, name, namespaces, action \\ :page) do
     path =
       (namespaces ++ [name])
       |> Enum.join(":")
 
-    reencode(SqueakWeb.Router.Helpers.wiki_path(conn, :page, [path]))
+    reencode(SqueakWeb.Router.Helpers.wiki_path(conn, action, [path]))
+  end
+
+  def wiki_page_revision_path(conn, name, namespaces, action \\ :page, revision) do
+    path =
+      (namespaces ++ [name])
+      |> Enum.join(":")
+
+    reencode(SqueakWeb.Router.Helpers.wiki_path(conn, action, revision, [path]))
   end
 
   def wiki_edit_page_url(conn, fullpath, action \\ :edit) do

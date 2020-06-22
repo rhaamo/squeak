@@ -88,7 +88,12 @@ defmodule SqueakWeb.WikiEditController do
       changeset = Squeak.Wiki.Page.changeset(%Squeak.Wiki.Page{}, params)
 
       if changeset.valid? do
-        {:ok, _obj} = Squeak.Repo.insert(changeset)
+        {:ok, _obj} =
+          Squeak.Repo.transaction(fn ->
+            {:ok, obj} = Squeak.Repo.insert(changeset)
+            :ok = Revisionair.store_revision(obj, Squeak.Wiki.Page, obj.id)
+            obj
+          end)
 
         conn
         |> put_flash(:info, "Page created")
@@ -110,7 +115,12 @@ defmodule SqueakWeb.WikiEditController do
       changeset = Squeak.Wiki.Page.changeset(page, params)
 
       if changeset.valid? do
-        {:ok, _obj} = Squeak.Repo.update(changeset)
+        {:ok, _obj} =
+          Squeak.Repo.transaction(fn ->
+            {:ok, obj} = Squeak.Repo.update(changeset)
+            :ok = Revisionair.store_revision(obj, Squeak.Wiki.Page, obj.id)
+            obj
+          end)
 
         conn
         |> put_flash(:info, "Page updated")
@@ -147,7 +157,9 @@ defmodule SqueakWeb.WikiEditController do
     end
 
     case Squeak.Repo.delete(page) do
-      {:ok, _struct} ->
+      {:ok, struct} ->
+        :ok = Revisionair.delete_all_revisions_of(struct)
+
         conn
         |> put_flash(:info, "Page deleted")
         |> redirect(to: SqueakWeb.FormatterHelpers.wiki_page_path(conn, "start", []))

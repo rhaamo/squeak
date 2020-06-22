@@ -91,6 +91,13 @@ defmodule SqueakWeb.Router do
     get "/tree", WikiController, :tree
   end
 
+  scope "/wiki/h", SqueakWeb do
+    pipe_through [:browser, :wiki]
+
+    get "/list/*path", WikiController, :history
+    get "/:revision/*path", WikiController, :revision
+  end
+
   scope "/wiki/p", SqueakWeb do
     pipe_through [:browser, :wiki]
 

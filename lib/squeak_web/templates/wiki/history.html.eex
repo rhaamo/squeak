@@ -15,23 +15,16 @@
         </nav>
     </div>
     <div class="col-md-3">
-        <%= if !assigns[:rev_no] do %>
-            <%= render "_edit_links.html", conn: @conn, page: assigns[:page], current_user: @current_user, fullpath: @fullpath %>
-        <% end %>
     </div>
 </div>
 
-<%= if assigns[:rev_no] do %>
 <div class="row">
     <div class="col-md-9">
-        Showing revision <%= @rev_no %>, edited on <%= date_format_iso(@page.updated_at) %>.
-    </div>
-</div>
-<br />
-<% end %>
-
-<div class="row">
-    <div class="col-md-9">
-        <%= unmarkdownize @page.content %>
+        All revisions for the page <i><%= @page_name %></i>:
+        <ul>
+            <%= for {obj, rev} <- @revisions do %>
+                <li><%= link to: wiki_page_revision_path(@conn, @page_name, @namespaces, :revision, rev.revision) do %>Revision <%= rev.revision %><% end %>, edited on <%= date_format_iso(obj.updated_at) %></li>
+            <% end %>
+        </ul>
     </div>
 </div>

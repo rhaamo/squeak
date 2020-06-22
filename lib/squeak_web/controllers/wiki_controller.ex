@@ -37,6 +37,80 @@ defmodule SqueakWeb.WikiController do
     end
   end
 
+  def history(conn, _, %{page_name: page_name, namespaces: namespaces, fullpath: fullpath}) do
+    namespaces_records = Squeak.Namespaces.Namespace.resolve_tree(namespaces)
+
+    namespace_id =
+      if Enum.member?(namespaces_records, nil) do
+        # We have a non existing namespace, page will not exists
+        nil
+      else
+        List.last(namespaces_records).id
+      end
+
+    page = Squeak.Wiki.Page.get_by_namespace_id_and_name(namespace_id, page_name)
+
+    if is_nil(page) do
+      render(conn, "not_found.html",
+        namespaces: namespaces,
+        path: fullpath,
+        page_name: page_name,
+        page: page
+      )
+    else
+      render(conn, "history.html",
+        namespaces: namespaces,
+        path: fullpath,
+        page_name: page_name,
+        page: page,
+        revisions: Revisionair.list_revisions(page)
+      )
+    end
+  end
+
+  def revision(conn, %{"revision" => revision}, %{
+        page_name: page_name,
+        namespaces: namespaces,
+        fullpath: fullpath
+      }) do
+    namespaces_records = Squeak.Namespaces.Namespace.resolve_tree(namespaces)
+
+    namespace_id =
+      if Enum.member?(namespaces_records, nil) do
+        # We have a non existing namespace, page will not exists
+        nil
+      else
+        List.last(namespaces_records).id
+      end
+
+    page = Squeak.Wiki.Page.get_by_namespace_id_and_name(namespace_id, page_name)
+
+    if is_nil(page) do
+      render(conn, "not_found.html",
+        namespaces: namespaces,
+        path: fullpath,
+        page_name: page_name,
+        page: page
+      )
+    else
+      rev_number =
+        case Integer.parse(revision) do
+          {n, _} -> n
+          :error -> 0
+        end
+
+      {:ok, {rev, rev_no}} = Revisionair.get_revision(page, rev_number)
+
+      render(conn, "page.html",
+        namespaces: namespaces,
+        path: fullpath,
+        page_name: page_name,
+        page: rev,
+        rev_no: rev_no.revision
+      )
+    end
+  end
+
   def tree(conn, _, _) do
     render(conn, "tree.html")
   end

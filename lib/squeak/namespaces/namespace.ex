@@ -41,7 +41,6 @@ defmodule Squeak.Namespaces.Namespace do
   def resolve_tree([head | tail], parent \\ nil, records \\ []) do
     case tail do
       [] ->
-        "last item " <> head
         ns = Squeak.Namespaces.Namespace.get_by_name_and_parent(head, parent)
 
         if is_nil(ns) do
@@ -56,7 +55,7 @@ defmodule Squeak.Namespaces.Namespace do
         if is_nil(ns) do
           records ++ [ns]
         else
-          records ++ resolve_tree(tail, ns.id, records ++ [ns])
+          resolve_tree(tail, ns.id, records ++ [ns])
         end
     end
   end

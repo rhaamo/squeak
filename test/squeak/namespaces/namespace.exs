@@ -62,7 +62,9 @@ defmodule Squeak.Namespaces.NamespaceTest do
 
   @tag fixtures: :namespaces
   test "test resolve_tree 1-2-3-notfound", %{data: _data} do
-    a = Squeak.Namespaces.Namespace.resolve_tree(["ns_one", "ns_two", "ns_three", "does_not_exists"])
+    a =
+      Squeak.Namespaces.Namespace.resolve_tree(["ns_one", "ns_two", "ns_three", "does_not_exists"])
+
     assert length(a) == 4
     assert Enum.at(a, 0).name == "ns_one"
     assert Enum.at(a, 1).name == "ns_two"

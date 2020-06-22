@@ -43,20 +43,23 @@ defmodule Squeak.Namespaces.Namespace do
       [] ->
         "last item " <> head
         ns = Squeak.Namespaces.Namespace.get_by_name_and_parent(head, parent)
+
         if is_nil(ns) do
-          #IO.puts("[] nil: " <> head)
+          # IO.puts("[] nil: " <> head)
           records ++ [ns]
         else
-          #IO.puts("[] found " <> ns.name <> " - " <> ns.id)
+          # IO.puts("[] found " <> ns.name <> " - " <> ns.id)
           records ++ [ns]
         end
+
       tail ->
         ns = Squeak.Namespaces.Namespace.get_by_name_and_parent(head, parent)
+
         if is_nil(ns) do
-          #IO.puts("tail nil: " <> head)
+          # IO.puts("tail nil: " <> head)
           records ++ [ns]
         else
-          #IO.puts("tail found " <> ns.name <> " - " <> ns.id)
+          # IO.puts("tail found " <> ns.name <> " - " <> ns.id)
           records ++ resolve_tree(tail, ns.id, records ++ [ns])
         end
     end

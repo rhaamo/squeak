@@ -57,4 +57,17 @@ defmodule Squeak.Wiki.Page do
     get_in_namespace_query(namespace)
     |> Squeak.Repo.all()
   end
+
+  def get_namespaces_from_page(page) do
+    if is_nil(page.namespace) do
+      []
+    else
+      namespaces =
+        page.namespace
+        |> Squeak.Namespaces.Namespace.ancestors()
+        |> Squeak.Repo.all()
+
+      namespaces ++ [page.namespace]
+    end
+  end
 end

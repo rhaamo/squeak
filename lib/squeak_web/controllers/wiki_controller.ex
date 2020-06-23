@@ -1,6 +1,8 @@
 defmodule SqueakWeb.WikiController do
   use SqueakWeb, :controller
   require Logger
+  require Ecto.Query
+  alias Squeak.Pagination
 
   def action(conn, _) do
     args = [conn, conn.params, conn.assigns]
@@ -142,5 +144,29 @@ defmodule SqueakWeb.WikiController do
 
   def tree(conn, _, _) do
     render(conn, "tree.html")
+  end
+
+  def search(conn, params, _) do
+    q = params["q"]
+    max_id = params["max_id"]
+    since_id = params["since_id"]
+
+    if q == "" or is_nil(q) do
+      conn
+      |> redirect(to: "/wiki/p/start")
+    end
+
+    pages =
+      Squeak.Wiki.Page
+      |> Ecto.Query.order_by([a], desc: a.inserted_at)
+      |> Squeak.Wiki.Search.run(q)
+      |> Pagination.fetch_paginated(%{
+        "limit" => Squeak.States.Config.get(:pagination)[:posts],
+        "max_id" => max_id,
+        "since_id" => since_id
+      })
+      |> Squeak.Repo.preload(:namespace)
+
+    render(conn, "search.html", pages: pages, q: q)
   end
 end

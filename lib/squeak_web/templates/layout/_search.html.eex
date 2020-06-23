@@ -1,14 +1,14 @@
 <div class="card my-4">
-          <h5 class="card-header">Search</h5>
-          <div class="card-body">
-            <form method="get">
-              <div class="input-group">
-                <input type="text" id="q" name="q" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                  <input formaction="<%= SqueakWeb.Router.Helpers.blog_path(@conn, :search) %>" class="btn btn-secondary" type="submit" value="B" title="Search on the blog">
-                  <input formaction="" class="btn btn-secondary" type="submit" value="W" title="Search on the wiki">
-                </span>
-              </div>
-            </form>
-          </div>
-        </div>
+  <h5 class="card-header">Search</h5>
+  <div class="card-body">
+    <form method="get">
+      <div class="input-group">
+        <input type="text" id="q" name="q" class="form-control" placeholder="Search for..." <%= if assigns[:assigns][:q] do %> value="<%= assigns[:assigns][:q] %>" <% end %>>
+        <span class="input-group-btn">
+          <input formaction="<%= SqueakWeb.Router.Helpers.blog_path(@conn, :search) %>" class="btn btn-secondary" type="submit" value="B" title="Search on the blog">
+          <input formaction="<%= SqueakWeb.Router.Helpers.wiki_path(@conn, :search) %>" class="btn btn-secondary" type="submit" value="W" title="Search on the wiki">
+        </span>
+      </div>
+    </form>
+  </div>
+</div>

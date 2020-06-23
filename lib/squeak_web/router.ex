@@ -89,6 +89,10 @@ defmodule SqueakWeb.Router do
 
     get "/", Redirector, to: "/wiki/p/start"
 
+    # Search
+    get "/search", WikiController, :search
+
+    # Sitemap
     get "/tree", WikiController, :tree
   end
 

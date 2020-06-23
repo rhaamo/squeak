@@ -76,4 +76,9 @@ defmodule SqueakWeb.FormatterHelpers do
 
     reencode(SqueakWeb.Router.Helpers.wiki_edit_url(conn, action, [path]))
   end
+
+  def namespaces_objs_to_list(page) do
+    nses = Squeak.Wiki.Page.get_namespaces_from_page(page)
+    Enum.map(nses, fn x -> x.name end)
+  end
 end

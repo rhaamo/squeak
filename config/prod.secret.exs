@@ -30,7 +30,9 @@ config :squeak, SqueakWeb.Endpoint,
   ],
   secret_key_base: secret_key_base,
   url: [
-    host: "squeak.example.com", port: 443, schema: "https"
+    host: "squeak.example.com",
+    port: 443,
+    schema: "https"
   ]
 
 config :squeak, :mailer,

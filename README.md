@@ -17,7 +17,7 @@ Features (not exhaustive and some might still be planned):
 - cd
 - mix deps.get
 - mix compile
-- cp config/sample.prod.secret.exs config/prod.secret.exs
+- cp config/sample.secret.exs config/prod.secret.exs
 - mix ecto.migrate
 - mix seedex.seed
 - mix phx.server

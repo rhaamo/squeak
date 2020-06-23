@@ -28,14 +28,25 @@ config :squeak, SqueakWeb.Endpoint,
     port: String.to_integer(System.get_env("PORT") || "4000"),
     transport_options: [socket_opts: [:inet6]]
   ],
-  secret_key_base: secret_key_base
+  secret_key_base: secret_key_base,
+  url: [
+    host: "squeak.example.com", port: 443, schema: "https"
+  ]
 
-# ## Using releases (Elixir v1.9+)
-#
-# If you are doing OTP releases, you need to instruct Phoenix
-# to start each relevant endpoint:
-#
-#     config :squeak, SqueakWeb.Endpoint, server: true
-#
-# Then you can assemble a release by calling `mix release`.
-# See `mix help release` for more information.
+config :squeak, :mailer,
+  from_name: "Otter",
+  from: "squeak@example.com"
+
+config :squeak,
+  app_name: "Squeak! Squeak!",
+  # Do you want to enable web registration ? (you probably don't), see `mix help squeak.user` command.
+  registration: false,
+  pagination: %{
+    posts: 10
+  },
+  gopher: %{
+    ip: {0, 0, 0, 0},
+    port: 1234,
+    enabled: true
+  },
+  hw_inventory: true

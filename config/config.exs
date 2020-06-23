@@ -62,7 +62,8 @@ config :squeak,
     ip: {0, 0, 0, 0},
     port: 1234,
     enabled: false
-  }
+  },
+  hw_inventory: true
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

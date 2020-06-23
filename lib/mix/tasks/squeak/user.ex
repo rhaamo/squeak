@@ -5,9 +5,7 @@ defmodule Mix.Tasks.Squeak.User do
   require Logger
 
   @shortdoc "Manages Squeak users"
-  @moduledoc """
-  aaa
-  """
+  @moduledoc File.read!("docs/cli_tasks/users.md")
 
   def run(["list"]) do
     start_apps()

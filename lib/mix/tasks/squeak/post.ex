@@ -4,18 +4,8 @@ defmodule Mix.Tasks.Squeak.Post do
   import Mix.Squeak
   require Logger
 
-  @shortdoc "Ṕosts related operations"
-  @moduledoc """
-  Sample frontmatter block:
-  ---
-  title: How to squeak
-  tags: tag1, tag2, hello
-  date: 2017-04-09
-  license: CC-BY-SA
-  ---
-  Notes:
-  license field is not yet handled
-  """
+  @shortdoc "Posts related operations"
+  @moduledoc File.read!("docs/cli_tasks/posts.md")
 
   # Post will be ignored if another one already exists with the same title and username
   defp process_post(frontmatter, markdown, user, options) do

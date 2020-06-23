@@ -4,6 +4,7 @@ Squeak is a something-something blog and wiki engine, with some specific feature
 
 Features (not exhaustive and some might still be planned):
 - Blog posts (markdown, with Enhanced™️ editor)
+- Blog posts import (with frontmatter block)
 - Medias manager with namespacing support
 - Medias manager handles everything, images are resized to 4 different sizes (thumb, small, medium, large)
 - Wiki pages (markdown, with Enhanced™️ editor)
@@ -22,6 +23,13 @@ Features (not exhaustive and some might still be planned):
 - mix seedex.seed
 - mix phx.server
 - enjoy
+
+## Cli commands
+
+```
+mix help squeak.user
+mix help squeak.post
+```
 
 ## Contact
 

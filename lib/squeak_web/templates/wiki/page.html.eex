@@ -2,7 +2,10 @@
     <div class="col-md-9">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><%= link to: wiki_page_path(@conn, @page_name, @namespaces, :history), title: "Show page history" do %><i class="fa fa-history" aria-hidden="true"></i><% end %>&nbsp;Wiki</li>
+                <li class="breadcrumb-item">
+                    <%= link to: wiki_page_path(@conn, @page_name, @namespaces, :history), title: "Show page history" do %><i class="fa fa-history" aria-hidden="true"></i><% end %>&nbsp;
+                    <%= link to: wiki_page_path(@conn, @page_name, @namespaces, :page_source), title: "Show page source", target: "_blank" do %><i class="fa fa-file-text-o" aria-hidden="true"></i><% end %>&nbsp;Wiki
+                </li>
 
                 <%= for a <- @path do %>
                     <%= if a == List.last(@path) do %>

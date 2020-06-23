@@ -37,6 +37,35 @@ defmodule SqueakWeb.WikiController do
     end
   end
 
+  def page_source(conn, _, %{page_name: page_name, namespaces: namespaces, fullpath: fullpath}) do
+    namespaces_records = Squeak.Namespaces.Namespace.resolve_tree(namespaces)
+
+    namespace_id =
+      if Enum.member?(namespaces_records, nil) do
+        # We have a non existing namespace, page will not exists
+        nil
+      else
+        List.last(namespaces_records).id
+      end
+
+    page = Squeak.Wiki.Page.get_by_namespace_id_and_name(namespace_id, page_name)
+
+    if is_nil(page) do
+      conn
+      |> put_status(404)
+      |> text("Page not found")
+    else
+      conn
+      |> put_resp_content_type("text/plain")
+      |> render("page_source.md",
+        page: page,
+        page_name: page_name,
+        namespaces: namespaces,
+        fullpath: fullpath
+      )
+    end
+  end
+
   def history(conn, _, %{page_name: page_name, namespaces: namespaces, fullpath: fullpath}) do
     namespaces_records = Squeak.Namespaces.Namespace.resolve_tree(namespaces)
 

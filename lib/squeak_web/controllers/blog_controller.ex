@@ -99,6 +99,31 @@ defmodule SqueakWeb.BlogController do
     render(conn, "show.html", post: post)
   end
 
+  def show_source(conn, %{"post_slug" => post_slug, "user_slug" => user_slug}) do
+    user = Squeak.Users.User.get_user_by_slug(user_slug)
+
+    if is_nil(user) do
+      conn
+      |> put_flash(:error, "User not found")
+      |> redirect(to: SqueakWeb.Router.Helpers.blog_path(conn, :list))
+    end
+
+    post =
+      Squeak.Posts.Post.get_post_by_slug_and_user_id(post_slug, user.id)
+      |> Squeak.Repo.preload(:user)
+      |> Squeak.Repo.preload(:tags)
+
+    if is_nil(post) do
+      conn
+      |> put_status(404)
+      |> text("Not found")
+    end
+
+    conn
+    |> put_resp_content_type("text/plain")
+    |> render("show_source.md", post: post)
+  end
+
   def search(conn, params) do
     q = params["q"]
     max_id = params["max_id"]

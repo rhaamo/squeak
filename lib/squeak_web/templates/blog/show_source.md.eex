@@ -1,0 +1,7 @@
+---
+title: <%= @post.subject %>
+tags: <%= for tag <- Enum.map(@post.tags, fn x -> x.name end) |> Enum.intersperse(", ") do %><%= tag %><% end %>
+date: <%= date_format_iso(@post.inserted_at) %>
+license: NA
+---
+<%= @post.content %>

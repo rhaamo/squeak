@@ -1,6 +1,10 @@
 <div class="row">
     <div class="col-md-9">
-        <h2><%= if @post.draft do %><i title="draft" class="fa fa-pencil-square-o" aria-hidden="true"></i> <% end %><%= @post.subject %></h2>
+        <h2>
+            <%= if @post.draft do %><i title="draft" class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;<% end %>
+            <%= link to: SqueakWeb.Router.Helpers.blog_path(@conn, :show_source, @post.user.username, @post.slug), target: "_blank" do %><i title="Show post source" class="fa fa-file-text-o" aria-hidden="true"></i><% end %>&nbsp;
+            <%= @post.subject %>
+        </h2>
 
         <!-- Blog Post -->
         <div class="card mb-4">

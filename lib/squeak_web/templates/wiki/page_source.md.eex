@@ -1,0 +1,7 @@
+---
+page_name: <%= @page_name %>
+namespaces: <%= for x <- @namespaces |> Enum.intersperse(":") do %><%= x  %><% end %>
+fullpath: <%= for x <- @fullpath |> Enum.intersperse(":") do %><%= x  %><% end %>
+date: <%= @page.inserted_at %>
+---
+<%= @page.content %>

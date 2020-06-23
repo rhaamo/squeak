@@ -78,6 +78,7 @@ defmodule SqueakWeb.Router do
     get "/u/:user_slug", BlogController, :list_by_user_slug
     get "/fu/:user_slug", BlogFeedController, :list_by_user_slug
     get "/u/:user_slug/:post_slug", BlogController, :show
+    get "/u/:user_slug/md/:post_slug", BlogController, :show_source
     # By tag
     get "/t/:tag_slug", BlogController, :list_by_tag_slug
     get "/ft/:tag_slug", BlogFeedController, :list_by_tag_slug
@@ -103,6 +104,7 @@ defmodule SqueakWeb.Router do
 
     get "/", Redirector, to: "/wiki/p/start"
 
+    get "/md/*path", WikiController, :page_source
     get "/*path", WikiController, :page
   end
 

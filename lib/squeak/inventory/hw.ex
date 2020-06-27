@@ -24,7 +24,15 @@ defmodule Squeak.Inventory.Hw do
 
   def changeset(item, attrs) do
     item
-    |> cast(attrs, [:model, :manufacturer, :serial_number, :function, :description, :notes, :state])
+    |> cast(attrs, [
+      :model,
+      :manufacturer,
+      :serial_number,
+      :function,
+      :description,
+      :notes,
+      :state
+    ])
     |> validate_required([:description, :state])
   end
 

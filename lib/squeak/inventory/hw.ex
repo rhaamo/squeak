@@ -20,7 +20,7 @@ defmodule Squeak.Inventory.Hw do
     has_many :changelogs, Squeak.Inventory.Changelog
 
     # category
-    # photos
+    # medias
     # has_many :links
     # has_many :options
     # has_one :wiki_page

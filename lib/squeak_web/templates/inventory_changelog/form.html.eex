@@ -21,16 +21,19 @@
 
                 <div class="form-row">
                     <div class="form-group ">
-                        <label for="subject">Date</label>
-                        <%= date_select f, :date, class: "form-control" %>
+                        <%= label f, :date, class: "control-label" %>
+                        <%= date_select f, :date, class: "form-control", builder: fn b -> %>
+                            <%= b.(:day, []) %> / <%= b.(:month, []) %> / <%= b.(:year, [options: 2000..2099]) %>
+                        <% end %>
+                        <%= error_tag f, :date %>
                     </div>
                 </div>
 
 
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-12">
                         <label for="subject">Work done</label>
-                        <%= textarea f, :content, cols: 40, rows: 6, class: "form-control", required: "required", placeholder: "What have you done ?" %>
+                        <%= textarea f, :content, cols: 40, rows: 10, class: "form-control", required: "required", placeholder: "What have you done ?" %>
                     </div>
                 </div>
 

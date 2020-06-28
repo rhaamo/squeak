@@ -29,7 +29,11 @@ defmodule SqueakWeb.InventoryChangelogController do
       |> redirect(to: SqueakWeb.Router.Helpers.index_path(conn, :list))
     end
 
-    changeset = Squeak.Inventory.Changelog.changeset(%Squeak.Inventory.Changelog{}, %{})
+    changeset =
+      Squeak.Inventory.Changelog.changeset(%Squeak.Inventory.Changelog{}, %{
+        date: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+      })
+
     render(conn, "form.html", changeset: changeset, item: item)
   end
 

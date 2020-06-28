@@ -84,7 +84,7 @@ defmodule SqueakWeb.FormatterHelpers do
 
   def redact_serial_number(sn, current_user) do
     case current_user do
-      nil -> "Redacted."
+      nil -> "---"
       _ -> sn
     end
   end

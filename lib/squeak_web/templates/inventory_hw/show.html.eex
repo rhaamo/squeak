@@ -20,6 +20,7 @@
             <li class="nav-item"><a class="nav-link active" id="summary-tab" data-toggle="tab" href="#summary" aria-controls="summary" aria-selected="true">Summary</a></li>
             <li class="nav-item"><a class="nav-link" id="photos-tab" data-toggle="tab" href="#photos" aria-controls="photos" aria-selected="false">Photos</a></li>
             <li class="nav-item"><a class="nav-link" id="worklog-tab" data-toggle="tab" href="#worklog" aria-controls="worklog" aria-selected="false">Work log</a></li>
+            <li class="nav-item"><a class="nav-link" id="add-worklog-tab" href="/" aria-controls="worklog" aria-selected="false">Add Work log</a></li>
         </ul>
 
         <div class="tab-content">

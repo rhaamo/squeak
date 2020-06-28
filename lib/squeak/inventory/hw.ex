@@ -17,12 +17,13 @@ defmodule Squeak.Inventory.Hw do
     field :state, :integer
     field :private, :boolean, default: false
 
+    has_many :changelogs, Squeak.Inventory.Changelog
+
     # category
     # photos
     # has_many :links
     # has_many :options
     # has_one :wiki_page
-    # has_many :changelog_entries
 
     timestamps(type: :utc_datetime)
   end

@@ -14,6 +14,7 @@ defmodule Squeak.Inventory.Hw do
     field :description, :string
     field :notes, :string
     field :state, :integer
+    field :private, :boolean, default: false
 
     # category
     # photos

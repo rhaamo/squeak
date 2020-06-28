@@ -61,6 +61,16 @@ defmodule Squeak.Inventory.Hw do
     ]
   end
 
+  def state_to_human(state) do
+    case state do
+      1 -> "New"
+      2 -> "Used"
+      3 -> "Has Issues (working)"
+      4 -> "Has Issues (not working)"
+      _ -> "Unknown"
+    end
+  end
+
   def get_item_by_flake_id_query(flake_id) do
     from(t in Squeak.Inventory.Hw, where: t.flake_id == ^flake_id)
   end

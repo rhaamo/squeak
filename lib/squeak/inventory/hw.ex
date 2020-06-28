@@ -23,7 +23,6 @@ defmodule Squeak.Inventory.Hw do
     # medias
     # has_many :links
     # has_many :options
-    # has_one :wiki_page
 
     timestamps(type: :utc_datetime)
   end

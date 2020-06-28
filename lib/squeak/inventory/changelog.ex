@@ -29,4 +29,14 @@ defmodule Squeak.Inventory.Changelog do
   def get_changelog_for_item_query(item_id) do
     from(t in Squeak.Inventory.Changelog, where: t.inventory_hw_id == ^item_id)
   end
+
+  def get_item_by_flake_id_query(flake_id) do
+    from(t in Squeak.Inventory.Changelog, where: t.flake_id == ^flake_id)
+  end
+
+  def get_item_by_flake_id(flake_id) do
+    flake_id
+    |> get_item_by_flake_id_query
+    |> Squeak.Repo.one()
+  end
 end

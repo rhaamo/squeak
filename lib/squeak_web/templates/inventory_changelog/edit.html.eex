@@ -1,0 +1,46 @@
+<%= render SqueakWeb.InventoryHwView, "_breadcrumb.html", conn: @conn, assigns: assigns, item: @item %>
+
+
+<div class="row">
+    <div class="col-md-11">
+        <%= render SqueakWeb.InventoryHwView, "_tablist.html", conn: @conn, assigns: assigns, item: @item, current_user: @current_user %>
+
+        <br>
+        <%= form_for @changeset, Routes.inventory_hw_inventory_changelog_path(@conn, :update, @item.flake_id, @change.flake_id), [multipart: false], fn f -> %>
+            <div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+                <%= if f.errors != [] do %>
+                    <div class="alert alert-danger">
+                    <p>Oops, something went wrong! Please check the errors below:</p>
+                    <ul>
+                        <%= for {field, {message, _}} <- f.source.errors do %>
+                            <li><%= humanize(field) %> <%= message %></li>
+                        <% end %>
+                    </ul>
+                    </div>
+                <% end %>
+
+                <div class="form-row">
+                    <div class="form-group ">
+                        <%= label f, :date, class: "control-label" %>
+                        <%= date_select f, :date, class: "form-control", builder: fn b -> %>
+                            <%= b.(:day, []) %> / <%= b.(:month, []) %> / <%= b.(:year, [options: 2000..2099]) %>
+                        <% end %>
+                        <%= error_tag f, :date %>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="subject">Work done</label>
+                        <%= textarea f, :content, cols: 40, rows: 10, class: "form-control", required: "required", placeholder: "What have you done ?" %>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <%= submit "Save", class: "btn btn-primary" %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

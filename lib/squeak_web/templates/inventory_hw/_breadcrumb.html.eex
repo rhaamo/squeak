@@ -6,7 +6,8 @@
                     <%= link "Workbench", to: SqueakWeb.Router.Helpers.inventory_hw_path(@conn, :index), title: "Workbench" %>
                 </li>
                 <li class="breadcrumb-item active">
-                    <%= link "Item Sheet", to: SqueakWeb.Router.Helpers.inventory_hw_path(@conn, :show, @item.flake_id), title: "Item Sheet" %>
+                    <%= @item.manufacturer %>&nbsp;
+                    <%= link @item.model, to: SqueakWeb.Router.Helpers.inventory_hw_path(@conn, :show, @item.flake_id), title: "Item Sheet" %>
                 </li>
             </ol>
         </nav>

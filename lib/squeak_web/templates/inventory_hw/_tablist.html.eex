@@ -5,6 +5,9 @@
     <%= if Pow.Plug.current_user(@conn) do %>
         <%= if Squeak.Users.is_admin?(@current_user) do %>
             <li class="nav-item"><a class="nav-link <%= if is_active(@conn, SqueakWeb.InventoryChangelogController, :new) do %>active<% end %>" id="add-worklog-tab" href="<%= SqueakWeb.Router.Helpers.inventory_hw_inventory_changelog_path(@conn, :new, @item.flake_id) %>" aria-controls="worklog" aria-selected="false">Add Work log</a></li>
+            <%= if is_active(@conn, SqueakWeb.InventoryChangelogController, :edit) do %>
+                <li class="nav-item"><a class="nav-link active" id="add-worklog-tab" href="#" aria-controls="worklog" aria-selected="false">Updating Work log</a></li>
+            <% end %>
         <% end %>
     <% end %>
 </ul>

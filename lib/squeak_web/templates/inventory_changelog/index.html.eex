@@ -14,7 +14,17 @@
                         <p class="card-text"><%= unmarkdownize change.content %></p>
                     </div>
                     <div class="card-footer text-muted">
-                    <a href="#<%= change.flake_id %>">Done on <%= change.inserted_at %></a>
+                        <div class="clearfix">
+                            <div class="float-left"><a href="#<%= change.flake_id %>">Done on <%= change.inserted_at %></a></div>
+                            <div class="float-right">
+                                <%= if Pow.Plug.current_user(@conn) do %>
+                                    <%= if Squeak.Users.is_admin?(@current_user) do %>
+                                        <%= link "edit", to: SqueakWeb.Router.Helpers.inventory_hw_inventory_changelog_path(@conn, :edit, @item.flake_id, change.flake_id), class: "btn btn-primary btn-sm" %>&nbsp;
+                                        <%= link "delete", to: SqueakWeb.Router.Helpers.inventory_hw_inventory_changelog_path(@conn, :delete, @item.flake_id, change.flake_id), method: :delete, data: [confirm: "Really ?"], class: "btn btn-danger btn-sm" %>
+                                    <% end %>
+                                <% end %>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <% end %>

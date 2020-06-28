@@ -11,7 +11,7 @@
                 <div class="card-body">
                     <h5 class="card-title"><%= link item.model, to: SqueakWeb.Router.Helpers.inventory_hw_path(@conn, :show, item.flake_id) %></h5>
                     <h6 class="card-subtitle mb-2 text-muted"><%= item.function %></h6>
-                    <p class="card-text"><%= item.notes %></p>
+                    <p class="card-text"><%= item.description %></p>
                 </div>
             </div>
         </div>

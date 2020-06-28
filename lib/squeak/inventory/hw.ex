@@ -38,7 +38,7 @@ defmodule Squeak.Inventory.Hw do
       :notes,
       :state
     ])
-    |> validate_required([:description, :state])
+    |> validate_required([:description, :state, :model, :function])
   end
 
   def state_to_keyword(state) do

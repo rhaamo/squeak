@@ -1,6 +1,7 @@
 defmodule Squeak.Inventory.Hw do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   @primary_key {:id, :id, autogenerate: true}
 
@@ -19,6 +20,7 @@ defmodule Squeak.Inventory.Hw do
     # category
     # photos
     # has_many :links
+    # has_many :options
     # has_one :wiki_page
     # has_many :changelog_entries
 
@@ -43,8 +45,29 @@ defmodule Squeak.Inventory.Hw do
     case state do
       1 -> :new
       2 -> :used
-      3 -> :has_issues
+      3 -> :has_issues_working
+      4 -> :has_issues_not_working
       _ -> :unknown
     end
+  end
+
+  def form_states do
+    [
+      Unknown: 99999,
+      New: 1,
+      Used: 2,
+      "Has Issues (working)": 3,
+      "Has Issues (not working)": 4
+    ]
+  end
+
+  def get_item_by_flake_id_query(flake_id) do
+    from(t in Squeak.Inventory.Hw, where: t.flake_id == ^flake_id)
+  end
+
+  def get_item_by_flake_id(flake_id) do
+    flake_id
+    |> get_item_by_flake_id_query
+    |> Squeak.Repo.one()
   end
 end

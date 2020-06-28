@@ -133,12 +133,7 @@ defmodule SqueakWeb.Router do
   if hw_inventory do
     scope "/inventory", SqueakWeb do
       pipe_through [:browser, :inventory_hw]
-      resources "/hw", InventoryHwController, only: [:index, :show]
-    end
-
-    scope "/inventory", SqueakWeb do
-      pipe_through [:browser, :inventory_hw, :admin]
-      resources "/hw", InventoryHwController, except: [:index, :show]
+      resources "/hw", InventoryHwController
     end
   end
 

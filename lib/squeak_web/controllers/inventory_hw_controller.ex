@@ -13,9 +13,9 @@ defmodule SqueakWeb.InventoryHwController do
 
     items =
       if current_user do
-        items
-      else
         items |> Ecto.Query.where([a], a.private == true)
+      else
+        items
       end
       |> Squeak.Repo.all()
 

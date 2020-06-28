@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-11">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="summary-tab" data-toggle="tab" href="#summary" aria-controls="summary" aria-selected="true">Summary</a></li>
+        </ul>
+
+        <div class="tab-summary" id="tabSummary">
+            <%= form_for @changeset, Routes.inventory_hw_path(@conn, :update, @item.flake_id), [multipart: false], fn f -> %>
+                <div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+                    <%= if f.errors != [] do %>
+                        <div class="alert alert-danger">
+                        <p>Oops, something went wrong! Please check the errors below:</p>
+                        <ul>
+                            <%= for {field, {message, _}} <- f.source.errors do %>
+                                <li><%= humanize(field) %> <%= message %></li>
+                            <% end %>
+                        </ul>
+                        </div>
+                    <% end %>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="subject">Manufacturer</label>
+                            <%= text_input f, :manufacturer, class: "form-control", placeholder: "Hewlett Packard" %>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="subject">Model</label>
+                            <%= text_input f, :model, class: "form-control", required: "required", placeholder: "8657A" %>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Function</label>
+                        <%= text_input f, :function, class: "form-control", required: "required", placeholder: "Signal Generator 0.1-1040 MHz" %>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="subject">Serial Number (private)</label>
+                            <%= text_input f, :serial_number, class: "form-control", placeholder: "12312334278AAA" %>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="subject">State</label>
+                            <%= select f, :state, Squeak.Inventory.Hw.form_states(), class: "form-control", required: "required", placeholder: "8657A" %>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="subject">Description (markdown enhanced)</label>
+                            <%= textarea f, :description, cols: 40, rows: 6, class: "form-control", required: "required", placeholder: "Some more descriptive specs." %>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="subject">Notes (markdown enhanced)</label>
+                            <%= textarea f, :notes, cols: 40, rows: 6, class: "form-control", placeholder: "Some notes about it." %>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-check">
+                            <%= checkbox f, :private, class: "form-check-input" %>
+                            <label for="private_0" class="form-check-label">Private sheet</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <%= submit "Save", class: "btn btn-primary" %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

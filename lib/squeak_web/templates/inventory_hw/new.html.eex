@@ -49,12 +49,12 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="subject">description</label>
+                            <label for="subject">Description (markdown enhanced)</label>
                             <%= textarea f, :description, cols: 40, rows: 6, class: "form-control", required: "required", placeholder: "Some more descriptive specs." %>
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="subject">Notes</label>
+                            <label for="subject">Notes (markdown enhanced)</label>
                             <%= textarea f, :notes, cols: 40, rows: 6, class: "form-control", placeholder: "Some notes about it." %>
                         </div>
                     </div>

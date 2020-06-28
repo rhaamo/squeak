@@ -12,6 +12,12 @@ defmodule SqueakWeb.FormatterHelpers do
   end
 
   def unmarkdownize_unsafe(mdown, lines \\ nil) do
+    mdown =
+      case mdown do
+        nil -> ""
+        _ -> mdown
+      end
+
     if is_nil(lines) do
       mdown
     else

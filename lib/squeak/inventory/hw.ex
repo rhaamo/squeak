@@ -36,7 +36,8 @@ defmodule Squeak.Inventory.Hw do
       :function,
       :description,
       :notes,
-      :state
+      :state,
+      :updated_at
     ])
     |> validate_required([:description, :state, :model, :function])
   end

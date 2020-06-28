@@ -36,7 +36,7 @@ defmodule SqueakWeb.InventoryHwController do
 
   def new(conn, _params) do
     changeset = Squeak.Inventory.Hw.changeset(%Squeak.Inventory.Hw{}, %{})
-    render(conn, "form.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"hw" => item_params}) do
@@ -56,7 +56,87 @@ defmodule SqueakWeb.InventoryHwController do
       |> put_flash(:info, "Item has been saved.")
       |> redirect(to: SqueakWeb.Router.Helpers.inventory_hw_path(conn, :show, obj.flake_id))
     else
-      render(conn, "form.html", changeset: %{changeset | action: :insert})
+      render(conn, "new.html", changeset: %{changeset | action: :insert})
+    end
+  end
+
+  def edit(conn, %{"id" => item_id}) do
+    item = Squeak.Inventory.Hw.get_item_by_flake_id(item_id)
+
+    if is_nil(item) do
+      conn
+      |> redirect(to: SqueakWeb.Router.Helpers.inventory_hw_path(conn, :index))
+    end
+
+    changeset = Squeak.Inventory.Hw.changeset(item, %{})
+    render(conn, "edit.html", changeset: changeset, item: item)
+  end
+
+  def update(conn, %{"id" => item_id, "hw" => item_params}) do
+    item = Squeak.Inventory.Hw.get_item_by_flake_id(item_id)
+
+    if is_nil(item) do
+      conn
+      |> redirect(to: SqueakWeb.Router.Helpers.inventory_hw_path(conn, :index))
+    end
+
+    date_now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
+
+    params =
+      item_params
+      |> Map.put("updated_at", date_now)
+
+    changeset = Squeak.Inventory.Hw.changeset(item, params)
+
+    if changeset.valid? do
+      {:ok, _obj} = Squeak.Repo.update(changeset)
+
+      conn
+      |> put_flash(:info, "Item updated.")
+      |> redirect(
+        to:
+          SqueakWeb.Router.Helpers.inventory_hw_path(
+            conn,
+            :show,
+            item.flake_id
+          )
+      )
+    else
+      render(conn, "edit.html", changeset: changeset, item: item)
+    end
+  end
+
+  def delete(conn, %{"id" => item_id}) do
+    item = Squeak.Inventory.Hw.get_item_by_flake_id(item_id)
+
+    if is_nil(item) do
+      conn
+      |> redirect(to: SqueakWeb.Router.Helpers.inventory_hw_path(conn, :index))
+    end
+
+    case Squeak.Repo.delete(item) do
+      {:ok, _obj} ->
+        conn
+        |> put_flash(:info, "Item deleted.")
+        |> redirect(
+          to:
+            SqueakWeb.Router.Helpers.inventory_hw_path(
+              conn,
+              :index
+            )
+        )
+
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Cannot delete item.")
+        |> redirect(
+          to:
+            SqueakWeb.Router.Helpers.inventory_hw_path(
+              conn,
+              :index,
+              item.flake_id
+            )
+        )
     end
   end
 end

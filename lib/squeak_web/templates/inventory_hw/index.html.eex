@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-md-9">
+        <h2>Hardware Inventory</h2>
+
+        <%= for item <- @items do %>
+            <%= inspect(item) %>
+        <% end %>
+    </div>
+</div>

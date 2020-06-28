@@ -63,7 +63,10 @@ config :squeak,
     port: 1234,
     enabled: false
   },
-  hw_inventory: true
+  hw_inventory: %{
+    enabled: true,
+    link_name: "Workbench"
+  }
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

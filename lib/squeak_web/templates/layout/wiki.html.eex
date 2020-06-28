@@ -49,7 +49,7 @@
         <div class="card my-4">
           <h5 class="card-header">Meta</h5>
           <div class="card-body">
-            <%= link "See all pages", to: SqueakWeb.Router.Helpers.wiki_path(@conn, :tree) %>
+            <%= link "See all wiki pages", to: SqueakWeb.Router.Helpers.wiki_path(@conn, :tree) %>
           </div>
         </div>
 

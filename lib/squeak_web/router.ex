@@ -32,6 +32,10 @@ defmodule SqueakWeb.Router do
     plug SqueakWeb.Plugs.WikiPath
   end
 
+  pipeline :inventory_hw do
+    plug :put_layout, {SqueakWeb.LayoutView, :wiki}
+  end
+
   pipeline :preload_stuff do
     plug SqueakWeb.Plugs.PreloadTags
   end
@@ -122,6 +126,20 @@ defmodule SqueakWeb.Router do
     put "/*path", WikiEditController, :update
 
     delete "/*path", WikiEditController, :delete
+  end
+
+  hw_inventory = Application.get_env(:squeak, :hw_inventory) |> Map.get(:enabled, true)
+
+  if hw_inventory do
+    scope "/inventory", SqueakWeb do
+      pipe_through [:browser, :inventory_hw]
+      resources "/hw", InventoryHwController, only: [:index, :show]
+    end
+
+    scope "/inventory", SqueakWeb do
+      pipe_through [:browser, :inventory_hw, :admin]
+      resources "/hw", InventoryHwController, except: [:index, :show]
+    end
   end
 
   scope "/admin", SqueakWeb do

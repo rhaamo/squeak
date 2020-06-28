@@ -20,6 +20,8 @@ defmodule Squeak.Inventory.Hw do
     # has_many :links
     # has_one :wiki_page
     # has_many :changelog_entries
+
+    timestamps(type: :utc_datetime)
   end
 
   def changeset(item, attrs) do

@@ -9,13 +9,13 @@ defmodule SqueakWeb.InventoryHwController do
       Squeak.Inventory.Hw
       |> Ecto.Query.order_by([a], a.model)
 
-    items = if current_user do
-      items
-    else
-      items |> Ecto.Query.where([a], a.private == true)
-    end
-    |> Squeak.Repo.all
-
+    items =
+      if current_user do
+        items
+      else
+        items |> Ecto.Query.where([a], a.private == true)
+      end
+      |> Squeak.Repo.all()
 
     render(conn, "index.html", items: items)
   end

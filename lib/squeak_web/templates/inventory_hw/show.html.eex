@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-11">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
@@ -15,7 +15,7 @@
 
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-11">
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item"><a class="nav-link active" id="summary-tab" data-toggle="tab" href="#summary" aria-controls="summary" aria-selected="true">Summary</a></li>
             <li class="nav-item"><a class="nav-link" id="photos-tab" data-toggle="tab" href="#photos" aria-controls="photos" aria-selected="false">Photos</a></li>
@@ -24,7 +24,39 @@
 
         <div class="tab-content">
             <div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="summary-tab">
-                <%= inspect(@item) %>
+                <br>
+                <table class="table">
+                    <tr>
+                        <td><b>Manufacturer:</b> <%= @item.manufacturer %></td>
+                        <td><b>Model:</b> <%= @item.model %></td>
+                    </tr>
+                    <tr>
+                        <td colspan=2><b>Function:</b> <%= @item.function %></td>
+                    </tr>
+                    <tr>
+                        <td><b>State:</b> <%= Squeak.Inventory.Hw.state_to_human(@item.state) %></td>
+                        <td><b>Serial number:</b> <%= redact_serial_number(@item.serial_number, @current_user) %></td>
+                    </tr>
+                    <tr>
+                        <td><b>Description:</b><br><%= unmarkdownize @item.description %></td>
+                        <td><b>Notes:</b><br><%= unmarkdownize @item.notes %></td>
+                    </tr>
+                    <tr>
+                        <td><b>Created:</b> <%= date_format_iso(@item.inserted_at) %></td>
+                        <td><b>Updated:</b> <%= date_format_iso(@item.updated_at) %></td>
+                    </tr>
+                    <tr>
+                        <td><b>Private sheet:</b> <%= if @item.private do "yes" else "no" end %></td>
+                        <td>
+                            <%= if Pow.Plug.current_user(@conn) do %>
+                                <%= if Squeak.Users.is_admin?(@current_user) do %>
+                                    <%= link "edit", to: SqueakWeb.Router.Helpers.inventory_hw_path(@conn, :edit, @item.flake_id), class: "btn btn-sm btn-primary" %>&nbsp;
+                                    <%= link "delete", to: SqueakWeb.Router.Helpers.inventory_hw_path(@conn, :delete, @item.flake_id), class: "btn btn-sm btn-danger", method: :delete, data: [confirm: "Really ?"] %>
+                                <% end %>
+                            <% end %>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
             <div class="tab-pane fade" id="photos" role="tabpanel" aria-labelledby="photos-tab">

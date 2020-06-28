@@ -81,4 +81,11 @@ defmodule SqueakWeb.FormatterHelpers do
     nses = Squeak.Wiki.Page.get_namespaces_from_page(page)
     Enum.map(nses, fn x -> x.name end)
   end
+
+  def redact_serial_number(sn, current_user) do
+    case current_user do
+      nil -> "Redacted."
+      _ -> sn
+    end
+  end
 end

@@ -72,6 +72,10 @@ defmodule SqueakWeb.Router do
     get "/blog.atom", BlogFeedController, :list
   end
 
+  #
+  ## Blog
+  #
+
   scope "/blog", SqueakWeb do
     pipe_through [:browser, :preload_stuff]
 
@@ -87,6 +91,10 @@ defmodule SqueakWeb.Router do
     get "/t/:tag_slug", BlogController, :list_by_tag_slug
     get "/ft/:tag_slug", BlogFeedController, :list_by_tag_slug
   end
+
+  #
+  ## Wiki
+  #
 
   scope "/wiki", SqueakWeb do
     pipe_through [:browser, :wiki]
@@ -128,14 +136,25 @@ defmodule SqueakWeb.Router do
     delete "/*path", WikiEditController, :delete
   end
 
+  #
+  ## Inventory
+  #
+
   hw_inventory = Application.get_env(:squeak, :hw_inventory) |> Map.get(:enabled, true)
 
   if hw_inventory do
     scope "/inventory", SqueakWeb do
       pipe_through [:browser, :inventory_hw]
-      resources "/hw", InventoryHwController
+
+      resources "/hw", InventoryHwController do
+        resources "/changelog", InventoryChangelogController
+      end
     end
   end
+
+  #
+  ## Admin
+  #
 
   scope "/admin", SqueakWeb do
     pipe_through [:browser, :admin]
@@ -154,6 +173,10 @@ defmodule SqueakWeb.Router do
     delete "/posts/:id/delete", AdminPostController, :delete
   end
 
+  #
+  ## Media manager
+  #
+
   scope "/admin/medias", SqueakWeb do
     pipe_through [:upload, :browser, :admin]
 
@@ -171,6 +194,10 @@ defmodule SqueakWeb.Router do
 
     get "/show/:id", AdminMediaController, :show
   end
+
+  #
+  ## API
+  #
 
   scope "/api/admin", SqueakWeb do
     pipe_through [:browser, :admin, :api]

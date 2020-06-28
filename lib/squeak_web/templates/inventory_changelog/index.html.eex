@@ -1,0 +1,23 @@
+<%= render SqueakWeb.InventoryHwView, "_breadcrumb.html", conn: @conn, assigns: assigns, item: @item %>
+
+
+<div class="row">
+    <div class="col-md-11">
+        <%= render SqueakWeb.InventoryHwView, "_tablist.html", conn: @conn, assigns: assigns, item: @item, current_user: @current_user %>
+        <br />
+
+        <div class="tab-content">
+            <%= for change <- @changelog do %>
+                <!-- Blog Post -->
+                <div class="card mb-4" id="<%= change.flake_id %>">
+                    <div class="card-body">
+                        <p class="card-text"><%= unmarkdownize change.content %></p>
+                    </div>
+                    <div class="card-footer text-muted">
+                    <a href="#<%= change.flake_id %>">Done on <%= change.inserted_at %></a>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</div>

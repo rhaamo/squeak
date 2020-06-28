@@ -88,4 +88,12 @@ defmodule SqueakWeb.FormatterHelpers do
       _ -> sn
     end
   end
+
+  def is_active(conn, controller, action) do
+    if conn.private.phoenix_controller == controller and conn.private.phoenix_action == action do
+      true
+    else
+      false
+    end
+  end
 end

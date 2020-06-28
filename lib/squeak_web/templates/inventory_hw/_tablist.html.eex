@@ -1,0 +1,10 @@
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item"><a class="nav-link <%= if is_active(@conn, SqueakWeb.InventoryHwController, :show) do %>active<% end %>" id="summary-tab" href="<%= SqueakWeb.Router.Helpers.inventory_hw_path(@conn, :show, @item.flake_id) %>" aria-controls="summary" aria-selected="true">Summary</a></li>
+    <li class="nav-item"><a class="nav-link" id="photos-tab" data-toggle="tab" href="#photos" aria-controls="photos" aria-selected="false">Photos</a></li>
+    <li class="nav-item"><a class="nav-link <%= if is_active(@conn, SqueakWeb.InventoryChangelogController, :index) do %>active<% end %>" id="worklog-tab" href="<%= SqueakWeb.Router.Helpers.inventory_hw_inventory_changelog_path(@conn, :index, @item.flake_id) %>" aria-controls="worklog" aria-selected="false">Work log</a></li>
+    <%= if Pow.Plug.current_user(@conn) do %>
+        <%= if Squeak.Users.is_admin?(@current_user) do %>
+            <li class="nav-item"><a class="nav-link <%= if is_active(@conn, SqueakWeb.InventoryChangelogController, :new) do %>active<% end %>" id="add-worklog-tab" href="<%= SqueakWeb.Router.Helpers.inventory_hw_inventory_changelog_path(@conn, :new, @item.flake_id) %>" aria-controls="worklog" aria-selected="false">Add Work log</a></li>
+        <% end %>
+    <% end %>
+</ul>

@@ -13,15 +13,16 @@ defmodule SqueakWeb.InventoryHwController do
 
     items =
       if current_user do
-        items |> Ecto.Query.where([a], a.private == true)
-      else
         items
+      else
+        items |> Ecto.Query.where([a], a.private == false)
       end
       |> Squeak.Repo.all()
 
     render(conn, "index.html", items: items)
   end
 
+  @spec show(Plug.Conn.t(), map) :: Plug.Conn.t()
   def show(conn, %{"id" => flake_id}) do
     item = Squeak.Inventory.Hw.get_item_by_flake_id(flake_id)
 

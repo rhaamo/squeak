@@ -1,6 +1,7 @@
 defmodule Squeak.Inventory.Changelog do
   use Ecto.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   @primary_key {:id, :id, autogenerate: true}
 
@@ -18,8 +19,14 @@ defmodule Squeak.Inventory.Changelog do
     item
     |> cast(attrs, [
       :content,
-      :hw_id
+      :inventory_hw_id,
+      :inserted_at,
+      :updated_at
     ])
-    |> validate_required([:content, :hw_id])
+    |> validate_required([:content, :inventory_hw_id, :inserted_at, :updated_at])
+  end
+
+  def get_changelog_for_item_query(item_id) do
+    from(t in Squeak.Inventory.Changelog, where: t.inventory_hw_id == ^item_id)
   end
 end

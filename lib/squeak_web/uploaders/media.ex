@@ -2,6 +2,8 @@ defmodule Squeak.Uploaders.Media do
   use Waffle.Definition
   use Waffle.Ecto.Definition
 
+  # This uploader is used by Squeak.Medias.Media (medias gallery) and Squeak.Inventory.Media (medias of hw listings)
+
   @versions [:original, :thumb, :small, :medium, :large]
 
   defp get_simple_mime_type(_file, scope) do

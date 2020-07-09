@@ -20,8 +20,7 @@ defmodule Squeak.Inventory.Hw do
     has_many :changelogs, Squeak.Inventory.Changelog
 
     # category
-    # medias
-    # has_many :links
+    # has_many :medias
     # has_many :options
 
     timestamps(type: :utc_datetime)

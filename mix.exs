@@ -20,7 +20,7 @@ defmodule Squeak.MixProject do
   def application do
     [
       mod: {Squeak.Application, []},
-      extra_applications: [:logger, :runtime_tools, :phoenix, :timex, :mime]
+      extra_applications: [:logger, :runtime_tools, :phoenix, :timex, :mime, :sentry]
     ]
   end
 
@@ -59,7 +59,8 @@ defmodule Squeak.MixProject do
       {:arbor, "~> 1.1.0"},
       {:seedex, "~> 0.3.0"},
       {:revisionair_ecto, "~> 1.2.0"},
-      {:ecto_fixtures, git: "https://github.com/DockYard/ecto_fixtures", branch: "master"}
+      {:ecto_fixtures, git: "https://github.com/DockYard/ecto_fixtures", branch: "master"},
+      {:sentry, "~> 7.0"}
     ]
   end
 

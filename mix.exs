@@ -44,7 +44,7 @@ defmodule Squeak.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:pow, "~> 1.0.20"},
-      {:swoosh, "~> 0.25"},
+      {:swoosh, "~> 1.0"},
       {:hackney, "~> 1.9"},
       {:gen_smtp, "~> 0.13"},
       {:ecto_autoslug_field, "~> 2.0"},

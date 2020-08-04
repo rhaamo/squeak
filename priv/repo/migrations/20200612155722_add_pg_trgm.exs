@@ -6,7 +6,7 @@ defmodule Squeak.Repo.Migrations.AddPgTrgm do
   use Ecto.Migration
 
   def up do
-    execute("CREATE EXTENSION pg_trgm")
+    execute("CREATE EXTENSION IF NOT EXISTS pg_trgm")
 
     execute("""
     CREATE INDEX posts_trgm_idx ON posts USING GIN (to_tsvector('english',

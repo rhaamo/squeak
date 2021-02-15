@@ -60,7 +60,7 @@ defmodule Squeak.MixProject do
       {:seedex, "~> 0.3.0"},
       {:revisionair_ecto, "~> 1.2.0"},
       {:ecto_fixtures, git: "https://github.com/DockYard/ecto_fixtures", branch: "master"},
-      {:sentry, "~> 7.0"}
+      {:sentry, "~> 8.0"}
     ]
   end
 
